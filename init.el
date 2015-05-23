@@ -51,6 +51,8 @@
     ;; a filterable list of possible commands in the minibuffer
     ;; http://www.emacswiki.org/emacs/Smex
     smex
+    
+    cyberpunk-theme
 
     neotree
 
@@ -69,6 +71,12 @@
     less-css-mode
     
     web-mode
+    
+    go-mode
+
+    coffee-mode
+    
+    gnugo
 
     flycheck
 
