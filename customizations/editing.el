@@ -72,6 +72,7 @@
     (quit nil)))
 
 (setq electric-indent-mode nil)
+(setq require-final-newline t)
 
 (define-key key-translation-map (kbd "ö") (kbd "{"))
 (define-key key-translation-map (kbd "ä") (kbd "["))
