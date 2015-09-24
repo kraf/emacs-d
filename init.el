@@ -51,8 +51,6 @@
     ;; a filterable list of possible commands in the minibuffer
     ;; http://www.emacswiki.org/emacs/Smex
     smex
-    
-    cyberpunk-theme
 
     neotree
 
@@ -71,12 +69,6 @@
     less-css-mode
     
     web-mode
-    
-    go-mode
-
-    coffee-mode
-    
-    gnugo
 
     flycheck
 
@@ -90,7 +82,9 @@
     tagedit
 
     ;; git integration
-    magit))
+    magit
+
+    vkill))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -145,6 +139,9 @@
 (load "setup-js.el")
 
 (load "evil-mode.el")
+(load "orgmode.el")
+
+(load "magit-custom.el")
 
 (load "local.el")
 
@@ -161,15 +158,14 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
+    ("55d31108a7dc4a268a1432cd60a7558824223684afecefa6fae327212c40f8d3" "ffe39e540469ef05808ab4b75055cc81266875fa4a0d9e89c2fec1da7a6354f3" "c006bc787154c31d5c75e93a54657b4421e0b1a62516644bd25d954239bc9933" "ad24ea739f229477ea348af968634cb7a0748c9015110a777c8effeddfa920f5" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
  '(fci-rule-color "#2a2a2a")
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
- '(org-agenda-files (quote ("~/Orgs/projects/dini.org"))))
+ '(jabber-account-list (quote (("filip.krasnianski@srv-voip-04"))))
+ '(magit-pull-arguments (quote ("--rebase"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(setq magit-last-seen-setup-instructions "1.4.0")

@@ -12,3 +12,6 @@
 (setq inhibit-startup-message t)
 
 (setq ag-highlight-search t)
+
+(autoload 'vkill "vkill" nil t)
+(autoload 'list-unix-processes "vkill" nil t)
