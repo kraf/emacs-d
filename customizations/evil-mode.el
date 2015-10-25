@@ -14,9 +14,8 @@
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
 (define-key evil-normal-state-map "\C-k" 'paredit-kill)
 (define-key evil-insert-state-map "\C-k" 'paredit-kill)
-(define-key evil-normal-state-map ",c\ " 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map ",c\ " 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map "K" 'evil-previous-line)
+(define-key evil-normal-state-map ",e" 'er/expand-region)
 
 (add-hook 'paredit-mode-hook
           (lambda ()
