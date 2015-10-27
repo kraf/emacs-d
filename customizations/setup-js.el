@@ -32,4 +32,5 @@
 (add-hook 'js2-mode-hook (lambda ()
                            (flycheck-mode)
                            (electric-pair-mode)
-                           (electric-indent-mode)))
+                           (electric-indent-mode)
+                           (js2-mode-hide-warnings-and-errors)))
