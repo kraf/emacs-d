@@ -68,6 +68,10 @@
     
     js2-mode
     
+    tide
+    
+    company
+    
     less-css-mode
     
     web-mode
