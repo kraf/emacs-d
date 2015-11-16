@@ -61,3 +61,8 @@
               (setq flycheck-check-syntax-automatically '(save mode-enabled))
               (eldoc-mode +1)
               (company-mode))))
+
+(define-key evil-normal-state-map ",td" 'tide-jump-to-definition)
+(define-key evil-normal-state-map ",tt" 'tide-jump-back)
+(define-key evil-normal-state-map ",tr" 'tide-rename-symbol)
+(define-key evil-normal-state-map ",tl" 'tide-references)
