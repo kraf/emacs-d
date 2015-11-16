@@ -62,6 +62,7 @@
               (eldoc-mode +1)
               (company-mode))))
 
+(require 'evil)
 (define-key evil-normal-state-map ",td" 'tide-jump-to-definition)
 (define-key evil-normal-state-map ",tt" 'tide-jump-back)
 (define-key evil-normal-state-map ",tr" 'tide-rename-symbol)
