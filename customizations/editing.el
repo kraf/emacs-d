@@ -84,3 +84,7 @@
             (local-set-key (kbd "C-Ä") 'paredit-forward-barf-sexp)
             (local-set-key (kbd "C-ö") 'paredit-backward-slurp-sexp)
             (local-set-key (kbd "C-Ö") 'paredit-backward-barf-sexp)))
+
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(define-key global-map (kbd "C-.") 'company-complete)
