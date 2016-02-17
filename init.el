@@ -39,6 +39,8 @@
     ;; http://www.emacswiki.org/emacs/Smex
     smex
 
+    exec-path-from-shell
+
     neotree
     ag
     evil
