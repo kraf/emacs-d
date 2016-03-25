@@ -59,3 +59,8 @@
 
 ;; projectile everywhere!
 (projectile-global-mode)
+
+;; winring
+(require 'winring)
+(winring-initialize)
+(setq winring-show-names t)
