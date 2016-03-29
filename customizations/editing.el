@@ -88,3 +88,17 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (define-key global-map (kbd "C-.") 'company-complete)
+
+;; (setq mac-option-modifier 'meta)
+;; (setq mac-command-modifier 'meta)
+(setq mac-right-option-modifier nil)
+(setq mac-right-command-modifier nil)
+
+;; (global-set-key (kbd "A-7") (kbd "{"))
+;; (global-set-key (kbd "A-8") (kbd "["))
+;; (global-set-key (kbd "A-9") (kbd "]"))
+;; (global-set-key (kbd "A-0") (kbd "}"))
+;; (global-set-key (kbd "A-<") (kbd "|"))
+;; (global-set-key (kbd "A-+") (kbd "~"))
+;; (global-set-key (kbd "A-ß") (kbd "\\"))
+;; (global-set-key (kbd "A-q") (kbd "@"))

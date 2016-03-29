@@ -20,10 +20,14 @@
 (define-key evil-normal-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",e" 'er/expand-region)
 
+(add-hook 'evil-surround-mode-hook
+          (lambda ()
+            (push '(?ä . ("[" . "]")) evil-surround-pairs-alist)))
+
 (add-hook 'paredit-mode-hook
           (lambda ()
             (define-key evil-insert-state-map "\C-k" 'paredit-kill)))
-          
+
 (add-hook 'neotree-mode-hook
           (lambda ()
             (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
