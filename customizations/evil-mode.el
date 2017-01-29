@@ -20,6 +20,9 @@
 (define-key evil-normal-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",e" 'er/expand-region)
 
+;; init.el sets evil-toggle-key there, so we need to unmap global thing
+(global-unset-key "\M-z")
+
 (add-hook 'evil-surround-mode-hook
           (lambda ()
             (push '(?ä . ("[" . "]")) evil-surround-pairs-alist)))
