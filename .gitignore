@@ -9,6 +9,7 @@ projectile.cache
 auto-save-list
 backups
 eshell/*
+-eshell/alias
 request/
 session*
 local.el

@@ -19,6 +19,7 @@
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",e" 'er/expand-region)
+(define-key evil-visual-state-map ",a" 'align-regexp)
 
 (add-hook 'evil-surround-mode-hook
           (lambda ()
