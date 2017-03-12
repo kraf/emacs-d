@@ -74,20 +74,19 @@
 (setq electric-indent-mode nil)
 (setq require-final-newline t)
 
-(define-key key-translation-map (kbd "ö") (kbd "{"))
-(define-key key-translation-map (kbd "ä") (kbd "["))
+(defun toggle-filmode ()
+  (interactive)
+  (if (get 'toggle-filmode 'state)
+      (progn
+        (define-key key-translation-map (kbd "ö") (kbd "ö"))
+        (define-key key-translation-map (kbd "ä") (kbd "ä"))
+        (put 'toggle-filmode 'state nil))
+    (progn
+      (define-key key-translation-map (kbd "ö") (kbd "{"))
+      (define-key key-translation-map (kbd "ä") (kbd "["))
+      (put 'toggle-filmode 'state t))))
 
-;; PROBLEM HERE: electric pair does not work with this
-;; (define-minor-mode fil-mode
-;;   "Toggle fil-mode"
-;;   nil
-;;   "Fil"
-;;   '(((kbd "ö") . (lambda () (interactive) (insert "{")))
-;;     ((kbd "ä") . (lambda () (interactive) (insert "[")))))
-
-;; (define-globalized-minor-mode global-fil-mode fil-mode (lambda () (fil-mode 1)))
-
-;; (global-fil-mode t)
+(toggle-filmode)
 
 (require 'paredit)
 (add-hook 'paredit-mode-hook
