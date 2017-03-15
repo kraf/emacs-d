@@ -127,6 +127,20 @@
 
 (load "local.el")
 
+(add-to-list 'load-path "~/.emacs.d/vendor")
+(load "prettier-js.el")
+
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'prettier nil t)))
+
+(defun prettier-if-jsx ()
+  (when (equal web-mode-content-type "jsx") (prettier)))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'prettier-if-jsx nil t)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -150,7 +164,8 @@
  '(magit-pull-arguments (quote ("--rebase")))
  '(package-selected-packages
    (quote
-    (js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag))))
+    (js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
+ '(prettier-args (quote ("--single-quote" "--tab-width" "4"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
