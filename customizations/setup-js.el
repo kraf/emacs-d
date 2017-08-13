@@ -14,7 +14,7 @@
 (require 'flycheck)
 
 (setq flycheck-disabled-checkers '(javascript-jshint))
-(setq flycheck-checkers '(javascript-eslint))
+(add-to-list 'flycheck-checkers 'javascript-eslint)
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 
 (add-hook 'web-mode-hook
@@ -22,6 +22,8 @@
             (when (equal web-mode-content-type "jsx")
               ;; enable flycheck
               (flycheck-mode))
+            (setq-local electric-pair-pairs
+                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
             (electric-pair-mode)
             (electric-indent-mode)))
 
