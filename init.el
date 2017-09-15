@@ -2,6 +2,9 @@
 ;; Packages
 ;;;;
 
+(if (file-exists-p "customizations/local-before.el")
+    (load-file "customizations/local-before.el"))
+
 ;; Define package repositories
 (require 'package)
 (add-to-list 'package-archives
@@ -119,21 +122,23 @@
 ;; For editing lisps
 (load "elisp-editing.el")
 
+(load "evil-mode.el")
+
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
 (load "setup-go.el")
 (load "setup-c.el")
 
-(load "setup-tramp.el")
-
-(load "evil-mode.el")
 (load "orgmode.el")
 
 (load "magit-custom.el")
 (load "setup-company.el");
 
-(load "local.el")
+(load "term.el")
+
+(if (file-exists-p "customizations/local.el")
+    (load-file "customizations/local.el"))
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (load "prettier-js.el")
@@ -178,8 +183,9 @@
  '(magit-pull-arguments (quote ("--rebase")))
  '(package-selected-packages
    (quote
-    (tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
- '(prettier-args (quote ("--single-quote" "--tab-width" "4"))))
+    (company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
+ '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
+ '(tramp-default-method "ssh"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
