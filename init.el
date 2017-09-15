@@ -43,8 +43,6 @@
     ;; http://www.emacswiki.org/emacs/Smex
     smex
 
-    exec-path-from-shell
-
     neotree
     ag
     evil
@@ -130,6 +128,10 @@
 (load "setup-c.el")
 (load "setup-python.el")
 
+<<<<<<< HEAD
+=======
+(load "evil-mode.el")
+>>>>>>> tramp fixes
 (load "orgmode.el")
 
 (load "magit-custom.el")
@@ -180,13 +182,16 @@
  '(evil-toggle-key "M-z")
  '(fci-rule-color "#2a2a2a")
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
- '(irony-cdb-search-directory-list (quote ("." "build" ".." "../.." "../../..")))
  '(magit-pull-arguments (quote ("--rebase")))
- '(package-selected-packages
-   (quote
-    (company-jedi jedi yapfify ggtags protobuf-mode company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
- '(tramp-default-method "ssh"))
+ '(tramp-completion-reread-directory-timeout 0)
+ ;; '(tramp-histfile-override t)
+ '(tramp-remote-path
+   (quote
+    (tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin" tramp-own-remote-path)))
+ '(tramp-verbose 2)
+ '(tramp-default-method "scp" nil (tramp)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
