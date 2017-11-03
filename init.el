@@ -2,8 +2,7 @@
 ;; Packages
 ;;;;
 
-(if (file-exists-p "customizations/local-before.el")
-    (load-file "customizations/local-before.el"))
+(load-file "~/.emacs.d/customizations/local-before.el")
 
 ;; Define package repositories
 (require 'package)
@@ -117,7 +116,7 @@
 (load "editing.el")
 
 ;; Hard-to-categorize customizations
-(load "misc.el")
+(load "miscellaneous.el")
 
 ;; For editing lisps
 (load "elisp-editing.el")
@@ -129,16 +128,16 @@
 (load "setup-js.el")
 (load "setup-go.el")
 (load "setup-c.el")
+(load "setup-python.el")
 
 (load "orgmode.el")
 
 (load "magit-custom.el")
 (load "setup-company.el");
 
-(load "term.el")
+(load "terminal.el")
 
-(if (file-exists-p "customizations/local.el")
-    (load-file "customizations/local.el"))
+(load "local.el")
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (load "prettier-js.el")
@@ -166,6 +165,7 @@
  '(ag-arguments
    (quote
     ("--smart-case" "--stats" "--ignore-dir" "node_modules")))
+ '(ag-reuse-buffers t)
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
@@ -175,15 +175,16 @@
  '(company-idle-delay 0.1)
  '(custom-safe-themes
    (quote
-    ("7ef8e5ca28fa635396e37569b75772d07157e93a044987538186e9048b301151" "55d31108a7dc4a268a1432cd60a7558824223684afecefa6fae327212c40f8d3" "ffe39e540469ef05808ab4b75055cc81266875fa4a0d9e89c2fec1da7a6354f3" "c006bc787154c31d5c75e93a54657b4421e0b1a62516644bd25d954239bc9933" "ad24ea739f229477ea348af968634cb7a0748c9015110a777c8effeddfa920f5" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
+    ("d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "dfe0523e20114df987a41afb6ac5698307e65e0fcb9bff12dc94621e18d44c3d" "4561c67b0764aa6343d710bb0a6f3a96319252b2169d371802cc94adfea5cfc9" "7ef8e5ca28fa635396e37569b75772d07157e93a044987538186e9048b301151" "55d31108a7dc4a268a1432cd60a7558824223684afecefa6fae327212c40f8d3" "ffe39e540469ef05808ab4b75055cc81266875fa4a0d9e89c2fec1da7a6354f3" "c006bc787154c31d5c75e93a54657b4421e0b1a62516644bd25d954239bc9933" "ad24ea739f229477ea348af968634cb7a0748c9015110a777c8effeddfa920f5" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
  '(delete-selection-mode nil)
  '(evil-toggle-key "M-z")
  '(fci-rule-color "#2a2a2a")
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
+ '(irony-cdb-search-directory-list (quote ("." "build" ".." "../.." "../../..")))
  '(magit-pull-arguments (quote ("--rebase")))
  '(package-selected-packages
    (quote
-    (company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
+    (company-jedi jedi yapfify ggtags protobuf-mode company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
  '(tramp-default-method "ssh"))
 (custom-set-faces

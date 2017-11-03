@@ -13,13 +13,13 @@
 (define-key evil-normal-state-map ",q" 'evil-delete-buffer)
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
 (define-key evil-normal-state-map "\C-k" 'paredit-kill)
-(define-key evil-insert-state-map "\C-k" 'paredit-kill)
 (define-key evil-normal-state-map "K" 'evil-previous-line)
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",a" 'align-regexp)
+(define-key evil-visual-state-map ",." 'company-complete)
 
 ;; init.el sets evil-toggle-key there, so we need to unmap global thing
 (global-unset-key "\M-z")
@@ -40,3 +40,7 @@
             (define-key evil-normal-state-local-map (kbd "x") 'neotree-enter-horizontal-split)
             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+(setq evil-symbol-word-search 'symbol)
+
+(add-to-list 'evil-emacs-state-modes 'eshell-mode)
