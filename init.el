@@ -61,6 +61,8 @@
     projectile
     rainbow-delimiters
 
+    jedi
+
     ;; edit html tags like sexps
     tagedit
     magit
@@ -128,10 +130,7 @@
 (load "setup-c.el")
 (load "setup-python.el")
 
-<<<<<<< HEAD
-=======
 (load "evil-mode.el")
->>>>>>> tramp fixes
 (load "orgmode.el")
 
 (load "magit-custom.el")
