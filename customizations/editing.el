@@ -100,7 +100,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (define-key global-map (kbd "C-.") 'company-complete)
 
-;; (setq mac-option-modifier 'meta)
+; (setq mac-option-modifier 'meta)
 ;; (setq mac-command-modifier 'meta)
 (setq mac-right-option-modifier nil)
 (setq mac-right-command-modifier nil)

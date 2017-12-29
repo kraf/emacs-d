@@ -35,7 +35,7 @@
     clojure-mode
     clojure-mode-extra-font-locking
     cider
-    
+
     ido-ubiquitous
 
     ;; Enhances M-x to allow easier execution of commands. Provides
@@ -51,12 +51,12 @@
     expand-region
     company
     winring
-    
+
     less-css-mode
     web-mode
     js2-mode
     tide
-    
+
     flycheck
     projectile
     rainbow-delimiters
@@ -86,7 +86,7 @@
 ;;
 ;; (require 'yaml-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;; 
+;;
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
 (add-to-list 'load-path "~/.emacs.d/vendor")
@@ -182,6 +182,10 @@
  '(fci-rule-color "#2a2a2a")
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
  '(magit-pull-arguments (quote ("--rebase")))
+ '(org-startup-truncated nil)
+ ;; '(package-selected-packages
+ ;;   (quote
+ ;;    (jinja2-mode company-jedi jedi yapfify ggtags protobuf-mode company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
  '(tramp-completion-reread-directory-timeout 0)
  ;; '(tramp-histfile-override t)
