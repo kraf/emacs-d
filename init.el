@@ -51,16 +51,20 @@
     expand-region
     company
     winring
+    flx-ido
+    ido-vertical-mode
 
     less-css-mode
     web-mode
     js2-mode
+    rjsx-mode
     tide
 
     flycheck
     projectile
     rainbow-delimiters
 
+    ;; python
     jedi
 
     ;; edit html tags like sexps
@@ -183,17 +187,16 @@
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
  '(magit-pull-arguments (quote ("--rebase")))
  '(org-startup-truncated nil)
- ;; '(package-selected-packages
- ;;   (quote
- ;;    (jinja2-mode company-jedi jedi yapfify ggtags protobuf-mode company-irony ahungry-theme foggy-night-theme tramp-theme company-go go-mode restclient js2-mode tide docker zone-select zone-rainbow zone-nyan yaml-mode winring web-mode vkill toml-mode tern tagedit symon smex scss-mode sass-mode relative-line-numbers rainbow-delimiters projectile php-mode paredit nyan-mode nginx-mode neotree markdown-mode magit less-css-mode kv jade-mode ido-ubiquitous expand-region exec-path-from-shell evil-surround evil-nerd-commenter cyberpunk-theme company coffee-mode clojure-mode-extra-font-locking cider aggressive-indent ag)))
+ '(package-selected-packages
+   (quote
+    (rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
  '(tramp-completion-reread-directory-timeout 0)
- ;; '(tramp-histfile-override t)
+ '(tramp-default-method "scp")
  '(tramp-remote-path
    (quote
     (tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin" tramp-own-remote-path)))
- '(tramp-verbose 2)
- '(tramp-default-method "scp" nil (tramp)))
+ '(tramp-verbose 2))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

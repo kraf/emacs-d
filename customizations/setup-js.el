@@ -1,7 +1,7 @@
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ss\\'" . web-mode))
 
@@ -31,7 +31,8 @@
                            (flycheck-mode)
                            (electric-pair-mode)
                            (electric-indent-mode)
-                           (js2-mode-hide-warnings-and-errors)))
+                           (js2-mode-hide-warnings-and-errors)
+                           ))
 
 ;; typescript
 (defun setup-tide-mode ()
