@@ -7,7 +7,7 @@
 ;; Define package repositories
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;;              '("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
 
@@ -36,21 +36,23 @@
     clojure-mode-extra-font-locking
     cider
 
-    ido-ubiquitous
+    ido-completing-read+
 
     ;; Enhances M-x to allow easier execution of commands. Provides
     ;; a filterable list of possible commands in the minibuffer
     ;; http://www.emacswiki.org/emacs/Smex
     smex
+    
+    magit
 
     neotree
     ag
     evil
     evil-surround
     evil-nerd-commenter
+    evil-magit
     expand-region
     company
-    winring
     flx-ido
     ido-vertical-mode
 
@@ -69,8 +71,6 @@
 
     ;; edit html tags like sexps
     tagedit
-    magit
-    vkill
 
     ;; themes
     cyberpunk-theme
@@ -80,20 +80,6 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
-
-;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
-;; to load them.
-;;
-;; For example, if you download yaml-mode.el to ~/.emacs.d/vendor,
-;; then you can add the following code to this file:
-;;
-;; (require 'yaml-mode)
-;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;;
-;; Adding this code will make Emacs enter yaml mode whenever you open
-;; a .yml file
-(add-to-list 'load-path "~/.emacs.d/vendor")
 
 
 ;;;;
@@ -189,14 +175,14 @@
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+    (desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
- '(tramp-completion-reread-directory-timeout 0)
- '(tramp-default-method "scp")
+ '(tramp-completion-reread-directory-timeout 0 nil (tramp))
+ '(tramp-default-method "scp" nil (tramp))
  '(tramp-remote-path
    (quote
-    (tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin" tramp-own-remote-path)))
- '(tramp-verbose 2))
+    (tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin" tramp-own-remote-path)) nil (tramp))
+ '(tramp-verbose 2 nil (tramp)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

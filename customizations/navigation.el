@@ -27,6 +27,7 @@
 ;; you've typed in
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
 (ido-mode t)
+(ido-everywhere 1)
 
 ;; Turn this behavior off because it's annoying
 (setq ido-use-filename-at-point nil)
@@ -41,10 +42,10 @@
 
 ;; This enables ido in all contexts where it could be useful, not just
 ;; for selecting buffer and file names
+(require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 
 (require 'flx-ido)
-(ido-everywhere 1)
 (flx-ido-mode 1)
 ;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
