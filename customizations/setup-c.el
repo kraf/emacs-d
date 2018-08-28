@@ -3,9 +3,12 @@
 (add-hook 'c++-mode-hook (lambda ()
                            (electric-pair-mode)
                            (electric-indent-mode)
-                           (ggtags-mode)
+                           ;; (ggtags-mode)
+                           (flycheck-mode)
                            (add-to-list (make-local-variable 'company-backends)
-                                        '(company-gtags company-keywords))
+                                        '(company-gtags
+                                          company-keywords
+                                          company-dabbrev))
                            (modify-syntax-entry ?_ "w")
                            ))
 

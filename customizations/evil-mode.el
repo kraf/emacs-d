@@ -20,6 +20,9 @@
 (define-key evil-visual-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",a" 'align-regexp)
 (define-key evil-visual-state-map ",." 'company-complete)
+(define-key evil-visual-state-map "P" (lambda ()
+                                        (interactive)
+                                        (evil-paste-from-register ?0)))
 
 ;; init.el sets evil-toggle-key there, so we need to unmap global thing
 (global-unset-key "\M-z")
@@ -44,3 +47,4 @@
 (setq evil-symbol-word-search 'symbol)
 
 (add-to-list 'evil-emacs-state-modes 'eshell-mode)
+(add-to-list 'evil-emacs-state-modes 'dired-mode)

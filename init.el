@@ -42,16 +42,13 @@
     ;; a filterable list of possible commands in the minibuffer
     ;; http://www.emacswiki.org/emacs/Smex
     smex
-    
-    magit
 
     neotree
     ag
     evil
     evil-surround
     evil-nerd-commenter
-    evil-magit
-    expand-region
+
     company
     flx-ido
     ido-vertical-mode
@@ -71,10 +68,13 @@
 
     ;; edit html tags like sexps
     tagedit
+    magit
+    evil-magit
+
+    vkill
 
     ;; themes
     cyberpunk-theme
-    tramp-theme
     ))
 
 (dolist (p my-packages)
@@ -168,6 +168,7 @@
    (quote
     ("d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "dfe0523e20114df987a41afb6ac5698307e65e0fcb9bff12dc94621e18d44c3d" "4561c67b0764aa6343d710bb0a6f3a96319252b2169d371802cc94adfea5cfc9" "7ef8e5ca28fa635396e37569b75772d07157e93a044987538186e9048b301151" "55d31108a7dc4a268a1432cd60a7558824223684afecefa6fae327212c40f8d3" "ffe39e540469ef05808ab4b75055cc81266875fa4a0d9e89c2fec1da7a6354f3" "c006bc787154c31d5c75e93a54657b4421e0b1a62516644bd25d954239bc9933" "ad24ea739f229477ea348af968634cb7a0748c9015110a777c8effeddfa920f5" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
  '(delete-selection-mode nil)
+ '(ediff-split-window-function (quote split-window-horizontally))
  '(evil-toggle-key "M-z")
  '(fci-rule-color "#2a2a2a")
  '(flycheck-locate-config-file-functions (quote (flycheck-locate-config-file-ancestor-directories)))
@@ -175,7 +176,7 @@
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+    (cmake-mode org-evil nov rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
  '(tramp-completion-reread-directory-timeout 0 nil (tramp))
  '(tramp-default-method "scp" nil (tramp))

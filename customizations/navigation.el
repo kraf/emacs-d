@@ -68,7 +68,9 @@
 ;; projectile everywhere!
 (projectile-global-mode)
 
+(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+
 ;; winring
-(require 'winring)
-(winring-initialize)
-(setq winring-show-names t)
+;; (require 'winring)
+;; (winring-initialize)
+;; (setq winring-show-names t)

@@ -9,8 +9,8 @@
          company-keywords       ; keywords
          company-capf
          company-yasnippet
-         )
-        (company-abbrev company-dabbrev)
-        ))
+         company-abbrev
+         company-dabbrev)))
+
 (setq company-idle-delay 0.3)
 (setq company-minimum-prefix-length 2)
