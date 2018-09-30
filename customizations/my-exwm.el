@@ -50,7 +50,7 @@
         
         ;; Bind "s-&" to launch applications ('M-&' also works if the output
         ;; buffer does not bother you).
-        ([?\s-&] . (lambda (command)
+        ([?\s-o] . (lambda (command)
                      (interactive (list (read-shell-command "$ ")))
                      (start-process-shell-command command nil command)))
         ;; Bind "s-l" to "slock", a simple X display locker.
@@ -78,6 +78,11 @@
                                   (interactive)
                                   (select-window (split-window-horizontally))
                                   (balance-windows)))
+
+(exwm-input-set-key (kbd "s-q") #'delete-window)
+(exwm-input-set-key (kbd "s-o") (lambda (command)
+                                  (interactive (list (read-shell-command "$ ")))
+                                  (start-process-shell-command command nil command)))
 
 (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") #'desktop-environment-brightness-increment)
 (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") #'desktop-environment-brightness-decrement)

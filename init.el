@@ -71,8 +71,6 @@
     magit
     evil-magit
 
-    vkill
-
     ;; themes
     cyberpunk-theme
     ))
@@ -137,6 +135,10 @@
           (lambda ()
             (add-hook 'before-save-hook 'prettier nil t)))
 
+(add-hook 'tide-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'prettier nil t)))
+
 (defun prettier-if-jsx ()
   (when (equal web-mode-content-type "jsx") (prettier)))
 
@@ -176,7 +178,7 @@
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (cmake-mode org-evil nov rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+    (evil-easymotion desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
  '(prettier-args (quote ("--single-quote" "--tab-width" "4")))
  '(tramp-completion-reread-directory-timeout 0 nil (tramp))
  '(tramp-default-method "scp" nil (tramp))
