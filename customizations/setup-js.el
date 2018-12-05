@@ -1,7 +1,5 @@
 ;; javascript / html
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ss\\'" . web-mode))
 
@@ -12,10 +10,25 @@
 ;;     ad-do-it))
 
 (require 'flycheck)
+(require 'prettier-js)
 
 (setq flycheck-disabled-checkers '(javascript-jshint))
-(add-to-list 'flycheck-checkers 'javascript-eslint)
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; (add-to-list 'flycheck-checkers 'javascript-eslint)
+;; (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+(with-eval-after-load 'flycheck
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
+
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 (add-hook 'web-mode-hook
           (lambda ()
@@ -27,22 +40,25 @@
             (electric-pair-mode)
             (electric-indent-mode)))
 
-(add-hook 'js2-mode-hook (lambda ()
-                           (flycheck-mode)
-                           (electric-pair-mode)
-                           (electric-indent-mode)
-                           (js2-mode-hide-warnings-and-errors)
-                           ))
+(add-hook 'rjsx-mode-hook (lambda ()
+                            (flycheck-mode)
+                            (electric-pair-mode)
+                            (electric-indent-mode)
+                            (js2-mode-hide-warnings-and-errors)
+                            (prettier-js-mode)
+                            (setq-local sgml-basic-offset 4)
+                            ))
 
 ;; typescript
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  (company-mode +1))
+  (company-mode +1)
+  (prettier-js-mode))
 
 (setq company-tooltip-align-annotations t)
 
