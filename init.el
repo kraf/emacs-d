@@ -43,6 +43,8 @@
     ;; http://www.emacswiki.org/emacs/Smex
     smex
 
+    exec-path-from-shell
+
     neotree
     ag
     evil
@@ -138,9 +140,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ag-arguments
-   (quote
-    ("--smart-case" "--stats" "--ignore-dir" "node_modules")))
+ '(ag-arguments nil)
  '(ag-reuse-buffers t)
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
@@ -161,7 +161,9 @@
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (prettier-js evil-easymotion desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+    (evil-easymotion desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
  '(tramp-completion-reread-directory-timeout 0 nil (tramp))
  '(tramp-default-method "scp" nil (tramp))
  '(tramp-remote-path

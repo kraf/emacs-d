@@ -57,15 +57,17 @@
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  (company-mode +1)
-  (prettier-js-mode))
+  (prettier-js-mode)
+  (electric-pair-mode)
+  (electric-indent-mode)
+  (company-mode +1))
 
 (setq company-tooltip-align-annotations t)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-hook 'web-mode-hook
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
+(add-hook 'rjsx-mode-hook
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
