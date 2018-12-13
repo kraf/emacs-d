@@ -23,7 +23,7 @@
                 (or (buffer-file-name) default-directory)
                 "node_modules"))
          (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                      (expand-file-name "node_modules/.bin/eslint.js"
                                         root))))
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
@@ -46,7 +46,8 @@
                             (electric-indent-mode)
                             (js2-mode-hide-warnings-and-errors)
                             (prettier-js-mode)
-                            (setq-local sgml-basic-offset 4)
+                            (setq-local sgml-basic-offset 2)
+                            (setq-local js2-basic-offset 2)
                             ))
 
 ;; typescript
@@ -60,7 +61,10 @@
   (prettier-js-mode)
   (electric-pair-mode)
   (electric-indent-mode)
-  (company-mode +1))
+  (company-mode +1)
+  (setq-local sgml-basic-offset 2)
+  (setq-local js2-basic-offset 2)
+  )
 
 (setq company-tooltip-align-annotations t)
 
