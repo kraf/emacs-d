@@ -23,6 +23,7 @@
 (define-key evil-visual-state-map "P" (lambda ()
                                         (interactive)
                                         (evil-paste-from-register ?0)))
+(define-key evil-normal-state-map ",f" 'flycheck-next-error)
 
 ;; init.el sets evil-toggle-key there, so we need to unmap global thing
 (global-unset-key "\M-z")

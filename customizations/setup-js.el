@@ -1,7 +1,7 @@
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ss\\'" . web-mode))
 
 ;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
 ;;   (if (equal web-mode-content-type "jsx")
@@ -23,7 +23,7 @@
                 (or (buffer-file-name) default-directory)
                 "node_modules"))
          (eslint (and root
-                      (expand-file-name "node_modules/.bin/eslint.js"
+                      (expand-file-name "node_modules/.bin/eslint"
                                         root))))
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
