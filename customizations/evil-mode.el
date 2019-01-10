@@ -1,6 +1,7 @@
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
+(require 'company)
 
 (evil-mode 1)
 
@@ -24,6 +25,9 @@
                                         (interactive)
                                         (evil-paste-from-register ?0)))
 (define-key evil-normal-state-map ",f" 'flycheck-next-error)
+
+(define-key evil-insert-state-map "\C-n" 'company-select-next)
+(define-key evil-insert-state-map "\C-p" 'company-select-previous)
 
 ;; init.el sets evil-toggle-key there, so we need to unmap global thing
 (global-unset-key "\M-z")
