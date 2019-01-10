@@ -50,6 +50,9 @@
                             (setq-local js2-basic-offset 2)
                             ))
 
+(add-hook 'css-mode (lambda ()
+                      (prettier-js-mode)))
+
 ;; typescript
 (defun setup-tide-mode ()
   (interactive)
@@ -62,8 +65,7 @@
   (electric-pair-mode)
   (electric-indent-mode)
   (company-mode +1)
-  (setq-local sgml-basic-offset 2)
-  (setq-local js2-basic-offset 2)
+  (setq-local typescript-indent-level 2)
   )
 
 (setq company-tooltip-align-annotations t)
