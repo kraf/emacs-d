@@ -53,6 +53,9 @@
 (add-hook 'css-mode (lambda ()
                       (prettier-js-mode)))
 
+(add-hook 'scss-mode (lambda ()
+                       (prettier-js-mode)))
+
 ;; typescript
 (defun setup-tide-mode ()
   (interactive)
