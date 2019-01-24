@@ -1,11 +1,16 @@
+(setq evil-want-keybinding nil)
+
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
+(require 'evil-collection)
 (require 'company)
 
 (evil-mode 1)
 
 (global-evil-surround-mode 1)
+
+(evil-collection-init)
 
 (global-set-key (kbd "Ö") (kbd "<escape>"))
 

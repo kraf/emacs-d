@@ -73,6 +73,7 @@
     tagedit
     magit
     evil-magit
+    evil-collection
 
     ;; themes
     cyberpunk-theme
@@ -161,7 +162,7 @@
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (lispy evil-easymotion desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
+    (toml-mode lispy evil-easymotion desktop-environment exwm rjsx-mode xref-js2 company-tern ido-vertical-mode flx-ido indent-guide yapfify yaml-mode winring web-mode vkill tramp-theme tide tagedit sphinx-doc smex rainbow-delimiters protobuf-mode projectile paredit neotree less-css-mode js2-mode jinja2-mode jedi ido-ubiquitous git-gutter-fringe ggtags foggy-night-theme expand-region exec-path-from-shell evil-surround evil-nerd-commenter evil-magit cyberpunk-theme company-jedi company-irony clojure-mode-extra-font-locking cider ahungry-theme ag)))
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
  '(tramp-completion-reread-directory-timeout 0 nil (tramp))
