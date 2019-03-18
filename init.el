@@ -113,8 +113,6 @@
 ;; For editing lisps
 (load "elisp-editing.el")
 
-(load "evil-mode.el")
-
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
@@ -122,13 +120,14 @@
 (load "setup-c.el")
 (load "setup-python.el")
 
-(load "evil-mode.el")
 (load "orgmode.el")
 
 (load "magit-custom.el")
 (load "setup-company.el");
 
 (load "terminal.el")
+
+(load "evil-mode.el")
 
 (load "local.el")
 

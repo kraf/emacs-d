@@ -80,10 +80,3 @@
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
-
-(require 'evil)
-(define-key evil-normal-state-map ",td" 'tide-documentation-at-point)
-(define-key evil-normal-state-map ",tf" 'tide-jump-to-definition)
-(define-key evil-normal-state-map ",tt" 'tide-jump-back)
-(define-key evil-normal-state-map ",tr" 'tide-rename-symbol)
-(define-key evil-normal-state-map ",tl" 'tide-references)
