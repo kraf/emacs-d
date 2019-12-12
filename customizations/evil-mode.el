@@ -1,11 +1,11 @@
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
 (require 'evil-collection)
 (require 'company)
-
-(setq evil-want-integration t)
-(setq evil-want-keybinding nil)
 
 (evil-mode 1)
 

@@ -77,6 +77,7 @@
 
     ;; themes
     cyberpunk-theme
+    tramp-theme
     ))
 
 (dolist (p my-packages)
