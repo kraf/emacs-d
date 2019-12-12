@@ -5,6 +5,7 @@
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
 (require 'evil-collection)
+(require 'evil-magit)
 (require 'company)
 
 (evil-mode 1)
