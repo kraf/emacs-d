@@ -50,24 +50,24 @@
                             (setq-local js2-basic-offset 2)
                             ))
 
-(add-hook 'css-mode (lambda ()
-                      (prettier-js-mode)))
+(add-hook 'css-mode-hook (lambda ()
+                           (prettier-js-mode)))
 
-(add-hook 'scss-mode (lambda ()
-                       (prettier-js-mode)))
+(add-hook 'scss-mode-hook (lambda ()
+                            (prettier-js-mode)))
 
 ;; typescript
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
-  (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (prettier-js-mode)
   (electric-pair-mode)
   (electric-indent-mode)
   (company-mode +1)
+  (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
   (setq-local typescript-indent-level 2)
   )
 
