@@ -8,4 +8,6 @@
             (electric-pair-mode)
             (electric-indent-mode)
             (set (make-local-variable 'company-backends) '(company-go))
-            (company-mode)))
+            (company-mode)
+            (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+

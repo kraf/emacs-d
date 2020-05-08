@@ -74,3 +74,5 @@
 ;; (require 'winring)
 ;; (winring-initialize)
 ;; (setq winring-show-names t)
+
+(global-set-key (kbd "M-o") 'ace-window)

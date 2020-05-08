@@ -24,18 +24,31 @@
 (define-key evil-normal-state-map "\C-k" 'paredit-kill)
 (define-key evil-normal-state-map "K" 'evil-previous-line)
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
-(define-key evil-normal-state-map ",e" 'er/expand-region)
-(define-key evil-normal-state-map ",f" 'flycheck-next-error)
-(define-key evil-normal-state-map ",g" 'magit-status)
+;; (define-key evil-normal-state-map ",e" 'er/expand-region)
+(define-key evil-normal-state-map ",e" 'flycheck-next-error)
 
-(define-key evil-normal-state-map ",td" 'tide-documentation-at-point)
-(define-key evil-normal-state-map ",tf" 'tide-jump-to-definition)
-(define-key evil-normal-state-map ",tt" 'tide-jump-back)
-(define-key evil-normal-state-map ",tr" 'tide-rename-symbol)
-(define-key evil-normal-state-map ",tl" 'tide-references)
+;; GIT
+(define-key evil-normal-state-map ",gs" 'magit-status)
+(define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
+(define-key evil-normal-state-map ",gm" 'magit-blame-addition)
+
+;; LSP
+(define-key evil-normal-state-map ",ld" 'lsp-ui-peek-find-definitions)
+(define-key evil-normal-state-map ",lr" 'lsp-ui-peek-find-references)
+(define-key evil-normal-state-map ",ls" 'lsp-ui-peek-find-workspace-symbol)
+(define-key evil-normal-state-map ",lt" 'lsp-treemacs-symbols)
+(define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
+(define-key evil-normal-state-map ",ln" 'lsp-rename)
+(define-key evil-normal-state-map ",lh" 'lsp-hover)
+
+(define-key evil-normal-state-map ",ff" 'treemacs)
+(define-key evil-normal-state-map ",fr" 'ranger)
+
+(define-key evil-normal-state-map "\C-w\C-w" 'tear-off-window)
 
 ;; INSERT MODE
 (define-key evil-insert-state-map "\C-e" 'move-end-of-line)
+(define-key evil-insert-state-map "\M-." 'yas-expand)
 
 ;; VISUAL MODE
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
@@ -60,16 +73,17 @@
           (lambda ()
             (define-key evil-insert-state-map "\C-k" 'paredit-kill)))
 
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
-            (define-key evil-normal-state-local-map (kbd "x") 'neotree-enter-horizontal-split)
-            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
-
 (setq evil-symbol-word-search 'symbol)
 
 (add-to-list 'evil-emacs-state-modes 'eshell-mode)
 (add-to-list 'evil-emacs-state-modes 'dired-mode)
+
+(use-package evil-owl
+	   :custom
+	   (evil-owl-display-method 'posframe)
+	   (evil-owl-extra-posfram-args '(:width 50 :height 20))
+	   (evil-owl-idle-delay 0)
+	   :init
+	   (evil-owl-mode))
+
+(use-package evil-matchit)
