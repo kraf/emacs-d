@@ -14,3 +14,5 @@
 
 (autoload 'vkill "vkill" nil t)
 (autoload 'list-unix-processes "vkill" nil t)
+
+(setq confirm-kill-emacs 'y-or-n-p)

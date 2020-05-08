@@ -25,6 +25,15 @@
             (define-clojure-indent (fact 1))
             (define-clojure-indent (facts 1))))
 
+(defun add-clj-format-before-save ()
+  (interactive)
+  (add-hook 'before-save-hook
+            'cider-format-buffer
+            t
+	    t))
+
+(add-hook 'clojure-mode-hook 'add-clj-format-before-save)
+
 ;;;;
 ;; Cider
 ;;;;

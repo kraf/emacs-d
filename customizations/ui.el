@@ -33,7 +33,7 @@
 
 (if (display-graphic-p)
     (load-theme 'cyberpunk t)
-  (load-theme 'wombat t))
+  (load-theme 'tango-dark t))
 (load-theme 'tramp t)
 
 ;; increase font size for better readability
