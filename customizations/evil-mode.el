@@ -30,6 +30,7 @@
 ;; GIT
 (define-key evil-normal-state-map ",gs" 'magit-status)
 (define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
+(define-key evil-normal-state-map ",gx" 'git-gutter+-revert-hunk)
 (define-key evil-normal-state-map ",gm" 'magit-blame-addition)
 
 ;; LSP
@@ -39,7 +40,8 @@
 (define-key evil-normal-state-map ",lt" 'lsp-treemacs-symbols)
 (define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
-(define-key evil-normal-state-map ",lh" 'lsp-hover)
+(define-key evil-normal-state-map ",lh" 'lsp-describe-thing-at-point)
+(define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
 
 (define-key evil-normal-state-map ",ff" 'treemacs)
 (define-key evil-normal-state-map ",fr" 'ranger)
