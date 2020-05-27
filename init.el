@@ -77,7 +77,7 @@
     ;; LSP
     lsp-mode
     lsp-ui
-    company-lsp
+    ;; company-lsp
     lsp-treemacs
 
     dired-git-info
@@ -94,17 +94,18 @@
 (use-package git-gutter-fringe+
              :config
              (global-git-gutter+-mode)
-             (git-gutter-fr+-minimal))
+             ;; (git-gutter-fr+-minimal)
+             )
 
 (use-package lsp-mode
   :defer t
   :commands lsp
   :custom
+  (lsp-keymap-prefix "s-i")
   (lsp-auto-guess-root nil)
   (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
   (lsp-file-watch-threshold 2000)
-  (read-process-output-max (* 1024 1024))
-  (lsp-eldoc-hook nil))
+  (read-process-output-max (* 1024 1024)))
 
 (use-package lsp-ui
 	   :custom
@@ -209,13 +210,14 @@
  '(lsp-auto-guess-root nil)
  '(lsp-eldoc-hook nil)
  '(lsp-file-watch-threshold 2000)
+ '(lsp-keymap-prefix "s-i")
  '(lsp-prefer-flymake nil t)
  '(lsp-ui-doc-max-width 80)
  '(lsp-ui-doc-position 'top)
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(rjsx-mode multiple-cursors yasnippet ranger dired-git-info lsp-treemacs company-lsp lsp-ui lsp-mode tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
+   '(git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info lsp-treemacs company-lsp lsp-ui lsp-mode tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
  '(read-process-output-max 1048576 t)
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)

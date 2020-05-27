@@ -114,7 +114,6 @@
 ;; (global-set-key (kbd "A-ß") (kbd "\\"))
 ;; (global-set-key (kbd "A-q") (kbd "@"))
 
-(setq lsp-keymap-prefix "s-i")
 ;; (require 'lsp-mode)
 
 ;; (require 'company-lsp)
