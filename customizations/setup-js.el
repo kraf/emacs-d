@@ -18,8 +18,8 @@
 (with-eval-after-load 'flycheck
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
-;; (with-eval-after-load 'flycheck
-;;   (flycheck-add-mode 'javascript-eslint 'web-mode))
+(with-eval-after-load 'flycheck
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 (defun my/use-eslint-from-node-modules ()
   (let* ((root (locate-dominating-file
@@ -37,11 +37,11 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
 
-(setq lsp-eslint-server-command 
-      '("node" 
-        ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js" 
-        "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
-        "--stdio"))
+;; (setq lsp-eslint-server-command 
+;;       '("node" 
+;;         ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js" 
+;;         "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
+;;         "--stdio"))
 
 (add-hook 'web-mode-hook
           (lambda ()
@@ -53,14 +53,13 @@
                         (append electric-pair-pairs '((?' . ?') (?` . ?`))))
             
             (when (string-match "tsx?" (file-name-extension buffer-file-name))
-              ;; (setq-local lsp-eslint-server-command 
-              ;;             '("node" 
-              ;;               ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js" 
-              ;;               "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
-              ;;               "--stdio"))
-
               (prettier-js-mode)
-              (lsp))))
+              (lsp)
+              (flycheck-add-next-checker 'lsp 'javascript-eslint)
+              ;; FIXME temporary until lsp-eslint works again
+              ;; (flymake-mode)
+              ;; (flymake-eslint-enable)
+              (setq-local company-backends '(company-capf)))))
 
 (add-hook 'rjsx-mode-hook
           (lambda ()
@@ -68,17 +67,16 @@
             (electric-pair-mode)
             (electric-indent-mode)
             
-            ;; (setq-local lsp-eslint-server-command 
-            ;;             '("node" 
-            ;;               ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js" 
-            ;;               "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
-            ;;               "--stdio"))
-
-            ;; (setq-local electric-pair-pairs
-            ;;             (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+            (setq-local sgml-basic-offset 2)
+            (setq-local js2-basic-offset 2)
 
             (prettier-js-mode)
-            (lsp)))
+            (lsp)
+            ;; FIXME temporary until lsp-eslint works again
+            ;; (flymake-mode)
+            ;; (flymake-eslint-enable)
+            (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
+            (setq-local company-backends '(company-capf))))
 
 (add-hook 'css-mode-hook (lambda ()
                            (prettier-js-mode)))

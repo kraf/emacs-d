@@ -32,6 +32,7 @@
 (define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
 (define-key evil-normal-state-map ",gx" 'git-gutter+-revert-hunk)
 (define-key evil-normal-state-map ",gm" 'magit-blame-addition)
+(define-key evil-normal-state-map ",gt" 'git-timemachine)
 
 ;; LSP
 (define-key evil-normal-state-map ",ld" 'lsp-ui-peek-find-definitions)
@@ -42,6 +43,14 @@
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
 (define-key evil-normal-state-map ",lh" 'lsp-describe-thing-at-point)
 (define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
+
+;; Multiple cursors
+(define-key evil-normal-state-map ",mn" 'mc/mark-next-like-this)
+(define-key evil-normal-state-map ",mp" 'mc/mark-previous-like-this)
+(define-key evil-normal-state-map ",ma" 'mc/mark-all-like-this)
+(define-key evil-visual-state-map ",mn" 'mc/mark-next-like-this)
+(define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
+(define-key evil-visual-state-map ",ma" 'mc/mark-all-like-this)
 
 (define-key evil-normal-state-map ",ff" 'treemacs)
 (define-key evil-normal-state-map ",fr" 'ranger)

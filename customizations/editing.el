@@ -114,11 +114,6 @@
 ;; (global-set-key (kbd "A-ß") (kbd "\\"))
 ;; (global-set-key (kbd "A-q") (kbd "@"))
 
-;; (require 'lsp-mode)
-
-;; (require 'company-lsp)
-;; (push 'company-lsp company-backends)
-
 (require 'yasnippet)
 (yas-global-mode 1)
 
