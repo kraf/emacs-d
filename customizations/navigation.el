@@ -70,6 +70,13 @@
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+(defun projectile-find-file-other-window-in-known-projects ()
+  "Jump to a file in any of the known projects."
+  (interactive)
+  (find-file-other-window (projectile-completing-read "Find file in projects: " (projectile-all-project-files))))
+
+(define-key projectile-command-map (kbd "4 F") #'projectile-find-file-other-window-in-known-projects)
+
 ;; winring
 ;; (require 'winring)
 ;; (winring-initialize)
