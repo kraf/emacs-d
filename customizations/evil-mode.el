@@ -4,8 +4,8 @@
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
+;; (require 'evil-magit)
 (require 'evil-collection)
-(require 'evil-magit)
 (require 'company)
 
 (evil-mode 1)

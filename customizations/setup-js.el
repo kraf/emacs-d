@@ -61,26 +61,18 @@
               ;; (flymake-eslint-enable)
               (setq-local company-backends '(company-capf)))))
 
-(add-hook 'rjsx-mode-hook
-          (lambda ()
-            (flycheck-mode)
-            (electric-pair-mode)
-            (electric-indent-mode)
-            
-            (setq-local sgml-basic-offset 2)
-            (setq-local js2-basic-offset 2)
-
-            (prettier-js-mode)
-            (lsp)
-            ;; FIXME temporary until lsp-eslint works again
-            ;; (flymake-mode)
-            ;; (flymake-eslint-enable)
-            (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
-            (setq-local company-backends '(company-capf))))
+(add-hook 'rjsx-mode-hook (lambda ()
+                            (flycheck-mode)
+                            (electric-pair-mode)
+                            (electric-indent-mode)
+                            (js2-mode-hide-warnings-and-errors)
+                            (prettier-js-mode)
+                            (setq-local sgml-basic-offset 2)
+                            (setq-local js2-basic-offset 2)
+                            ))
 
 (add-hook 'css-mode-hook (lambda ()
                            (prettier-js-mode)))
 
 (add-hook 'scss-mode-hook (lambda ()
                             (prettier-js-mode)))
-

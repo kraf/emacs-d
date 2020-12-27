@@ -28,6 +28,8 @@
   '(use-package
      
     paredit
+    smartparens
+    highlight-parentheses
     clojure-mode
     clojure-mode-extra-font-locking
     cider
@@ -67,10 +69,18 @@
     prettier-js
 
     flycheck
+    flycheck-clj-kondo
+    
     projectile
     rainbow-delimiters
 
     treemacs
+    ;; python
+    ;; jedi
+
+    ;; edit html tags like sexps
+    tagedit
+    magit
 
     ;; themes
     cyberpunk-theme
@@ -187,7 +197,7 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
-   (vector "#eaeaea" "#d54e53" "#b9ca4a" "#e7c547" "#7aa6da" "#c397d8" "#70c0b1" "#000000"))
+   ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(company-backends '(company-capf))
