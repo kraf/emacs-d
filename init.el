@@ -21,84 +21,91 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
 (defvar my-packages
   '(use-package
      
-    paredit
-    smartparens
-    highlight-parentheses
-    clojure-mode
-    clojure-mode-extra-font-locking
-    cider
+     paredit
+     smartparens
+     lispy
+     highlight-parentheses
+     clojure-mode
+     clojure-mode-extra-font-locking
+     cider
 
-    ido-completing-read+
+     ido-completing-read+
 
-    ;; Enhances M-x to allow easier execution of commands. Provides
-    ;; a filterable list of possible commands in the minibuffer
-    ;; http://www.emacswiki.org/emacs/Smex
-    smex
+     ;; Enhances M-x to allow easier execution of commands. Provides
+     ;; a filterable list of possible commands in the minibuffer
+     ;; http://www.emacswiki.org/emacs/Smex
+     smex
 
-    exec-path-from-shell
+     exec-path-from-shell
 
-    ag
+     ag
     
-    evil
-    evil-surround
-    evil-nerd-commenter
-    evil-owl
-    evil-collection
-    evil-matchit
+     undo-fu
     
-    ;; also brings in magit
-    evil-magit
-    git-gutter-fringe+
-    git-timemachine
-    browse-at-remote
-
-    company
-    company-posframe
-    flx-ido
-    ido-vertical-mode
-
-    web-mode
-    js2-mode
-    rjsx-mode
-    prettier-js
-    npm-mode
-
-    flycheck
-    flycheck-clj-kondo
+     evil
+     evil-surround
+     evil-nerd-commenter
+     evil-owl
+     evil-collection
+     evil-matchit
+     lispyville
+     ;; also brings in magit
+     evil-magit
     
-    projectile
-    rainbow-delimiters
+     git-gutter-fringe+
+     git-timemachine
+     browse-at-remote
 
-    treemacs
-    ;; python
-    ;; jedi
+     company
+     company-posframe
+     flx-ido
+     ido-vertical-mode
 
-    ;; edit html tags like sexps
-    tagedit
-    magit
+     web-mode
+     js2-mode
+     rjsx-mode
+     prettier-js
+     npm-mode
 
-    ;; themes
-    cyberpunk-theme
-    tramp-theme
+     flycheck
+     flycheck-clj-kondo
     
-    ;; LSP
-    lsp-mode
-    lsp-ui
-    ;; company-lsp
-    lsp-treemacs
+     projectile
+     rainbow-delimiters
 
-    dired-git-info
-    ranger
+     treemacs
+     ;; python
+     ;; jedi
+
+     ;; edit html tags like sexps
+     tagedit
+     magit
+
+     ;; themes
+     cyberpunk-theme
+     tramp-theme
     
-    yasnippet
-    yasnippet-snippets
-    multiple-cursors))
+     ;; LSP
+     lsp-mode
+     ;; lsp-ui
+     ;; company-lsp
+     lsp-treemacs
+
+     dired-git-info
+     ranger
+    
+     yasnippet
+     yasnippet-snippets
+     multiple-cursors))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -120,10 +127,11 @@
   (lsp-file-watch-threshold 2000)
   (read-process-output-max (* 1024 1024)))
 
-(use-package lsp-ui
-	   :custom
-	   (lsp-ui-doc-max-width 80)
-	   (lsp-ui-doc-position 'top))
+;; (use-package lsp-ui
+;; 	   :custom
+;; 	   (lsp-ui-doc-max-width 80)
+;; 	   (lsp-ui-doc-position 'top)
+;;            (lsp-ui-doc-enable f))
 
 (use-package company
              :hook (prog-mode . company-mode)
@@ -140,6 +148,40 @@
 (use-package company-posframe
              :config
              (company-posframe-mode))
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode))
+
+(use-package lispy
+  :hook ((emacs-lisp-mode . lispy-mode)
+         (clojure-mode . lispy-mode)
+         (clojurescript-mode . lispy-mode)
+         (cider-repl-mode . lispy-mode))
+  :custom
+  (lispy-close-quotes-at-end-p t)
+  :config
+  (add-hook 'lispy-mode-hook #'turn-off-smartparens-mode))
+
+(use-package lispyville
+  :hook ((lispy-mode . lispyville-mode))
+  :custom
+  (lispyville-key-theme '(operators
+                          c-w
+                          (prettify insert)
+                          additional
+                          additional-insert
+                          additional-movement
+                          additional-wrap
+                          (atom-movement normal visual)
+                          slurp/barf-cp))
+  :config
+  (lispy-set-key-theme '(lispy c-digits))
+  (lispyville-set-key-theme)
+
+  (lispyville--define-key 'normal (kbd "M-J") #'evil-multiedit-match-and-next)
+  (lispyville--define-key 'normal (kbd "M-K") #'evil-multiedit-match-and-prev))
+
+(use-package undo-fu)
 
 ;;;;
 ;; Customization
@@ -230,7 +272,7 @@
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
+   '(evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
  '(read-process-output-max 1048576 t)
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
