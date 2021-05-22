@@ -37,6 +37,7 @@
      clojure-mode
      clojure-mode-extra-font-locking
      cider
+     zprint-mode
 
      ido-completing-read+
 
@@ -50,6 +51,8 @@
      ag
     
      undo-fu
+
+     magit
     
      evil
      evil-surround
@@ -58,8 +61,7 @@
      evil-collection
      evil-matchit
      lispyville
-     ;; also brings in magit
-     evil-magit
+     avy
     
      git-gutter-fringe+
      git-timemachine
@@ -105,7 +107,9 @@
     
      yasnippet
      yasnippet-snippets
-     multiple-cursors))
+     multiple-cursors
+
+     which-key))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -116,6 +120,10 @@
              (global-git-gutter+-mode)
              ;; (git-gutter-fr+-minimal)
              )
+
+(use-package which-key
+             :config
+             (which-key-mode))
 
 (use-package lsp-mode
   :defer t
@@ -136,11 +144,11 @@
 (use-package company
              :hook (prog-mode . company-mode)
              :custom
-             (company-idle-delay 0.1)
              (company-tooltip-align-annotations t)
              (company-tooltip-limit 14)
              (company-echo-delay (if (display-graphic-p) nil 0))
-             (company-minimum-prefix-length 2)
+             (company-minimum-prefix-length 1)
+             (company-idle-delay 0.1)
              (company-require-match 'never)
              (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode))
              (company-backends '(company-capf)))
@@ -179,7 +187,29 @@
   (lispyville-set-key-theme)
 
   (lispyville--define-key 'normal (kbd "M-J") #'evil-multiedit-match-and-next)
-  (lispyville--define-key 'normal (kbd "M-K") #'evil-multiedit-match-and-prev))
+  (lispyville--define-key 'normal (kbd "M-K") #'evil-multiedit-match-and-prev)
+  
+  (define-key key-translation-map (kbd "ö") nil)
+  (define-key key-translation-map (kbd "ä") nil)
+  
+  (lispyville--define-key 'normal ",eb" 'cider-eval-buffer)
+  (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
+  (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)
+  (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
+  ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
+  ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
+  (lispyville--define-key 'insert (kbd "ö") 'lispy-braces)
+  (lispyville--define-key 'insert (kbd "ä") 'lispy-brackets)
+  (lispyville--define-key 'normal (kbd "ö") 'lispyville-next-opening)
+  (lispyville--define-key 'normal (kbd "C-ö") 'lispyville-previous-opening)
+  (lispyville--define-key 'normal (kbd "ä") 'lispyville-next-closing)
+  (lispyville--define-key 'normal (kbd "C-ä") 'lispyville-previous-closing)
+  (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
+  (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
+  
+  (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
+  (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
+  )
 
 (use-package undo-fu)
 
@@ -272,8 +302,14 @@
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
+   '(clj-refactor which-key company-box company-quickhelp evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
  '(read-process-output-max 1048576 t)
+ '(safe-local-variable-values
+   '((eval lispyville--define-key 'normal
+           (kbd ",ir")
+           (lambda nil
+             (interactive)
+             (cider-nrepl-sync-request:eval "(user/reset)")))))
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
  '(tramp-completion-reread-directory-timeout 0)

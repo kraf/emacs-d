@@ -82,4 +82,4 @@
 ;; (winring-initialize)
 ;; (setq winring-show-names t)
 
-(global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "M-w") 'ace-window)

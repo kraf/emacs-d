@@ -18,6 +18,9 @@
 
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
 
+(setq avy-all-windows nil)
+(setq avy-word-punc-regexp nil)
+
 ;; NORMAL MODE
 (define-key evil-normal-state-map ",w" 'save-buffer)
 (define-key evil-normal-state-map ",q" 'evil-delete-buffer)
@@ -25,7 +28,10 @@
 (define-key evil-normal-state-map "K" 'evil-previous-line)
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 ;; (define-key evil-normal-state-map ",e" 'er/expand-region)
-(define-key evil-normal-state-map ",e" 'flycheck-next-error)
+;; (define-key evil-normal-state-map ",e" 'flycheck-next-error)
+(define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
+(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
+(define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
 
 ;; GIT
 (define-key evil-normal-state-map ",gs" 'magit-status)
@@ -41,14 +47,14 @@
 (define-key evil-normal-state-map ",lt" 'lsp-treemacs-symbols)
 (define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
-(define-key evil-normal-state-map ",lh" 'lsp-describe-thing-at-point)
 (define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
+(define-key evil-normal-state-map ",lr" 'lsp-clojure-add-missing-libspec)
 (define-key evil-normal-state-map "gd" 'lsp-find-definition)
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
 
 ;; Multiple cursors
-(define-key evil-normal-state-map "\C-d" 'mc/mark-next-like-this)
-(define-key evil-normal-state-map ",mp" 'mc/mark-previous-like-this)
+(define-key evil-normal-state-map "\C-d" 'mc/mark-next-like-this-word)
+(define-key evil-normal-state-map ",mp" 'mc/mark-previous-like-this-word)
 (define-key evil-normal-state-map ",ma" 'mc/mark-all-like-this)
 (define-key evil-visual-state-map "\C-d" 'mc/mark-next-like-this)
 (define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
@@ -69,7 +75,6 @@
 
 ;; VISUAL MODE
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map ",e" 'er/expand-region)
 (define-key evil-visual-state-map ",a" 'align-regexp)
 (define-key evil-visual-state-map ",." 'company-complete)
 (define-key evil-visual-state-map "P" (lambda ()

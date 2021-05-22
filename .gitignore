@@ -28,3 +28,4 @@ irony/
 /.cache/
 /.lsp-session-v1
 /.mc-lists.el
+/workspace

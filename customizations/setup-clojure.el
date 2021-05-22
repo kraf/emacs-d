@@ -12,10 +12,6 @@
 ;; (setq flycheck-clj-kondo-edn-executable (executable-find "clj-kondo"))
 ;; (setq flycheck-clj-kondo-cljc-executable (executable-find "clj-kondo"))
 
-;; This is useful for working with camel-case tokens, like names of
-;; Java classes (e.g. JavaClassName)
-(add-hook 'clojure-mode-hook 'subword-mode)
-
 ;; A little more syntax highlighting
 (require 'clojure-mode-extra-font-locking)
 
@@ -37,6 +33,7 @@
   (highlight-parentheses-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))
+  (clj-refactor-mode)
 
   (lsp)
   (lispy-mode)
@@ -45,19 +42,6 @@
                clojurescript-mode
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  
-  (define-key key-translation-map (kbd "ö") nil)
-  (define-key key-translation-map (kbd "ä") nil)
-  
-  (evil-local-set-key 'normal ",eb" 'cider-eval-buffer)
-  (evil-local-set-key 'normal ",ef" 'cider-eval-defun-at-point)
-  (evil-local-set-key 'normal ",ee" 'cider-eval-last-sexp)
-  (evil-local-set-key 'insert (kbd "M-n") 'lispy-forward)
-  (evil-local-set-key 'insert (kbd "M-p") 'lispy-backward)
-  (evil-local-set-key 'insert (kbd "ö") 'lispy-braces)
-  (evil-local-set-key 'insert (kbd "ä") 'lispy-brackets)
-  (evil-local-set-key 'insert (kbd "M-ä") 'lispy-wrap-braces)
-  (evil-local-set-key 'insert (kbd "M-ö") 'lispy-wrap-brackets)
   
   (setq clojure-indent-style 'align-arguments
         clojure-align-forms-automatically t))
@@ -100,7 +84,7 @@
   ;; Wrap when navigating history.
   (cider-repl-wrap-history t)
 
+  (local-set-key (kbd "C-c C-e") 'cider-eval-sexp-at-point)
+
   :config
-  (add-hook 'cider-repl-mode-hook (lambda ()
-                                    (evil-insert-state)
-                                    (cider-turn-on-eldoc-mode))))
+  (add-hook 'cider-repl-mode-hook 'evil-insert-state))
