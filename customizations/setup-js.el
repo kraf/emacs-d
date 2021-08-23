@@ -5,7 +5,7 @@
 
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.s?css$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.sass$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
@@ -85,3 +85,18 @@
 
 (add-hook 'scss-mode-hook (lambda ()
                             (prettier-js-mode)))
+
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.tsx?$"
+  :custom
+  (lsp))
+
+(use-package tree-sitter :ensure t)
+(use-package tree-sitter-langs :ensure t)
+(use-package prettier-js :ensure t :hook (typescript-mode))
+
+;; couldn't make it work with `use-package`, plain elisp instead
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+(add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)

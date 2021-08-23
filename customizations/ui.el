@@ -32,7 +32,7 @@
 ;; (load-theme 'tomorrow-night-bright t)
 
 (if (display-graphic-p)
-    (load-theme 'cyberpunk t)
+    (load-theme 'vscode-dark-plus t)
   (load-theme 'tango-dark t))
 (load-theme 'tramp t)
 
