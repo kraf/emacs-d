@@ -86,17 +86,22 @@
 (add-hook 'scss-mode-hook (lambda ()
                             (prettier-js-mode)))
 
+;; FIXME: this is not working, why?!?
 (use-package typescript-mode
   :ensure t
   :mode "\\.tsx?$"
-  :custom
-  (lsp))
+  :hook
+  ((typescript-mode . (lambda ()
+                        (lsp)
+                        (tree-sitter-hl-mode)))))
 
 (use-package tree-sitter :ensure t)
 (use-package tree-sitter-langs :ensure t)
 (use-package prettier-js :ensure t :hook (typescript-mode))
 
 ;; couldn't make it work with `use-package`, plain elisp instead
-(require 'tree-sitter)
-(require 'tree-sitter-langs)
-(add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)
+;; (require 'tree-sitter)
+;; (require 'tree-sitter-langs)
+;; (add-hook 'typescript-mode-hook (lambda ()
+;;                                   (tree-sitter-hl-mode)
+;;                                   (lsp)))

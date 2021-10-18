@@ -306,7 +306,7 @@
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(vscode-dark-plus-theme monokai-theme dracula-theme rainbow-mode gruvbox-theme tree-sitter tree-sitter-langs clj-refactor which-key company-box company-quickhelp evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
+   '(kubernetes typescript vscode-dark-plus-theme monokai-theme dracula-theme rainbow-mode gruvbox-theme tree-sitter tree-sitter-langs clj-refactor which-key company-box company-quickhelp evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
  '(read-process-output-max 1048576 t)
  '(safe-local-variable-values
    '((eval lispyville--define-key 'normal

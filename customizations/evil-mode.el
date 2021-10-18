@@ -98,7 +98,6 @@
 (setq evil-symbol-word-search 'symbol)
 
 (add-to-list 'evil-emacs-state-modes 'eshell-mode)
-(add-to-list 'evil-emacs-state-modes 'dired-mode)
 
 (use-package evil-owl
 	   :custom
