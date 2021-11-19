@@ -31,9 +31,10 @@
 (add-to-list 'load-path "~/.emacs.d/themes")
 ;; (load-theme 'tomorrow-night-bright t)
 
-(if (display-graphic-p)
-    (load-theme 'vscode-dark-plus t)
-  (load-theme 'tango-dark t))
+;; (if (display-graphic-p)
+;;     (load-theme 'vscode-dark-plus t)
+;;   (load-theme 'tango-dark t))
+(load-theme 'vscode-dark-plus t)
 (load-theme 'tramp t)
 
 ;; increase font size for better readability

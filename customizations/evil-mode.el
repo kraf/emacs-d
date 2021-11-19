@@ -3,6 +3,7 @@
 (require 'evil-nerd-commenter)
 ;; (require 'evil-magit)
 (require 'evil-collection)
+(require 'treemacs-evil)
 (require 'company)
 (require 'undo-fu)
 

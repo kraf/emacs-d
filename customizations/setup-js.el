@@ -72,6 +72,7 @@
             (setq-local sgml-basic-offset 2)
             (setq-local js2-basic-offset 2)
 
+            (add-node-modules-path)
             (prettier-js-mode)
             (lsp)
             ;; FIXME temporary until lsp-eslint works again
@@ -81,9 +82,11 @@
             (setq-local company-backends '(company-capf))))
 
 (add-hook 'css-mode-hook (lambda ()
+                           (add-node-modules-path)
                            (prettier-js-mode)))
 
 (add-hook 'scss-mode-hook (lambda ()
+                            (add-node-modules-path)
                             (prettier-js-mode)))
 
 ;; FIXME: this is not working, why?!?
@@ -93,11 +96,13 @@
   :hook
   ((typescript-mode . (lambda ()
                         (lsp)
-                        (tree-sitter-hl-mode)))))
+                        (tree-sitter-hl-mode)
+                        (add-node-modules-path)
+                        (prettier-js-mode)))))
 
 (use-package tree-sitter :ensure t)
 (use-package tree-sitter-langs :ensure t)
-(use-package prettier-js :ensure t :hook (typescript-mode))
+;; (use-package prettier-js :ensure t :hook (typescript-mode))
 
 ;; couldn't make it work with `use-package`, plain elisp instead
 ;; (require 'tree-sitter)
