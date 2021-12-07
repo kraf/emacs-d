@@ -95,6 +95,7 @@
   :mode "\\.tsx?$"
   :hook
   ((typescript-mode . (lambda ()
+                        (setq typescript-indent-level 2)
                         (lsp)
                         (tree-sitter-hl-mode)
                         (add-node-modules-path)

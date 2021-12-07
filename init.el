@@ -47,6 +47,7 @@
      smex
 
      exec-path-from-shell
+     add-node-modules-path
 
      ag
     
@@ -201,6 +202,9 @@
   (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
   (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)
   (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
+  
+  (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
+  (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
   ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
   (lispyville--define-key 'insert (kbd "ö") 'lispy-braces)
@@ -211,6 +215,10 @@
   (lispyville--define-key 'normal (kbd "C-ä") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
+  
+  (lispyville--define-key 'normal ",ir" (lambda ()
+                                          (interactive)
+                                          (cider-interactive-eval "(user/reset)")))
   
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
@@ -310,7 +318,8 @@
    '(treemacs-evil add-node-modules-path kubernetes typescript vscode-dark-plus-theme monokai-theme dracula-theme rainbow-mode gruvbox-theme tree-sitter tree-sitter-langs clj-refactor which-key company-box company-quickhelp evil-cleverparens zprint-mode npm-mode browse-at-remote egg-timer yaml-mode flymake-eslint restclient git-timemachine typescript-mode rjsx-mode multiple-cursors yasnippet ranger dired-git-info tramp-theme cyberpunk-theme treemacs rainbow-delimiters projectile flycheck prettier-js web-mode ido-vertical-mode flx-ido company-posframe company git-gutter-fringe+ evil-magit evil-matchit evil-collection evil-owl evil-nerd-commenter evil-surround evil ag exec-path-from-shell smex ido-completing-read+ cider clojure-mode-extra-font-locking clojure-mode paredit use-package))
  '(read-process-output-max 1048576 t)
  '(safe-local-variable-values
-   '((eval lispyville--define-key 'normal
+   '((cider-refresh-before-fn . "user/reset")
+     (eval lispyville--define-key 'normal
            (kbd ",ir")
            (lambda nil
              (interactive)

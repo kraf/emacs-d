@@ -33,10 +33,11 @@
   (highlight-parentheses-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))
-  (clj-refactor-mode)
+  ;; (clj-refactor-mode)
 
   (lsp)
   (lispy-mode)
+  (lispyville-mode)
   (dolist (m '(clojure-mode
                clojurec-mode
                clojurescript-mode
