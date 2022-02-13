@@ -201,6 +201,8 @@
   (lispyville--define-key 'normal ",eb" 'cider-eval-buffer)
   (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
   (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)
+  (lispyville--define-key 'normal ",en" 'cider-eval-ns-form)
+  (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
   (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
   
   (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
@@ -215,6 +217,9 @@
   (lispyville--define-key 'normal (kbd "C-ä") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
+
+  (define-key lispy-mode-map-lispy "[" nil)
+  (define-key lispy-mode-map-lispy "]" nil)
   
   (lispyville--define-key 'normal ",ir" (lambda ()
                                           (interactive)
