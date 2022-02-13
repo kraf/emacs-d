@@ -43,6 +43,11 @@
 ;;         "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
 ;;         "--stdio"))
 
+(defun my/ensure-curly-square-shortcut ()
+  (define-key key-translation-map (kbd "ö") (kbd "{"))
+  (define-key key-translation-map (kbd "ä") (kbd "["))
+  )
+
 (add-hook 'web-mode-hook
           (lambda ()
             (flycheck-mode)
@@ -71,6 +76,8 @@
             
             (setq-local sgml-basic-offset 2)
             (setq-local js2-basic-offset 2)
+            
+            (my/ensure-curly-square-shortcut)
 
             (add-node-modules-path)
             (prettier-js-mode)
@@ -98,6 +105,7 @@
                         (setq typescript-indent-level 2)
                         (lsp)
                         (tree-sitter-hl-mode)
+                        (my/ensure-curly-square-shortcut)
                         (add-node-modules-path)
                         (prettier-js-mode)))))
 
