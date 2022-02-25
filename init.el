@@ -37,6 +37,7 @@
      clojure-mode
      clojure-mode-extra-font-locking
      cider
+     clj-refactor
      zprint-mode
 
      ido-completing-read+
@@ -91,11 +92,12 @@
      ;; jedi
 
      ;; edit html tags like sexps
-     tagedit
+     ;; tagedit
+     
      magit
 
      ;; themes
-     cyberpunk-theme
+     ;; cyberpunk-theme
      tramp-theme
      vscode-dark-plus-theme
     

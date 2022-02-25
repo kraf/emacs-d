@@ -35,7 +35,7 @@
   ;; (define-clojure-indent (facts 1))
   ;; (clj-refactor-mode)
 
-  (lsp)
+  ;; (lsp)
   (lispy-mode)
   (lispyville-mode)
   (dolist (m '(clojure-mode
