@@ -212,12 +212,16 @@
   (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
   (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
   
+  (lispyville--define-key 'normal ",lc" 'lispy-clone)
+  
   (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
   (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
   ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
   (lispyville--define-key 'insert (kbd "ö") 'lispy-braces)
+  (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "ä") 'lispy-brackets)
+  (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
   (lispyville--define-key 'normal (kbd "ö") 'lispyville-next-opening)
   (lispyville--define-key 'normal (kbd "C-ö") 'lispyville-previous-opening)
   (lispyville--define-key 'normal (kbd "ä") 'lispyville-next-closing)

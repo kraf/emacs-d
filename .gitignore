@@ -29,3 +29,5 @@ irony/
 /.lsp-session-v1
 /.mc-lists.el
 /workspace
+/eln-cache/
+/projects

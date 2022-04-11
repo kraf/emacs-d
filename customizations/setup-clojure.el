@@ -29,7 +29,7 @@
   ;; (smartparens-strict-mode)
   ;; (evil-cleverparens-mode)
   (multiple-cursors-mode)
-  (zprint-mode)
+  ;; (zprint-mode)
   (highlight-parentheses-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))
