@@ -80,3 +80,9 @@
 
 (setq split-height-threshold nil)
 (setq split-width-threshold 140)
+
+(require 'treemacs)
+(add-hook 'treemacs-mode-hook
+          (lambda ()
+            (face-remap-add-relative 'default :family "Ubuntu" :height 140)
+            (treemacs-resize-icons 20)))

@@ -52,7 +52,7 @@
 
      ag
     
-     undo-fu
+     ;; undo-fu
 
      magit
     
@@ -98,13 +98,12 @@
 
      ;; themes
      ;; cyberpunk-theme
-     tramp-theme
+     ;; tramp-theme
      vscode-dark-plus-theme
     
      ;; LSP
      lsp-mode
      ;; lsp-ui
-     ;; company-lsp
      lsp-treemacs
 
      tree-sitter
@@ -113,8 +112,8 @@
      dired-git-info
      ranger
     
-     yasnippet
-     yasnippet-snippets
+     ;; yasnippet
+     ;; yasnippet-snippets
      multiple-cursors
 
      which-key))
@@ -231,16 +230,17 @@
 
   (define-key lispy-mode-map-lispy "[" nil)
   (define-key lispy-mode-map-lispy "]" nil)
-  
+
   (lispyville--define-key 'normal ",ir" (lambda ()
                                           (interactive)
                                           (cider-interactive-eval "(user/reset)")))
-  
+
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
   )
 
-(use-package undo-fu)
+;; (use-package undo-fu)
+
 
 ;;;;
 ;; Customization

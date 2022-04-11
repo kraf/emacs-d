@@ -49,7 +49,8 @@
 (define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
 (define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
-(define-key evil-normal-state-map ",lr" 'lsp-clojure-add-missing-libspec)
+(define-key evil-normal-state-map ",ll" 'lsp-clojure-add-missing-libspec)
+(define-key evil-normal-state-map ",lr" 'lsp-find-references)
 (define-key evil-normal-state-map "gd" 'lsp-find-definition)
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
 
@@ -61,7 +62,7 @@
 (define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
 (define-key evil-visual-state-map ",ma" 'mc/mark-all-like-this)
 
-(define-key evil-normal-state-map ",ff" 'treemacs)
+(define-key evil-normal-state-map ",ff" 'treemacs-select-window)
 (define-key evil-normal-state-map ",fr" 'ranger)
 
 (define-key evil-normal-state-map "\C-w\C-w" 'tear-off-window)

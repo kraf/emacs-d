@@ -114,8 +114,8 @@
 ;; (global-set-key (kbd "A-ß") (kbd "\\"))
 ;; (global-set-key (kbd "A-q") (kbd "@"))
 
-(require 'yasnippet)
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
 
 (require 'multiple-cursors)
 (setq mc/always-repeat-command 1)
