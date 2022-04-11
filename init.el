@@ -52,7 +52,7 @@
 
      ag
     
-     ;; undo-fu
+     undo-fu
 
      magit
     
