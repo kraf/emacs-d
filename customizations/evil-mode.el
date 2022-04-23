@@ -31,8 +31,9 @@
 ;; (define-key evil-normal-state-map ",e" 'er/expand-region)
 ;; (define-key evil-normal-state-map ",e" 'flycheck-next-error)
 (define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
-(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
+(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-0)
 (define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
+(define-key evil-normal-state-map ",zz" 'zoom-window-zoom)
 
 ;; GIT
 (define-key evil-normal-state-map ",gs" 'magit-status)
@@ -62,8 +63,10 @@
 (define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
 (define-key evil-visual-state-map ",ma" 'mc/mark-all-like-this)
 
+(define-key evil-normal-state-map ",rli" 'cljr-introduce-let)
+(define-key evil-normal-state-map ",rle" 'cljr-expand-let)
+
 (define-key evil-normal-state-map ",ff" 'treemacs-select-window)
-(define-key evil-normal-state-map ",fr" 'ranger)
 
 (define-key evil-normal-state-map "\C-w\C-w" 'tear-off-window)
 

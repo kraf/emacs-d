@@ -120,3 +120,5 @@
 (require 'multiple-cursors)
 (setq mc/always-repeat-command 1)
 (setq mc/always-run-for-all 1)
+
+(add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))

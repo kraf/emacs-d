@@ -98,7 +98,7 @@
 
      ;; themes
      ;; cyberpunk-theme
-     ;; tramp-theme
+     tramp-theme
      vscode-dark-plus-theme
     
      ;; LSP
@@ -110,13 +110,14 @@
      tree-sitter-langs
 
      dired-git-info
-     ranger
     
      ;; yasnippet
      ;; yasnippet-snippets
      multiple-cursors
 
-     which-key))
+     which-key
+
+     zoom-window))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -211,7 +212,8 @@
   (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
   (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
   
-  (lispyville--define-key 'normal ",lc" 'lispy-clone)
+  (lispyville--define-key 'normal ",jc" 'lispy-clone)
+  (lispyville--define-key 'normal ",jd" 'evil-collection-lispy-delete-then-next-sexp)
   
   (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
   (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
@@ -227,6 +229,10 @@
   (lispyville--define-key 'normal (kbd "C-ä") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
+  (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
+  
+  (lispyville--define-key 'normal "gd" 'lsp-find-definition)
+  (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
 
   (define-key lispy-mode-map-lispy "[" nil)
   (define-key lispy-mode-map-lispy "]" nil)
