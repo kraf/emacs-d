@@ -39,8 +39,9 @@
 (define-key evil-normal-state-map ",gs" 'magit-status)
 (define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
 (define-key evil-normal-state-map ",gx" 'git-gutter+-revert-hunk)
-(define-key evil-normal-state-map ",gm" 'magit-blame-addition)
+(define-key evil-normal-state-map ",gb" 'magit-blame-addition)
 (define-key evil-normal-state-map ",gt" 'git-timemachine)
+(define-key evil-normal-state-map ",gl" 'git-link)
 
 ;; LSP
 ;; (define-key evil-normal-state-map ",ld" 'lsp-ui-peek-find-definitions)
@@ -113,3 +114,17 @@
 	   (evil-owl-mode))
 
 (use-package evil-matchit)
+
+;; Ctrl-g should act like Esc
+
+(defun evil-keyboard-quit ()
+  "Keyboard quit and force normal state."
+  (interactive)
+  (and evil-mode (evil-force-normal-state))
+  (keyboard-quit))
+
+(define-key evil-normal-state-map   (kbd "C-g") #'evil-keyboard-quit)
+(define-key evil-motion-state-map   (kbd "C-g") #'evil-keyboard-quit)
+(define-key evil-insert-state-map   (kbd "C-g") #'evil-keyboard-quit)
+(define-key evil-window-map         (kbd "C-g") #'evil-keyboard-quit)
+(define-key evil-operator-state-map (kbd "C-g") #'evil-keyboard-quit)

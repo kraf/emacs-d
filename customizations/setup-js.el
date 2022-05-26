@@ -10,7 +10,7 @@
 (add-to-list 'auto-mode-alist '("\\.sass$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
 
 ;; (js2r-add-keybindings-with-prefix "C-c C-m")
 
@@ -53,19 +53,20 @@
             (flycheck-mode)
             (electric-pair-mode)
             (electric-indent-mode)
-            (npm-mode)
+            ;; (npm-mode)
 
             (setq-local electric-pair-pairs
                         (append electric-pair-pairs '((?' . ?') (?` . ?`))))
             
-            (when (string-match "tsx?" (file-name-extension buffer-file-name))
-              (prettier-js-mode)
-              (lsp)
-              (flycheck-add-next-checker 'lsp 'javascript-eslint)
-              ;; FIXME temporary until lsp-eslint works again
-              ;; (flymake-mode)
-              ;; (flymake-eslint-enable)
-              (setq-local company-backends '(company-capf)))))
+            ;; (when (string-match "tsx?" (file-name-extension buffer-file-name))
+            ;;   (prettier-js-mode)
+            ;;   (lsp)
+            ;;   (flycheck-add-next-checker 'lsp 'javascript-eslint)
+            ;;   ;; FIXME temporary until lsp-eslint works again
+            ;;   ;; (flymake-mode)
+            ;;   ;; (flymake-eslint-enable)
+            ;;   (setq-local company-backends '(company-capf)))
+            ))
 
 (add-hook 'rjsx-mode-hook
           (lambda ()

@@ -67,6 +67,7 @@
     
      git-gutter-fringe+
      git-timemachine
+     git-link
      browse-at-remote
 
      company
@@ -114,6 +115,7 @@
      ;; yasnippet
      ;; yasnippet-snippets
      multiple-cursors
+     expand-region
 
      which-key
 
@@ -212,9 +214,6 @@
   (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
   (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
   
-  (lispyville--define-key 'normal ",jc" 'lispy-clone)
-  (lispyville--define-key 'normal ",jd" 'evil-collection-lispy-delete-then-next-sexp)
-  
   (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
   (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
   ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
@@ -230,6 +229,7 @@
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
   (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
+  (lispyville--define-key 'normal (kbd "C-z") 'er/expand-region)
   
   (lispyville--define-key 'normal "gd" 'lsp-find-definition)
   (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
@@ -237,9 +237,14 @@
   (define-key lispy-mode-map-lispy "[" nil)
   (define-key lispy-mode-map-lispy "]" nil)
 
-  (lispyville--define-key 'normal ",ir" (lambda ()
+  (lispyville--define-key 'normal ",jc" 'lispy-clone)
+  (lispyville--define-key 'normal ",jd" 'evil-collection-lispy-delete-then-next-sexp)
+  (lispyville--define-key 'normal ",jr" (lambda ()
                                           (interactive)
                                           (cider-interactive-eval "(user/reset)")))
+  (lispyville--define-key 'normal ",jf" (lambda ()
+                                          (interactive)
+                                          (cider-interactive-eval "(clojure.tools.namespace.repl/refresh)")))
 
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
