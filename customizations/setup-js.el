@@ -3,6 +3,9 @@
 ;; (require 'js2-refactor)
 (require 'web-mode)
 
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
@@ -11,6 +14,7 @@
 (add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
 ;; (js2r-add-keybindings-with-prefix "C-c C-m")
 
@@ -53,11 +57,14 @@
             (flycheck-mode)
             (electric-pair-mode)
             (electric-indent-mode)
-            ;; (npm-mode)
+            (emmet-mode)
 
             (setq-local electric-pair-pairs
                         (append electric-pair-pairs '((?' . ?') (?` . ?`))))
             
+            (when (string-match "vue" (file-name-extension buffer-file-name))
+              (prettier-js-mode)
+              (lsp))
             ;; (when (string-match "tsx?" (file-name-extension buffer-file-name))
             ;;   (prettier-js-mode)
             ;;   (lsp)

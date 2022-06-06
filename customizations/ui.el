@@ -13,6 +13,15 @@
 (global-linum-mode)
 (column-number-mode 1)
 
+(doom-modeline-mode)
+(setq doom-modeline-minor-modes t)
+(setq doom-modeline-height 23)
+
+(minions-mode)
+
+(eyebrowse-mode)
+(eyebrowse-setup-opinionated-keys)
+
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
 ;; (when (fboundp 'tool-bar-mode)

@@ -122,3 +122,5 @@
 (setq mc/always-run-for-all 1)
 
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
+
+(setq projectile-create-missing-test-files t)

@@ -29,6 +29,9 @@
 ;; Add in your own as you wish:
 (defvar my-packages
   '(use-package
+
+     doom-modeline
+     minions
      
      paredit
      smartparens
@@ -76,6 +79,7 @@
      ido-vertical-mode
 
      web-mode
+     emmet-mode
      js2-mode
      rjsx-mode
      prettier-js
