@@ -54,7 +54,6 @@
 
 (add-hook 'web-mode-hook
           (lambda ()
-            (flycheck-mode)
             (electric-pair-mode)
             (electric-indent-mode)
             (emmet-mode)
@@ -63,6 +62,7 @@
                         (append electric-pair-pairs '((?' . ?') (?` . ?`))))
             
             (when (string-match "vue" (file-name-extension buffer-file-name))
+              (flycheck-mode)
               (prettier-js-mode)
               (lsp))
             ;; (when (string-match "tsx?" (file-name-extension buffer-file-name))
