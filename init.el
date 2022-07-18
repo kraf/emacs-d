@@ -32,7 +32,7 @@
 
      doom-modeline
      minions
-     
+
      paredit
      smartparens
      lispy
@@ -43,22 +43,27 @@
      clj-refactor
      zprint-mode
 
-     ido-completing-read+
+     ;; ido-completing-read+
+     ;; flx-ido
+     ;; ido-vertical-mode
 
      ;; Enhances M-x to allow easier execution of commands. Provides
      ;; a filterable list of possible commands in the minibuffer
      ;; http://www.emacswiki.org/emacs/Smex
-     smex
+     ;; smex
+
+     ;; Enhance ivy
+     flx
+     counsel
+     swiper
 
      exec-path-from-shell
      add-node-modules-path
 
      ag
-    
+
      undo-fu
 
-     magit
-    
      evil
      evil-surround
      evil-nerd-commenter
@@ -67,7 +72,7 @@
      evil-matchit
      lispyville
      avy
-    
+
      git-gutter-fringe+
      git-timemachine
      git-link
@@ -75,8 +80,6 @@
 
      company
      company-posframe
-     flx-ido
-     ido-vertical-mode
 
      web-mode
      emmet-mode
@@ -87,7 +90,7 @@
 
      flycheck
      flycheck-clj-kondo
-    
+
      projectile
      rainbow-delimiters
 
@@ -98,14 +101,14 @@
 
      ;; edit html tags like sexps
      ;; tagedit
-     
+
      magit
 
      ;; themes
      ;; cyberpunk-theme
      tramp-theme
      vscode-dark-plus-theme
-    
+
      ;; LSP
      lsp-mode
      ;; lsp-ui
@@ -115,7 +118,7 @@
      tree-sitter-langs
 
      dired-git-info
-    
+
      ;; yasnippet
      ;; yasnippet-snippets
      multiple-cursors
@@ -207,34 +210,25 @@
 
   (lispyville--define-key 'normal (kbd "M-J") #'evil-multiedit-match-and-next)
   (lispyville--define-key 'normal (kbd "M-K") #'evil-multiedit-match-and-prev)
-  
+
   (define-key key-translation-map (kbd "ö") nil)
   (define-key key-translation-map (kbd "ä") nil)
-  
-  (lispyville--define-key 'normal ",eb" 'cider-eval-buffer)
-  (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
-  (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)
-  (lispyville--define-key 'normal ",en" 'cider-eval-ns-form)
-  (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
-  (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl)
-  
+
   (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
   (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
   ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
-  (lispyville--define-key 'insert (kbd "ö") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
-  (lispyville--define-key 'insert (kbd "ä") 'lispy-brackets)
   (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
-  (lispyville--define-key 'normal (kbd "ö") 'lispyville-next-opening)
-  (lispyville--define-key 'normal (kbd "C-ö") 'lispyville-previous-opening)
-  (lispyville--define-key 'normal (kbd "ä") 'lispyville-next-closing)
-  (lispyville--define-key 'normal (kbd "C-ä") 'lispyville-previous-closing)
+  (lispyville--define-key 'normal (kbd "[") 'lispyville-next-opening)
+  (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
+  (lispyville--define-key 'normal (kbd "]") 'lispyville-next-closing)
+  (lispyville--define-key 'normal (kbd "}") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
   (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
   (lispyville--define-key 'normal (kbd "C-z") 'er/expand-region)
-  
+
   (lispyville--define-key 'normal "gd" 'lsp-find-definition)
   (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
 

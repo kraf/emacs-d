@@ -37,20 +37,20 @@
 
   (lispy-mode)
   (lispyville-mode)
-  
+
   (lsp)
   ;; Fix clojure-lsp conflicts with other modes
   (setq cljr-add-ns-to-blank-clj-files nil)
   (setq cider-eldoc-display-for-symbol-at-point nil)
   (setq lsp-keep-workspace-alive nil)
-  
+
   ;; (setq completion-at-point-functions '(cider-complete-at-point))
   (dolist (m '(clojure-mode
                clojurec-mode
                clojurescript-mode
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  
+
   (setq clojure-indent-style 'align-arguments
         clojure-align-forms-automatically t))
 
@@ -73,6 +73,7 @@
 ;;;;
 
 (use-package cider
+  :after (lispyville)
   :commands cider
   :custom
   (cider-repl-display-help-banner nil)
@@ -81,7 +82,7 @@
   (cider-repl-use-pretty-printing t)
   (cider-repl-buffer-size-limit 100000)
   (cider-repl-result-prefix ";; => ")
-  
+
   ;; When there's a cider error, show its buffer and switch to it
   (cider-show-error-buffer t)
   (cider-auto-select-error-buffer t)
@@ -95,4 +96,11 @@
   (local-set-key (kbd "C-c C-e") 'cider-eval-sexp-at-point)
 
   :config
-  (add-hook 'cider-repl-mode-hook 'evil-insert-state))
+  (add-hook 'cider-repl-mode-hook 'evil-insert-state)
+
+  (lispyville--define-key 'normal ",eb" 'cider-eval-buffer)
+  (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
+  (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)
+  (lispyville--define-key 'normal ",en" 'cider-eval-ns-form)
+  (lispyville--define-key 'normal ",el" 'cider-eval-list-at-point)
+  (lispyville--define-key 'visual ",ee" 'cider-insert-region-in-repl))

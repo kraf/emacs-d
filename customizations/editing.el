@@ -20,10 +20,10 @@
 
 ;; Interactive search key bindings. By default, C-s runs
 ;; isearch-forward, so this swaps the bindings.
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
+;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; (global-set-key (kbd "C-M-s") 'isearch-forward)
+;; (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; Don't use hard tabs
 (setq-default indent-tabs-mode nil)
@@ -90,7 +90,7 @@
 
 (require 'paredit)
 (add-hook 'paredit-mode-hook
-          (lambda () 
+          (lambda ()
             (local-set-key (kbd "C-ä") 'paredit-forward-slurp-sexp)
             (local-set-key (kbd "C-Ä") 'paredit-forward-barf-sexp)
             (local-set-key (kbd "C-ö") 'paredit-backward-slurp-sexp)
@@ -124,3 +124,5 @@
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
 (setq projectile-create-missing-test-files t)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)

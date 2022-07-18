@@ -64,8 +64,8 @@
 (define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
 (define-key evil-visual-state-map ",ma" 'mc/mark-all-like-this)
 
-(define-key evil-normal-state-map ",rli" 'cljr-introduce-let)
-(define-key evil-normal-state-map ",rle" 'cljr-expand-let)
+(define-key evil-normal-state-map ",ril" 'cljr-introduce-let)
+(define-key evil-normal-state-map ",rel" 'cljr-expand-let)
 
 (define-key evil-normal-state-map ",ff" 'treemacs-select-window)
 
