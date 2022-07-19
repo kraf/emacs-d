@@ -103,6 +103,7 @@
      ;; tagedit
 
      magit
+     forge
 
      ;; themes
      ;; cyberpunk-theme
@@ -125,6 +126,9 @@
      expand-region
 
      which-key
+
+     doom-modeline
+     eyebrowse
 
      zoom-window))
 
