@@ -41,16 +41,16 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
 
-;; (setq lsp-eslint-server-command 
-;;       '("node" 
-;;         ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js" 
-;;         "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" 
+;; (setq lsp-eslint-server-command
+;;       '("node"
+;;         ;; "/home/filip/src/github/vscode-eslint/server/out/eslintServer.js"
+;;         "/home/filip/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js"
 ;;         "--stdio"))
 
-(defun my/ensure-curly-square-shortcut ()
-  (define-key key-translation-map (kbd "ö") (kbd "{"))
-  (define-key key-translation-map (kbd "ä") (kbd "["))
-  )
+;; (defun my/ensure-curly-square-shortcut ()
+;;   (define-key key-translation-map (kbd "ö") (kbd "{"))
+;;   (define-key key-translation-map (kbd "ä") (kbd "["))
+;;   )
 
 (add-hook 'web-mode-hook
           (lambda ()
@@ -60,7 +60,7 @@
 
             (setq-local electric-pair-pairs
                         (append electric-pair-pairs '((?' . ?') (?` . ?`))))
-            
+
             (when (string-match "vue" (file-name-extension buffer-file-name))
               (flycheck-mode)
               (prettier-js-mode)
@@ -81,19 +81,17 @@
             (electric-pair-mode)
             (electric-indent-mode)
             (npm-mode)
-            
+
             (setq-local sgml-basic-offset 2)
             (setq-local js2-basic-offset 2)
-            
-            (my/ensure-curly-square-shortcut)
+            (setq-local js2-strict-missing-semi-warning nil)
+
+            ;; (my/ensure-curly-square-shortcut)
 
             (add-node-modules-path)
             (prettier-js-mode)
             (lsp)
-            ;; FIXME temporary until lsp-eslint works again
-            ;; (flymake-mode)
-            ;; (flymake-eslint-enable)
-            (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
+            ;; (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
             (setq-local company-backends '(company-capf))))
 
 (add-hook 'css-mode-hook (lambda ()
@@ -111,10 +109,10 @@
   :hook
   ((typescript-mode . (lambda ()
                         (setq typescript-indent-level 2)
+                        (add-node-modules-path)
                         (lsp)
                         (tree-sitter-hl-mode)
-                        (my/ensure-curly-square-shortcut)
-                        (add-node-modules-path)
+                        ;; (my/ensure-curly-square-shortcut)
                         (prettier-js-mode)))))
 
 (use-package tree-sitter :ensure t)
