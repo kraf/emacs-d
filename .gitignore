@@ -31,3 +31,5 @@ irony/
 /workspace
 /eln-cache/
 /projects
+/smex-items
+/forge*.sql

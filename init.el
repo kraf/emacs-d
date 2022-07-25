@@ -233,6 +233,8 @@
   (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
   (lispyville--define-key 'normal (kbd "C-z") 'er/expand-region)
 
+  (lispyville--define-key 'insert (kbd "C-y") 'lispy-yank)
+
   (lispyville--define-key 'normal "gd" 'lsp-find-definition)
   (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
 
