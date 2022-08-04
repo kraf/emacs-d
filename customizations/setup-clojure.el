@@ -98,6 +98,9 @@
   :config
   (add-hook 'cider-repl-mode-hook 'evil-insert-state)
 
+  (add-hook 'cider-mode-hook 'cider-company-enable-fuzzy-completion)
+  (add-hook 'cider-repl-mode-hook 'cider-company-enable-fuzzy-completion)
+
   (lispyville--define-key 'normal ",eb" 'cider-eval-buffer)
   (lispyville--define-key 'normal ",ef" 'cider-eval-defun-at-point)
   (lispyville--define-key 'normal ",ee" 'cider-eval-sexp-at-point)

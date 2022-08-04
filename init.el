@@ -120,7 +120,7 @@
 
      dired-git-info
 
-     ;; yasnippet
+     yasnippet
      ;; yasnippet-snippets
      multiple-cursors
      expand-region

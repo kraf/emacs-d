@@ -74,28 +74,6 @@
 (setq electric-indent-mode nil)
 (setq require-final-newline t)
 
-(defun toggle-filmode ()
-  (interactive)
-  (if (get 'toggle-filmode 'state)
-      (progn
-        (define-key key-translation-map (kbd "ö") (kbd "ö"))
-        (define-key key-translation-map (kbd "ä") (kbd "ä"))
-        (put 'toggle-filmode 'state nil))
-    (progn
-      (define-key key-translation-map (kbd "ö") (kbd "{"))
-      (define-key key-translation-map (kbd "ä") (kbd "["))
-      (put 'toggle-filmode 'state t))))
-
-(toggle-filmode)
-
-(require 'paredit)
-(add-hook 'paredit-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-ä") 'paredit-forward-slurp-sexp)
-            (local-set-key (kbd "C-Ä") 'paredit-forward-barf-sexp)
-            (local-set-key (kbd "C-ö") 'paredit-backward-slurp-sexp)
-            (local-set-key (kbd "C-Ö") 'paredit-backward-barf-sexp)))
-
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (define-key global-map (kbd "C-.") 'company-complete)
@@ -114,8 +92,8 @@
 ;; (global-set-key (kbd "A-ß") (kbd "\\"))
 ;; (global-set-key (kbd "A-q") (kbd "@"))
 
-;; (require 'yasnippet)
-;; (yas-global-mode 1)
+(require 'yasnippet)
+(yas-global-mode 1)
 
 (require 'multiple-cursors)
 (setq mc/always-repeat-command 1)
