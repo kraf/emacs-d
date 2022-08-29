@@ -60,6 +60,9 @@
 (define-key evil-normal-state-map "gd" 'lsp-find-definition)
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
 
+;; Swiper
+(define-key evil-normal-state-map "/" 'swiper)
+
 ;; Multiple cursors
 (define-key evil-normal-state-map "\C-d" 'mc/mark-next-like-this-word)
 (define-key evil-normal-state-map ",mp" 'mc/mark-previous-like-this-word)

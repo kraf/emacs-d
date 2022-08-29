@@ -291,6 +291,7 @@
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
+(load "setup-ruby.el")
 ;; (load "setup-go.el")
 ;; (load "setup-c.el")
 ;; (load "setup-python.el")
