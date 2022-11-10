@@ -25,15 +25,13 @@
      ("(\\(background?\\)"
       (1 font-lock-keyword-face))))
   ;; (flycheck-mode)
-  ;; (smartparens-mode)
-  ;; (smartparens-strict-mode)
-  ;; (evil-cleverparens-mode)
   (multiple-cursors-mode)
   ;; (zprint-mode)
   (highlight-parentheses-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))
   ;; (clj-refactor-mode)
+  (setq evil-symbol-word-search t)
 
   (lispy-mode)
   (lispyville-mode)

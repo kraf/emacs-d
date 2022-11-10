@@ -1,6 +1,7 @@
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
+(require 'evil-mc)
 ;; (require 'evil-magit)
 (require 'evil-collection)
 (require 'treemacs-evil)
@@ -14,12 +15,14 @@
 (evil-collection-init)
 
 (global-evil-surround-mode 1)
+(global-evil-mc-mode 1)
 
 (global-set-key (kbd "Ö") (kbd "<escape>"))
 
-(defalias #'forward-evil-word #'forward-evil-symbol)
+;; (defalias #'forward-evil-word #'forward-evil-symbol)
+
 ;; make evil-search-word look for symbol rather than word boundaries
-(setq-default evil-symbol-word-search t)
+;; (setq-default evil-symbol-word-search t)
 
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
 
@@ -61,15 +64,11 @@
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
 
 ;; Swiper
-(define-key evil-normal-state-map "/" 'swiper)
+;; (define-key evil-normal-state-map "/" 'swiper)
 
 ;; Multiple cursors
-(define-key evil-normal-state-map "\C-d" 'mc/mark-next-like-this-word)
-(define-key evil-normal-state-map ",mp" 'mc/mark-previous-like-this-word)
-(define-key evil-normal-state-map ",ma" 'mc/mark-all-like-this)
-(define-key evil-visual-state-map "\C-d" 'mc/mark-next-like-this)
-(define-key evil-visual-state-map ",mp" 'mc/mark-previous-like-this)
-(define-key evil-visual-state-map ",ma" 'mc/mark-all-like-this)
+(define-key evil-normal-state-map "\C-d" 'evil-mc-make-and-goto-next-match)
+(define-key evil-visual-state-map "\C-d" 'evil-mc-make-and-goto-next-match)
 
 (define-key evil-normal-state-map ",ril" 'cljr-introduce-let)
 (define-key evil-normal-state-map ",rel" 'cljr-expand-let)
@@ -108,7 +107,7 @@
           (lambda ()
             (define-key evil-insert-state-map "\C-k" 'paredit-kill)))
 
-(setq evil-symbol-word-search 'symbol)
+;; (setq evil-symbol-word-search 'symbol)
 
 (add-to-list 'evil-emacs-state-modes 'eshell-mode)
 

@@ -54,25 +54,21 @@
 
 (add-hook 'web-mode-hook
           (lambda ()
+            (setq-local electric-pair-pairs
+                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+
             (electric-pair-mode)
             (electric-indent-mode)
             (emmet-mode)
 
-            (setq-local electric-pair-pairs
-                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+            (evil-matchit-mode)
 
             (when (string-match "vue" (file-name-extension buffer-file-name))
               (flycheck-mode)
               (prettier-js-mode)
-              (lsp))
-            ;; (when (string-match "tsx?" (file-name-extension buffer-file-name))
-            ;;   (prettier-js-mode)
-            ;;   (lsp)
-            ;;   (flycheck-add-next-checker 'lsp 'javascript-eslint)
-            ;;   ;; FIXME temporary until lsp-eslint works again
-            ;;   ;; (flymake-mode)
-            ;;   ;; (flymake-eslint-enable)
-            ;;   (setq-local company-backends '(company-capf)))
+              (setq lsp-disabled-clients '(volar-api volar-doc volar-html))
+              (lsp)
+              (flycheck-add-next-checker 'lsp 'javascript-eslint))
             ))
 
 (add-hook 'rjsx-mode-hook
@@ -81,16 +77,19 @@
             (electric-pair-mode)
             (electric-indent-mode)
             (npm-mode)
+            (evil-matchit-mode)
 
             (setq-local sgml-basic-offset 2)
             (setq-local js2-basic-offset 2)
             (setq-local js2-strict-missing-semi-warning nil)
+            (setq-local js2-strict-inconsistent-return-warning nil)
 
             ;; (my/ensure-curly-square-shortcut)
 
             (add-node-modules-path)
             (prettier-js-mode)
             (lsp)
+            (flycheck-add-next-checker 'lsp 'javascript-eslint)
             ;; (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
             (setq-local company-backends '(company-capf))))
 

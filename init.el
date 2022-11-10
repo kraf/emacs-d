@@ -34,7 +34,7 @@
      minions
 
      paredit
-     smartparens
+     ;; smartparens
      lispy
      highlight-parentheses
      clojure-mode
@@ -122,7 +122,7 @@
 
      yasnippet
      ;; yasnippet-snippets
-     multiple-cursors
+     evil-mc
      expand-region
 
      which-key
@@ -181,8 +181,8 @@
              :config
              (company-posframe-mode))
 
-(use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+;; (use-package smartparens
+;;   :hook (prog-mode . smartparens-mode))
 
 (use-package lispy
   :hook ((emacs-lisp-mode . lispy-mode)
@@ -224,10 +224,10 @@
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
   (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
-  (lispyville--define-key 'normal (kbd "[") 'lispyville-next-opening)
-  (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
-  (lispyville--define-key 'normal (kbd "]") 'lispyville-next-closing)
-  (lispyville--define-key 'normal (kbd "}") 'lispyville-previous-closing)
+  (lispyville--define-key 'normal (kbd "[") 'evil-backward-section-begin)
+  (lispyville--define-key 'normal (kbd "]") 'evil-forward-section-begin)
+  ;; (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
+  ;; (lispyville--define-key 'normal (kbd "}") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
   (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
