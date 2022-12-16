@@ -82,6 +82,8 @@
 ;; http://www.emacswiki.org/emacs/Smex
 ;; (setq smex-save-file (concat user-emacs-directory ".smex-items"))
 ;; (smex-initialize)
+
+(amx-mode)
 (global-set-key "\C-s" 'swiper)
 
 ;; projectile everywhere!

@@ -1,7 +1,6 @@
 (require 'evil)
 (require 'evil-surround)
 (require 'evil-nerd-commenter)
-(require 'evil-mc)
 ;; (require 'evil-magit)
 (require 'evil-collection)
 (require 'treemacs-evil)
@@ -15,7 +14,6 @@
 (evil-collection-init)
 
 (global-evil-surround-mode 1)
-(global-evil-mc-mode 1)
 
 (global-set-key (kbd "Ö") (kbd "<escape>"))
 
@@ -66,14 +64,10 @@
 ;; Swiper
 ;; (define-key evil-normal-state-map "/" 'swiper)
 
-;; Multiple cursors
-(define-key evil-normal-state-map "\C-d" 'evil-mc-make-and-goto-next-match)
-(define-key evil-visual-state-map "\C-d" 'evil-mc-make-and-goto-next-match)
-
 (define-key evil-normal-state-map ",ril" 'cljr-introduce-let)
 (define-key evil-normal-state-map ",rel" 'cljr-expand-let)
 
-(define-key evil-normal-state-map ",ff" 'treemacs-select-window)
+(define-key evil-normal-state-map ",f" 'treemacs-select-window)
 
 (define-key evil-normal-state-map "\C-w\C-w" 'tear-off-window)
 

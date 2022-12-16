@@ -49,8 +49,7 @@
 
      ;; Enhances M-x to allow easier execution of commands. Provides
      ;; a filterable list of possible commands in the minibuffer
-     ;; http://www.emacswiki.org/emacs/Smex
-     ;; smex
+     amx ;; previously smex
 
      ;; Enhance ivy
      flx
@@ -252,7 +251,9 @@
 
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
-  )
+
+  (lispyville--define-key 'normal "H" 'beginning-of-defun)
+  (lispyville--define-key 'normal "L" 'end-of-defun))
 
 ;; (use-package undo-fu)
 

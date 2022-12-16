@@ -36,6 +36,8 @@
   (lispy-mode)
   (lispyville-mode)
 
+  (prettify-symbols-mode)
+
   (lsp)
   ;; Fix clojure-lsp conflicts with other modes
   (setq cljr-add-ns-to-blank-clj-files nil)
@@ -50,7 +52,16 @@
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
 
   (setq clojure-indent-style 'align-arguments
-        clojure-align-forms-automatically t))
+        clojure-align-forms-automatically t)
+
+  (setq cider-format-code-options
+        '(
+          ("indents" (("plait" (("inner" 0)))
+                      ("match" (("inner" 0)))))
+          ))
+
+  (define-clojure-indent
+    (match 1)))
 
 
 

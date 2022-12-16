@@ -66,8 +66,8 @@
             (when (string-match "vue" (file-name-extension buffer-file-name))
               (flycheck-mode)
               (prettier-js-mode)
-              (setq lsp-disabled-clients '(volar-api volar-doc volar-html))
-              (lsp)
+              ;; (setq lsp-disabled-clients '(volar-api volar-doc volar-html))
+              ;; (lsp)
               (flycheck-add-next-checker 'lsp 'javascript-eslint))
             ))
 
@@ -88,6 +88,7 @@
 
             (add-node-modules-path)
             (prettier-js-mode)
+            (setq lsp-disabled-clients '(vue-semantic-server))
             (lsp)
             (flycheck-add-next-checker 'lsp 'javascript-eslint)
             ;; (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
