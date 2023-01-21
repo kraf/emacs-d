@@ -121,7 +121,7 @@
 
      yasnippet
      ;; yasnippet-snippets
-     evil-mc
+     ;; evil-mc
      expand-region
 
      which-key
@@ -211,9 +211,6 @@
   (lispy-set-key-theme '(lispy c-digits))
   (lispyville-set-key-theme)
 
-  (lispyville--define-key 'normal (kbd "M-J") #'evil-multiedit-match-and-next)
-  (lispyville--define-key 'normal (kbd "M-K") #'evil-multiedit-match-and-prev)
-
   (define-key key-translation-map (kbd "ö") nil)
   (define-key key-translation-map (kbd "ä") nil)
 
@@ -230,7 +227,6 @@
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
   (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
   (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
-  (lispyville--define-key 'normal (kbd "C-z") 'er/expand-region)
 
   (lispyville--define-key 'insert (kbd "C-y") 'lispy-yank)
 

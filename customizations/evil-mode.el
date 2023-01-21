@@ -40,6 +40,11 @@
 (define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
 (define-key evil-normal-state-map ",zz" 'zoom-window-zoom)
 
+;; Expand
+(define-key evil-insert-state-map "\C-z" 'er/expand-region)
+(define-key evil-normal-state-map "\C-z" 'er/expand-region)
+(define-key evil-visual-state-map "\C-z" 'er/expand-region)
+
 ;; GIT
 (define-key evil-normal-state-map ",gs" 'magit-status)
 (define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
@@ -60,6 +65,9 @@
 (define-key evil-normal-state-map ",lr" 'lsp-find-references)
 (define-key evil-normal-state-map "gd" 'lsp-find-definition)
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
+
+(define-key evil-normal-state-map ",=" 'lsp-format-buffer)
+(define-key evil-visual-state-map ",=" 'lsp-format-region)
 
 ;; Swiper
 ;; (define-key evil-normal-state-map "/" 'swiper)

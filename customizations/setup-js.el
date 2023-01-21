@@ -66,7 +66,7 @@
             (when (string-match "vue" (file-name-extension buffer-file-name))
               (flycheck-mode)
               (prettier-js-mode)
-              ;; (setq lsp-disabled-clients '(volar-api volar-doc volar-html))
+              ;; (setq lsp-enabled-clients '(volar-api volar-doc volar-html))
               ;; (lsp)
               (flycheck-add-next-checker 'lsp 'javascript-eslint))
             ))
