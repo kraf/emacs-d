@@ -4,3 +4,10 @@
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-envs
    '("PATH")))
+
+;; asdf
+(add-to-list 'load-path "~/.emacs.d/vendor")
+
+(require 'asdf)
+
+(asdf-enable)

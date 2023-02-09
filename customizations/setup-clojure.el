@@ -32,17 +32,19 @@
   ;; (define-clojure-indent (facts 1))
   ;; (clj-refactor-mode)
   (setq evil-symbol-word-search t)
+  (setq cljr-insert-newline-after-require nil)
 
   (lispy-mode)
   (lispyville-mode)
 
   (prettify-symbols-mode)
 
-  (lsp)
   ;; Fix clojure-lsp conflicts with other modes
   (setq cljr-add-ns-to-blank-clj-files nil)
   (setq cider-eldoc-display-for-symbol-at-point nil)
   (setq lsp-keep-workspace-alive nil)
+
+  (lsp)
 
   ;; (setq completion-at-point-functions '(cider-complete-at-point))
   (dolist (m '(clojure-mode

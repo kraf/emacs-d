@@ -16,6 +16,7 @@
 (global-evil-surround-mode 1)
 
 (global-set-key (kbd "Ö") (kbd "<escape>"))
+(global-set-key (kbd "C-z") 'er/expand-region)
 
 ;; (defalias #'forward-evil-word #'forward-evil-symbol)
 
@@ -36,7 +37,7 @@
 ;; (define-key evil-normal-state-map ",e" 'er/expand-region)
 ;; (define-key evil-normal-state-map ",e" 'flycheck-next-error)
 (define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
-(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-0)
+(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
 (define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
 (define-key evil-normal-state-map ",zz" 'zoom-window-zoom)
 

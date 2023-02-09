@@ -54,8 +54,10 @@
 
 (add-hook 'web-mode-hook
           (lambda ()
-            (setq-local electric-pair-pairs
-                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+            (add-node-modules-path)
+
+            ;; (setq-local electric-pair-pairs
+            ;;             (append electric-pair-pairs '((?' . ?') (?` . ?`))))
 
             (electric-pair-mode)
             (electric-indent-mode)
@@ -68,7 +70,8 @@
               (prettier-js-mode)
               ;; (setq lsp-enabled-clients '(volar-api volar-doc volar-html))
               ;; (lsp)
-              (flycheck-add-next-checker 'lsp 'javascript-eslint))
+              ;; (flycheck-add-next-checker 'lsp 'javascript-eslint)
+              )
             ))
 
 (add-hook 'rjsx-mode-hook

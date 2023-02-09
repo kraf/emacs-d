@@ -191,7 +191,6 @@
   :custom
   (lispy-close-quotes-at-end-p t)
   :config
-  (add-hook 'lispy-mode-hook #'turn-off-smartparens-mode)
   (define-key lispy-mode-map-lispy "[" nil)
   (define-key lispy-mode-map-lispy "]" nil))
 
