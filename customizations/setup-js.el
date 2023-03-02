@@ -56,8 +56,8 @@
           (lambda ()
             (add-node-modules-path)
 
-            ;; (setq-local electric-pair-pairs
-            ;;             (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+            (setq-local electric-pair-pairs
+                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
 
             (electric-pair-mode)
             (electric-indent-mode)
@@ -68,11 +68,12 @@
             (when (string-match "vue" (file-name-extension buffer-file-name))
               (flycheck-mode)
               (prettier-js-mode)
-              ;; (setq lsp-enabled-clients '(volar-api volar-doc volar-html))
+              (setq-local lsp-enabled-clients '(vue-semantic-server))
+              ;; (setq-local lsp-file-watch-ignored-directories '())
               ;; (lsp)
-              ;; (flycheck-add-next-checker 'lsp 'javascript-eslint)
+              (flycheck-add-next-checker 'lsp 'javascript-eslint)
               )
-            ))
+          ))
 
 (add-hook 'rjsx-mode-hook
           (lambda ()
@@ -91,7 +92,7 @@
 
             (add-node-modules-path)
             (prettier-js-mode)
-            (setq lsp-disabled-clients '(vue-semantic-server))
+            (setq-local lsp-disabled-clients '(vue-semantic-server))
             (lsp)
             (flycheck-add-next-checker 'lsp 'javascript-eslint)
             ;; (flycheck-add-next-checker 'lsp '(t . javascript-eslint))

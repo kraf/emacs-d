@@ -5,6 +5,7 @@
 ;; Enable paredit for Clojure
 ;; (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 (require 'cider)
+(require 'zprint)
 
 ;; (require 'flycheck-clj-kondo)
 ;; (setq flycheck-clj-kondo-clj-executable (executable-find "clj-kondo"))
@@ -26,7 +27,7 @@
       (1 font-lock-keyword-face))))
   ;; (flycheck-mode)
   (multiple-cursors-mode)
-  ;; (zprint-mode)
+  (zprint-mode)
   (highlight-parentheses-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))

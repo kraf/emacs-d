@@ -41,7 +41,6 @@
      clojure-mode-extra-font-locking
      cider
      clj-refactor
-     zprint-mode
 
      ;; ido-completing-read+
      ;; flx-ido
