@@ -10,6 +10,9 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
+;; Vendor
+(add-to-list 'load-path "~/.emacs.d/vendor")
+
 ;; Load and activate emacs packages. Do this first so that the
 ;; packages are loaded before you start trying to modify them.
 ;; This also sets the load path.
@@ -248,6 +251,44 @@
 
   (lispyville--define-key 'normal "H" 'beginning-of-defun)
   (lispyville--define-key 'normal "L" 'end-of-defun))
+
+;; (use-package codeium
+;;     ;; if you use straight
+;;     ;; :straight '(:type git :host github :repo "Exafunction/codeium.el")
+;;     ;; otherwise, make sure that the codeium.el file is on load-path
+
+;;     :init
+;;     ;; use globally
+;;     (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
+;;     ;; or on a hook
+;;     ;; (add-hook 'python-mode-hook
+;;     ;;     (lambda ()
+;;     ;;         (setq-local completion-at-point-functions '(codeium-completion-at-point))))
+
+;;     ;; if you want multiple completion backends, use cape (https://github.com/minad/cape):
+;;     ;; (add-hook 'python-mode-hook
+;;     ;;     (lambda ()
+;;     ;;         (setq-local completion-at-point-functions
+;;     ;;             (list (cape-super-capf #'codeium-completion-at-point #'lsp-completion-at-point)))))
+;;     ;; an async company-backend is coming soon!
+
+;;     ;; codeium-completion-at-point is autoloaded, but you can
+;;     ;; optionally set a timer, which might speed up things as the
+;;     ;; codeium local language server takes ~0.2s to start up
+;;     ;; (add-hook 'emacs-startup-hook
+;;     ;;  (lambda () (run-with-timer 0.1 nil #'codeium-init)))
+
+;;     ;; :defer t ;; lazy loading, if you want
+;;     :config
+;;     (setq use-dialog-box nil) ;; do not use popup boxes
+
+;;     ;; if you don't want to use customize to save the api-key
+;;     ;; (setq codeium/metadata/api_key "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+
+;;     ;; get codeium status in the modeline
+;;     (setq codeium-mode-line-enable
+;;         (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
+;;     (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t))
 
 ;; (use-package undo-fu)
 

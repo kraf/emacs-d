@@ -9,6 +9,8 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(cljr-libspec-whitelist
+   '("^cljsns" "^slingshot.test" "^monger.joda-time" "^monger.json" "^gomore-api.factories"))
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(company-backends '(company-capf))

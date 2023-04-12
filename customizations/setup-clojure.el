@@ -63,6 +63,8 @@
                       ("match" (("inner" 0)))))
           ))
 
+  ;; (setq-local completion-at-point-functions '(codeium-completion-at-point))
+
   (define-clojure-indent
     (match 1)))
 

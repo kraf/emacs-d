@@ -89,3 +89,6 @@
 
 (setq split-height-threshold nil)
 (setq split-width-threshold 140)
+
+(define-key global-map (kbd "C-x z") nil)
+(define-key global-map (kbd "C-x C-z") nil)
