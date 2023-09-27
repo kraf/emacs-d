@@ -45,6 +45,7 @@
   (setq cider-eldoc-display-for-symbol-at-point nil)
   (setq lsp-keep-workspace-alive nil)
 
+  (setq-local lsp-idle-delay 0.2)
   (lsp)
 
   ;; (setq completion-at-point-functions '(cider-complete-at-point))

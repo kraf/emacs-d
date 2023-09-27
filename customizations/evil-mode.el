@@ -5,11 +5,10 @@
 (require 'evil-collection)
 (require 'treemacs-evil)
 (require 'company)
-(require 'undo-fu)
 
 (evil-mode 1)
 
-(evil-set-undo-system 'undo-fu)
+(evil-set-undo-system 'undo-redo)
 
 (evil-collection-init)
 

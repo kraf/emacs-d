@@ -10,7 +10,7 @@
 
 ;; Show line numbers
 ;;(global-relative-line-numbers-mode)
-(global-linum-mode)
+(global-display-line-numbers-mode)
 (column-number-mode 1)
 
 (doom-modeline-mode)
@@ -44,7 +44,8 @@
 ;;     (load-theme 'vscode-dark-plus t)
 ;;   (load-theme 'tango-dark t))
 (load-theme 'vscode-dark-plus t)
-(load-theme 'tramp t)
+;; (load-theme 'tramp t)
+;; (load-theme 'twilight-bright)
 
 ;; increase font size for better readability
 

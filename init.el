@@ -63,8 +63,6 @@
 
      ag
 
-     undo-fu
-
      evil
      evil-surround
      evil-nerd-commenter
