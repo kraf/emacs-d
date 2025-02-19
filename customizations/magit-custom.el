@@ -13,5 +13,5 @@
 (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
 
 (with-eval-after-load 'magit
-  (require 'forge)
+  ;; (require 'forge)
   (define-key evil-visual-state-map "s" 'magit-stage))

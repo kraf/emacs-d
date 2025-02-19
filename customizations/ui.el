@@ -93,3 +93,5 @@
 
 (define-key global-map (kbd "C-x z") nil)
 (define-key global-map (kbd "C-x C-z") nil)
+
+(global-diff-hl-mode)

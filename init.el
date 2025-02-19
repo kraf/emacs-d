@@ -1,12 +1,17 @@
+;; Performance
+(setq gc-cons-threshold (* 100 1000 1000))
+(setq read-process-output-max (* 1024 1024))
+
 ;;;;
 ;; Packages
 ;;;;
-(setq gc-cons-threshold (* 100 1000 1000))
 
 (load-file "~/.emacs.d/customizations/local-before.el")
 
 ;; Define package repositories
 (require 'package)
+(add-to-list 'package-archives
+             '("gnu" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
@@ -69,13 +74,14 @@
      evil-owl
      evil-collection
      evil-matchit
+     evil-mc
      lispyville
      avy
 
-     git-gutter-fringe+
      git-timemachine
      git-link
      browse-at-remote
+     diff-hl
 
      company
      company-posframe
@@ -102,7 +108,6 @@
      ;; tagedit
 
      magit
-     forge
 
      ;; themes
      ;; cyberpunk-theme
@@ -135,11 +140,11 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-(use-package git-gutter-fringe+
-             :config
-             (global-git-gutter+-mode)
-             ;; (git-gutter-fr+-minimal)
-             )
+;; (use-package git-gutter-fringe+
+;;              :config
+;;              (global-git-gutter+-mode)
+;;              ;; (git-gutter-fr+-minimal)
+;;              )
 
 (use-package which-key
              :config
@@ -154,6 +159,7 @@
   (lsp-prefer-flymake nil)           ; Use flycheck instead of flymake
   (lsp-file-watch-threshold 2000)
   (lsp-headerline-breadcrumb-enable nil)
+  (lsp-disabled-clients '(ruby-ls)) ;; ruby-ls is solargraph, ruby-lsp-ls works better
   (read-process-output-max (* 1024 1024))
   :config
   (remove-hook 'lsp-configure-hook 'lsp-headerline-breadcrumb-mode))
@@ -219,6 +225,7 @@
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
   (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
+  (lispyville--define-key 'insert (kbd "]") 'evil-forward-section-begin)
   (lispyville--define-key 'normal (kbd "[") 'evil-backward-section-begin)
   (lispyville--define-key 'normal (kbd "]") 'evil-forward-section-begin)
   ;; (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
@@ -243,6 +250,9 @@
   (lispyville--define-key 'normal ",jf" (lambda ()
                                           (interactive)
                                           (cider-interactive-eval "(clojure.tools.namespace.repl/refresh)")))
+  (lispyville--define-key 'normal ",jt" (lambda ()
+                                          (interactive)
+                                          (cider-interactive-eval "(require 'vlaaad.reveal)(vlaaad.reveal/tap-log)")))
 
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))

@@ -5,8 +5,8 @@
 ;;                      (company-dabbrev-code company-keywords)
 ;;                      company-oddmuse company-dabbrev)))
 (setq company-backends
-      '((company-files          ; files & directory
-         company-keywords       ; keywords
+      '((;; company-files ;; disabled because sometimes really slow
+         company-keywords
          company-capf
          company-yasnippet
          company-abbrev

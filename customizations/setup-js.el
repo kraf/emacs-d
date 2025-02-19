@@ -6,6 +6,11 @@
 (require 'tree-sitter)
 (require 'tree-sitter-langs)
 
+;; Create a derived mode from web-mode
+(define-derived-mode vue-mode web-mode "VueJS"
+ "Extend web-mode to .vue files")
+(provide 'vue-mode)
+
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
@@ -14,7 +19,8 @@
 (add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
 ;; (js2r-add-keybindings-with-prefix "C-c C-m")
 
@@ -65,14 +71,38 @@
 
             (evil-matchit-mode)
 
-            (when (string-match "vue" (file-name-extension buffer-file-name))
-              (flycheck-mode)
-              (prettier-js-mode)
-              ;; (setq-local lsp-enabled-clients '(vue-semantic-server))
-              ;; (lsp)
-              (flycheck-add-next-checker 'lsp 'javascript-eslint)
-              )
+            ;; (when (string-match "vue" (file-name-extension buffer-file-name))
+            ;;   (flycheck-mode)
+            ;;   (prettier-js-mode)
+            ;;   ;; (setq-local lsp-enabled-clients '(vue-semantic-server))
+            ;;   ;; (lsp)
+            ;;   (flycheck-add-next-checker 'lsp 'javascript-eslint)
+            ;;   )
           ))
+
+(add-hook 'vue-mode-hook
+          (lambda ()
+            (add-node-modules-path)
+
+            (setq-local electric-pair-pairs
+                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+
+            (electric-pair-mode)
+            (electric-indent-mode)
+            (emmet-mode)
+
+            (evil-matchit-mode)
+
+            (flycheck-mode)
+            (prettier-js-mode)
+
+            (lsp-dependency 'typescript
+                            '(:npm :package "typescript"
+                                   :path "tsserver"))
+
+            (lsp)
+            (flycheck-add-next-checker 'lsp 'javascript-eslint)
+            ))
 
 (add-hook 'rjsx-mode-hook
           (lambda ()

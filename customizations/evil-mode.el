@@ -35,6 +35,7 @@
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 ;; (define-key evil-normal-state-map ",e" 'er/expand-region)
 ;; (define-key evil-normal-state-map ",e" 'flycheck-next-error)
+(define-key evil-normal-state-map ",." 'evil-avy-goto-char)
 (define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
 (define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
 (define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
@@ -90,7 +91,7 @@
 ;; VISUAL MODE
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-visual-state-map ",a" 'align-regexp)
-(define-key evil-visual-state-map ",." 'company-complete)
+;; (define-key evil-visual-state-map ",." 'company-complete)
 (define-key evil-visual-state-map "P" (lambda ()
                                         (interactive)
                                         (evil-paste-from-register ?0)))

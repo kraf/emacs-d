@@ -27,3 +27,5 @@
      (concat "(nextjournal.clerk/show! \"" filename "\")"))))
 
 ;; (define-key clojure-mode-map (kbd "<M-return>") 'clerk-show)
+
+;; (tramp-enable-method "distrobox")

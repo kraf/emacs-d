@@ -29,9 +29,9 @@
   (multiple-cursors-mode)
   (zprint-mode)
   (highlight-parentheses-mode)
+  (clj-refactor-mode)
   ;; (define-clojure-indent (fact 1))
   ;; (define-clojure-indent (facts 1))
-  ;; (clj-refactor-mode)
   (setq evil-symbol-word-search t)
   (setq cljr-insert-newline-after-require nil)
 

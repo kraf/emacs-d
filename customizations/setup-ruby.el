@@ -3,4 +3,5 @@
             (evil-matchit-mode)
             (electric-pair-mode)
             (electric-indent-mode)
-            (lsp)))
+            ;; (lsp)
+            ))
