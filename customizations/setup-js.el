@@ -14,10 +14,10 @@
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.s?css$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.sass$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.s?css$" . scss-mode))
+(add-to-list 'auto-mode-alist '("\\.sass$" . scss-mode))
+(add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
@@ -103,10 +103,13 @@
             (lsp)
             (flycheck-add-next-checker 'lsp 'javascript-eslint)
             ))
+(defun my-rjsx-mode-eslint-setup ()
+  "Disable Flycheck in rjsx-mode if eslint executable or config is missing."
+  )
+
 
 (add-hook 'rjsx-mode-hook
           (lambda ()
-            (flycheck-mode)
             (electric-pair-mode)
             (electric-indent-mode)
             (npm-mode)
@@ -123,8 +126,21 @@
             (prettier-js-mode)
             (setq-local lsp-disabled-clients '(vue-semantic-server))
             (lsp)
-            (flycheck-add-next-checker 'lsp 'javascript-eslint)
-            ;; (flycheck-add-next-checker 'lsp '(t . javascript-eslint))
+
+            (let ((eslint-configs '("eslint.config.js"
+                                    ".eslintrc.js"
+                                    ".eslintrc.cjs"
+                                    ".eslintrc.yaml"
+                                    ".eslintrc.yml"
+                                    ".eslintrc.json"
+                                    ".eslintrc")))
+              (if (and (executable-find "eslint")
+                           (some (lambda (file) (locate-dominating-file default-directory file))
+                                 eslint-configs))
+                (flycheck-mode)
+                (flycheck-add-next-checker 'lsp 'javascript-eslint)))
+
+
             (setq-local company-backends '(company-capf))))
 
 (add-hook 'css-mode-hook (lambda ()
@@ -134,19 +150,6 @@
 (add-hook 'scss-mode-hook (lambda ()
                             (add-node-modules-path)
                             (prettier-js-mode)))
-
-;; FIXME: this is not working, why?!?
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.tsx?$"
-  :hook
-  ((typescript-mode . (lambda ()
-                        (setq typescript-indent-level 2)
-                        (add-node-modules-path)
-                        (lsp)
-                        (tree-sitter-hl-mode)
-                        ;; (my/ensure-curly-square-shortcut)
-                        (prettier-js-mode)))))
 
 (use-package tree-sitter :ensure t)
 (use-package tree-sitter-langs :ensure t)

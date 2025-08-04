@@ -18,6 +18,8 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
+(global-auto-revert-mode 1)
+
 ;; Interactive search key bindings. By default, C-s runs
 ;; isearch-forward, so this swaps the bindings.
 ;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -82,15 +84,6 @@
 ;; (setq mac-command-modifier 'meta)
 (setq mac-right-option-modifier nil)
 (setq mac-right-command-modifier nil)
-
-;; (global-set-key (kbd "A-7") (kbd "{"))
-;; (global-set-key (kbd "A-8") (kbd "["))
-;; (global-set-key (kbd "A-9") (kbd "]"))
-;; (global-set-key (kbd "A-0") (kbd "}"))
-;; (global-set-key (kbd "A-<") (kbd "|"))
-;; (global-set-key (kbd "A-+") (kbd "~"))
-;; (global-set-key (kbd "A-ß") (kbd "\\"))
-;; (global-set-key (kbd "A-q") (kbd "@"))
 
 (require 'yasnippet)
 (yas-global-mode 1)
