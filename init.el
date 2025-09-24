@@ -1,33 +1,32 @@
-;; Performance
-(setq gc-cons-threshold (* 100 1000 1000))
-(setq read-process-output-max (* 1024 1024))
+;; Straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)  ;; every use-package is straight-managed by default
+(require 'use-package)
 
 ;;;;
 ;; Packages
-;;;;
+;;;
 
 (load-file "~/.emacs.d/customizations/local-before.el")
 
-;; Define package repositories
-(require 'package)
-(add-to-list 'package-archives
-             '("gnu" . "https://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-
 ;; Vendor
 (add-to-list 'load-path "~/.emacs.d/vendor")
-
-;; Load and activate emacs packages. Do this first so that the
-;; packages are loaded before you start trying to modify them.
-;; This also sets the load path.
-(package-initialize)
-
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
-  (package-refresh-contents))
 
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
@@ -112,15 +111,12 @@
      ;; themes
      ;; cyberpunk-theme
      tramp-theme
-     vscode-dark-plus-theme
+     ;; vscode-dark-plus-theme
 
      ;; LSP
      lsp-mode
      ;; lsp-ui
      lsp-treemacs
-
-     tree-sitter
-     tree-sitter-langs
 
      dired-git-info
 
@@ -131,14 +127,12 @@
 
      which-key
 
-     doom-modeline
      eyebrowse
 
      zoom-window))
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(dolist (pkg my-packages)
+  (straight-use-package pkg))
 
 ;; (use-package git-gutter-fringe+
 ;;              :config
@@ -225,9 +219,8 @@
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
   (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
-  (lispyville--define-key 'insert (kbd "]") 'evil-forward-section-begin)
-  (lispyville--define-key 'normal (kbd "[") 'evil-backward-section-begin)
-  (lispyville--define-key 'normal (kbd "]") 'evil-forward-section-begin)
+  (lispyville--define-key 'normal (kbd "[") 'evil-forward-section-begin)
+  (lispyville--define-key 'normal (kbd "]") 'evil-backward-section-begin)
   ;; (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
   ;; (lispyville--define-key 'normal (kbd "}") 'lispyville-previous-closing)
   (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
@@ -241,6 +234,8 @@
 
   (define-key lispy-mode-map-lispy "[" nil)
   (define-key lispy-mode-map-lispy "]" nil)
+  (define-key lispy-mode-map-lispy "{" nil)
+  (define-key lispy-mode-map-lispy "}" nil)
 
   (lispyville--define-key 'normal ",jc" 'lispy-clone)
   (lispyville--define-key 'normal ",jd" 'evil-collection-lispy-delete-then-next-sexp)
@@ -259,6 +254,12 @@
 
   (lispyville--define-key 'normal "H" 'beginning-of-defun)
   (lispyville--define-key 'normal "L" 'end-of-defun))
+
+(use-package treesit-auto
+  :ensure t
+  :straight t
+  :custom (treesit-auto-install 'prompt)
+  :config (global-treesit-auto-mode))
 
 ;; (use-package codeium
 ;;     ;; if you use straight

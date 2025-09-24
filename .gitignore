@@ -9,7 +9,7 @@ projectile.cache
 auto-save-list
 backups
 eshell/*
--eshell/alias
+!eshell/alias
 request/
 session*
 local.el
@@ -35,3 +35,6 @@ irony/
 /forge*.sql
 /amx-items
 /codeium/
+/tree-sitter/
+/straight/*
+!/straight/versions/

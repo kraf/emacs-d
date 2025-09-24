@@ -25,7 +25,10 @@
  '(company-tooltip-align-annotations t)
  '(company-tooltip-limit 14)
  '(custom-safe-themes
-   '("993aac313027a1d6e70d45b98e121492c1b00a0daa5a8629788ed7d523fe62c1"
+   '("fb83a50c80de36f23aea5919e50e1bccd565ca5bb646af95729dc8c5f926cbf3"
+     "c8b83e7692e77f3e2e46c08177b673da6e41b307805cd1982da9e2ea2e90e6d7"
+     "65057902bcd51d84e0e28036f4759295e08f57b1ba94b9ae10a8d5ffde5f154f"
+     "993aac313027a1d6e70d45b98e121492c1b00a0daa5a8629788ed7d523fe62c1"
      "03f28a4e25d3ce7e8826b0a67441826c744cbf47077fb5bc9ddb18afe115005f"
      "6c4c97a17fc7b6c8127df77252b2d694b74e917bab167e7d3b53c769a6abb6d6"
      "c4063322b5011829f7fdd7509979b5823e8eea2abf1fe5572ec4b7af1dd78519"
@@ -81,10 +84,11 @@
                            eyebrowse flx flycheck-clj-kondo git-link
                            git-timemachine highlight-parentheses
                            lispyville lsp-treemacs magit minions
-                           npm-mode prettier-js projectile
-                           rainbow-delimiters rjsx-mode tramp-theme
-                           tree-sitter-langs treemacs-evil
-                           vscode-dark-plus-theme web-mode zoom-window))
+                           monokai-pro-theme npm-mode prettier-js
+                           projectile rainbow-delimiters rjsx-mode
+                           tramp-theme treemacs-evil
+                           vscode-dark-plus-theme web-mode yaml-mode
+                           zoom-window))
  '(read-process-output-max 1048576 t)
  '(safe-local-variable-values
    '((cljr-favor-prefix-notation)
@@ -126,6 +130,7 @@
                                "/opt/bin" "/opt/sbin" "/opt/local/bin"
                                tramp-own-remote-path))
  '(tramp-verbose 2)
+ '(vscode-dark-plus-box-org-todo nil)
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

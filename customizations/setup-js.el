@@ -3,14 +3,6 @@
 ;; (require 'js2-refactor)
 (require 'web-mode)
 
-(require 'tree-sitter)
-(require 'tree-sitter-langs)
-
-;; Create a derived mode from web-mode
-(define-derived-mode vue-mode web-mode "VueJS"
- "Extend web-mode to .vue files")
-(provide 'vue-mode)
-
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
@@ -20,7 +12,7 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
 ;; (js2r-add-keybindings-with-prefix "C-c C-m")
 
@@ -58,54 +50,124 @@
 ;;   (define-key key-translation-map (kbd "ä") (kbd "["))
 ;;   )
 
-(add-hook 'web-mode-hook
-          (lambda ()
-            (add-node-modules-path)
+(require 'treesit)
 
-            (setq-local electric-pair-pairs
-                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+;; Where grammars live; Emacs will look here for libtree-sitter-*.so
+(add-to-list 'treesit-extra-load-path
+             (expand-file-name "tree-sitter" user-emacs-directory))
 
-            (electric-pair-mode)
-            (electric-indent-mode)
-            (emmet-mode)
+(setq treesit-language-source-alist
+      (append treesit-language-source-alist
+              '((vue        "https://github.com/ikatyang/tree-sitter-vue")
+                (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+                (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+                (css        "https://github.com/tree-sitter/tree-sitter-css")
+                (html       "https://github.com/tree-sitter/tree-sitter-html"))))
 
-            (evil-matchit-mode)
+;; Register Vue language server (Volar) with LSP mode
+(with-eval-after-load 'lsp-mode
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("vue-language-server" "--stdio"))
+                    :major-modes '(vue-ts-mode)
+                    :server-id 'volar
+                    :priority 1
+                    :initialization-options (lambda ()
+                                              (list :typescript (list :tsdk (concat (lsp-workspace-root) "/node_modules/typescript/lib"))))
+                    :notification-handlers (ht ("$/typescriptVersion" #'ignore)))))
 
-            ;; (when (string-match "vue" (file-name-extension buffer-file-name))
-            ;;   (flycheck-mode)
-            ;;   (prettier-js-mode)
-            ;;   ;; (setq-local lsp-enabled-clients '(vue-semantic-server))
-            ;;   ;; (lsp)
-            ;;   (flycheck-add-next-checker 'lsp 'javascript-eslint)
-            ;;   )
-          ))
+(use-package vue-ts-mode
+  :straight (vue-ts-mode :type git :host github :repo "8uff3r/vue-ts-mode")
+  :mode "\\.vue\\'"
+  :init
+  (setq vue-ts-mode-indent-offset 2) ;; 2 spaces; tweak to taste
+  :hook
+  ;; Recreate your old vue-mode-hook behavior here:
+  ((vue-ts-mode . my/vue-ts-mode-setup)
+   (vue-ts-mode . lsp-deferred)
+   (vue-ts-mode . add-node-modules-path))
+  :config
+  ;; Ensure Tree-sitter grammars can be installed/found
+  (require 'treesit)
+  (setq treesit-language-source-alist
+        (append treesit-language-source-alist
+                '((vue        "https://github.com/ikatyang/tree-sitter-vue")
+                  (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+                  (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+                  (css        "https://github.com/tree-sitter/tree-sitter-css")
+                  ;; optional, but nice to have in SFC templates:
+                  (html       "https://github.com/tree-sitter/tree-sitter-html"))))
+  ;; (Optional but harmless) Make sure Emacs searches this default install dir:
+  (add-to-list 'treesit-extra-load-path (expand-file-name "tree-sitter" user-emacs-directory)))
 
-(add-hook 'vue-mode-hook
-          (lambda ()
-            (add-node-modules-path)
+;; Let lsp-mode recognize vue-ts-mode buffers as "vue"
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(vue-ts-mode . "vue")))
 
-            (setq-local electric-pair-pairs
-                        (append electric-pair-pairs '((?' . ?') (?` . ?`))))
+;; Your per-buffer setup, mirroring the old vue-mode hook
+(defun my/vue-ts-mode-setup ()
+  "Local tweaks for Vue SFCs using vue-ts-mode."
+  ;; What you had before:
+  (electric-pair-local-mode 1)
+  (electric-indent-mode 1)
+  (emmet-mode 1)
+  (evil-matchit-mode 1)
+  (flycheck-mode 1)
+  (prettier-js-mode 1)
 
-            (electric-pair-mode)
-            (electric-indent-mode)
-            (emmet-mode)
+  ;; Prefer Prettier for formatting; avoid on-type LSP formatting jitter.
+  (setq-local lsp-enable-on-type-formatting nil)
+  (when (boundp 'lsp-enable-indentation)
+    (setq-local lsp-enable-indentation nil))
 
-            (evil-matchit-mode)
+  ;; Make sure eslint runs in .vue buffers (after LSP diagnostics).
+  ;; (This mirrors your previous: flycheck-add-next-checker 'lsp 'javascript-eslint)
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'vue-ts-mode)
+    (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
-            (flycheck-mode)
-            (prettier-js-mode)
+;; ;; Register Vue language server (Volar) with LSP mode
+;; (with-eval-after-load 'lsp-mode
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-stdio-connection '("vue-language-server" "--stdio"))
+;;                     :major-modes '(vue-mode)
+;;                     :server-id 'volar
+;;                     :priority 1
+;;                     :initialization-options (lambda ()
+;;                                               (list :typescript (list :tsdk (concat (lsp-workspace-root) "/node_modules/typescript/lib"))))
+;;                     :notification-handlers (ht ("$/typescriptVersion" #'ignore)))))
 
-            (lsp-dependency 'typescript
-                            '(:npm :package "typescript"
-                                   :path "tsserver"))
+;; (add-hook 'vue-mode-hook
+;;           (lambda ()
+;;             (add-node-modules-path)
 
-            (lsp)
-            (flycheck-add-next-checker 'lsp 'javascript-eslint)
-            ))
-(defun my-rjsx-mode-eslint-setup ()
-  "Disable Flycheck in rjsx-mode if eslint executable or config is missing."
-  )
+;;             ;; Basic modes without problematic electric-pair customization
+;;             (electric-pair-local-mode 1)
+;;             (electric-indent-mode)
+;;             (emmet-mode)
+;;             (evil-matchit-mode)
+;;             (flycheck-mode)
+;;             (prettier-js-mode)
+
+;;             ;; Start LSP for Vue files
+;;             (lsp)
+;;             (flycheck-add-next-checker 'lsp 'javascript-eslint)
+;;             ))
+;; (defun my-rjsx-mode-eslint-setup ()
+;;   "Disable Flycheck in rjsx-mode if eslint executable or config is missing."
+;;   )
+
+(use-package vue-ts-mode
+  :straight (vue-ts-mode :type git :host github :repo "8uff3r/vue-ts-mode")
+  :mode "\\.vue\\'"
+  :init
+  (setq vue-ts-mode-indent-offset 2)  ;; tweak if you like 2 vs 4
+  :hook ((vue-ts-mode . lsp-deferred)
+         (vue-ts-mode . add-node-modules-path)))
+
+;; Let lsp-mode recognize vue-ts-mode as "vue"
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(vue-ts-mode . "vue")))
+
 
 
 (add-hook 'rjsx-mode-hook
@@ -124,7 +186,6 @@
 
             (add-node-modules-path)
             (prettier-js-mode)
-            (setq-local lsp-disabled-clients '(vue-semantic-server))
             (lsp)
 
             (let ((eslint-configs '("eslint.config.js"
@@ -135,9 +196,9 @@
                                     ".eslintrc.json"
                                     ".eslintrc")))
               (if (and (executable-find "eslint")
-                           (some (lambda (file) (locate-dominating-file default-directory file))
-                                 eslint-configs))
-                (flycheck-mode)
+                       (some (lambda (file) (locate-dominating-file default-directory file))
+                             eslint-configs))
+                  (flycheck-mode)
                 (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
 
@@ -151,8 +212,6 @@
                             (add-node-modules-path)
                             (prettier-js-mode)))
 
-(use-package tree-sitter :ensure t)
-(use-package tree-sitter-langs :ensure t)
 ;; (use-package prettier-js :ensure t :hook (typescript-mode))
 
 ;; couldn't make it work with `use-package`, plain elisp instead

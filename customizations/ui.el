@@ -43,9 +43,20 @@
 ;; (if (display-graphic-p)
 ;;     (load-theme 'vscode-dark-plus t)
 ;;   (load-theme 'tango-dark t))
-(load-theme 'vscode-dark-plus t)
+;; (load-theme 'vscode-dark-plus t)
+;; (load-theme 'monokai-pro-spectrum t)
 ;; (load-theme 'tramp t)
 ;; (load-theme 'twilight-bright)
+
+(use-package vscode-dark-plus-theme
+  :straight (vscode-dark-plus-theme
+             :type git
+             :host github
+             :repo "Horrih/vscode-dark-plus-emacs-theme"
+             :branch "fix-box-todo-face"
+             :files ("vscode-dark-plus-theme.el"))
+  :config
+  (load-theme 'vscode-dark-plus t))
 
 ;; increase font size for better readability
 
