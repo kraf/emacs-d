@@ -353,3 +353,5 @@
 (setq custom-file (concat user-emacs-directory ".custom.el")) ; tell Customize to save customizations to ~/.emacs.d/.custom.el
 (ignore-errors                                                ; load customizations from ~/.emacs.d/.custom.el
   (load-file custom-file))
+
+(server-start)
