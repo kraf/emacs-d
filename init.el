@@ -261,6 +261,11 @@
   :custom (treesit-auto-install 'prompt)
   :config (global-treesit-auto-mode))
 
+(use-package mise
+  :ensure t
+  :straight t
+  :config (global-mise-mode))
+
 ;; (use-package codeium
 ;;     ;; if you use straight
 ;;     ;; :straight '(:type git :host github :repo "Exafunction/codeium.el")
