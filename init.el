@@ -359,4 +359,4 @@
 (ignore-errors                                                ; load customizations from ~/.emacs.d/.custom.el
   (load-file custom-file))
 
-(server-start)
+(unless (server-running-p) (server-start))
