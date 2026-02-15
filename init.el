@@ -191,8 +191,13 @@
   :custom
   (lispy-close-quotes-at-end-p t)
   :config
+  (lispy-set-key-theme '())
+  (lispyville-set-key-theme)
+
   (define-key lispy-mode-map-lispy "[" nil)
-  (define-key lispy-mode-map-lispy "]" nil))
+  (define-key lispy-mode-map-lispy "]" nil)
+  (define-key lispy-mode-map-lispy "{" nil)
+  (define-key lispy-mode-map-lispy "}" nil))
 
 (use-package lispyville
   :hook ((lispy-mode . lispyville-mode))
@@ -207,8 +212,6 @@
                           (atom-movement normal visual)
                           slurp/barf-cp))
   :config
-  (lispy-set-key-theme '(lispy c-digits))
-  (lispyville-set-key-theme)
 
   (define-key key-translation-map (kbd "ö") nil)
   (define-key key-translation-map (kbd "ä") nil)
@@ -217,8 +220,14 @@
   (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
   ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
   ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
+
+  (lispyville--define-key 'insert (kbd "DEL") 'lispy-delete-backward)
+  (lispyville--define-key 'insert (kbd "RET") 'lispy-newline-and-indent)
+  (lispyville--define-key 'insert (kbd "\"") 'lispy-quotes)
+  (lispyville--define-key 'insert (kbd "(") 'lispy-parens)
   (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
   (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
+
   (lispyville--define-key 'normal (kbd "[") 'evil-forward-section-begin)
   (lispyville--define-key 'normal (kbd "]") 'evil-backward-section-begin)
   ;; (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
@@ -232,13 +241,7 @@
   (lispyville--define-key 'normal "gd" 'lsp-find-definition)
   (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
 
-  (define-key lispy-mode-map-lispy "[" nil)
-  (define-key lispy-mode-map-lispy "]" nil)
-  (define-key lispy-mode-map-lispy "{" nil)
-  (define-key lispy-mode-map-lispy "}" nil)
-
   (lispyville--define-key 'normal ",jc" 'lispy-clone)
-  (lispyville--define-key 'normal ",jd" 'evil-collection-lispy-delete-then-next-sexp)
   (lispyville--define-key 'normal ",jr" (lambda ()
                                           (interactive)
                                           (cider-interactive-eval "(user/reset)")))
@@ -265,6 +268,16 @@
   :ensure t
   :straight t
   :config (global-mise-mode))
+
+(straight-use-package
+ '(eat :type git
+       :host codeberg
+       :repo "akib/emacs-eat"
+       :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))))
 
 ;; (use-package codeium
 ;;     ;; if you use straight

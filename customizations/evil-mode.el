@@ -10,6 +10,7 @@
 
 (evil-set-undo-system 'undo-redo)
 
+(setq evil-collection-mode-list (delq 'lispy evil-collection-mode-list))
 (evil-collection-init)
 
 (global-evil-surround-mode 1)
