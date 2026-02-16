@@ -49,8 +49,8 @@
 
 ;; GIT
 (define-key evil-normal-state-map ",gs" 'magit-status)
-(define-key evil-normal-state-map ",gg" 'git-gutter+-show-hunk-inline-at-point)
-(define-key evil-normal-state-map ",gx" 'git-gutter+-revert-hunk)
+(define-key evil-normal-state-map ",gg" 'diff-hl-show-hunk)
+(define-key evil-normal-state-map ",gx" 'diff-hl-revert-hunk)
 (define-key evil-normal-state-map ",gb" 'magit-blame-addition)
 (define-key evil-normal-state-map ",gt" 'git-timemachine)
 (define-key evil-normal-state-map ",gl" 'git-link)

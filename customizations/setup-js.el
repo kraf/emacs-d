@@ -1,6 +1,7 @@
 (require 'flycheck)
 (require 'prettier-js)
 (require 'web-mode)
+(require 'cl-lib)
 
 ;; javascript / html
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
@@ -42,7 +43,6 @@
 (setq treesit-language-source-alist
       (append treesit-language-source-alist
               '((bash       "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-                (vue        "https://github.com/ikatyang/tree-sitter-vue")
                 (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
                 (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
                 (css        "https://github.com/tree-sitter/tree-sitter-css")
@@ -53,51 +53,8 @@
   (setq lsp-diagnostics-provider :flycheck))  ;; ensures 'lsp' checker exists
 
 (with-eval-after-load 'flycheck
-  ;; Make sure ESLint runs in .vue and web-mode too
-  (flycheck-add-mode 'javascript-eslint 'vue-ts-mode)
+  ;; Make sure ESLint runs in web-mode too
   (flycheck-add-mode 'javascript-eslint 'web-mode))
-
-;; --- Volar relies on a separate TS server (ts-ls) ---
-(setq lsp-volar-typescript-server-id 'ts-ls)  ;; requires typescript-language-server installed
-
-;; --- Vue SFCs with tree-sitter mode ---
-(defun my/vue-ts-mode-setup ()
-  (electric-pair-local-mode 1)
-  (electric-indent-mode 1)
-  (emmet-mode 1)
-  (evil-matchit-mode 1)
-            (add-node-modules-path)
-  (lsp)
-  (prettier-js-mode 1)
-  (setq-local lsp-enable-on-type-formatting nil)
-  (when (boundp 'lsp-enable-indentation)
-    (setq-local lsp-enable-indentation nil))
-
-  (let ((eslint-configs '("eslint.config.js"
-                          ".eslintrc.js"
-                          ".eslintrc.cjs"
-                          ".eslintrc.yaml"
-                          ".eslintrc.yml"
-                          ".eslintrc.json"
-                          ".eslintrc")))
-    (if (and (executable-find "eslint")
-             (some (lambda (file) (locate-dominating-file default-directory file))
-                   eslint-configs))
-        (flycheck-mode)
-      (flycheck-add-next-checker 'lsp 'javascript-eslint))))
-
-;; Let lsp-mode recognize vue-ts-mode as "vue"
-(with-eval-after-load 'lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(vue-ts-mode . "vue")))
-
-(use-package vue-ts-mode
-  :straight (vue-ts-mode :type git :host github :repo "8uff3r/vue-ts-mode")
-  :mode "\\.vue\\'"
-  :init
-  (setq vue-ts-mode-indent-offset 2) ;; 2 spaces; tweak to taste
-  :hook
-  ;; Recreate your old vue-mode-hook behavior here:
-  ((vue-ts-mode . my/vue-ts-mode-setup)))
 
 (add-hook 'rjsx-mode-hook
           (lambda ()
@@ -123,8 +80,8 @@
                                     ".eslintrc.json"
                                     ".eslintrc")))
               (if (and (executable-find "eslint")
-                       (some (lambda (file) (locate-dominating-file default-directory file))
-                             eslint-configs))
+                       (cl-some (lambda (file) (locate-dominating-file default-directory file))
+                                eslint-configs))
                   (flycheck-mode)
                 (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 

@@ -26,7 +26,6 @@
      ("(\\(background?\\)"
       (1 font-lock-keyword-face))))
   ;; (flycheck-mode)
-  (multiple-cursors-mode)
   (zprint-mode)
   (highlight-parentheses-mode)
   (clj-refactor-mode)
@@ -81,7 +80,7 @@
 ;; Use clojure mode for other extensions
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("lein-env" . ruby-mode))
 
 ;;;;
 ;; Cider
@@ -108,9 +107,8 @@
   ;; Wrap when navigating history.
   (cider-repl-wrap-history t)
 
-  (local-set-key (kbd "C-c C-e") 'cider-eval-sexp-at-point)
-
   :config
+  (define-key cider-mode-map (kbd "C-c C-e") #'cider-eval-sexp-at-point)
   (add-hook 'cider-repl-mode-hook 'evil-insert-state)
 
   (add-hook 'cider-mode-hook 'cider-company-enable-fuzzy-completion)
