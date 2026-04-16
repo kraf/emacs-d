@@ -18,6 +18,28 @@
 (with-eval-after-load 'flycheck
   (flycheck-add-mode 'javascript-eslint 'web-mode))
 
+(defconst my/javascript-eslint-config-files
+  '("eslint.config.js"
+    ".eslintrc.js"
+    ".eslintrc.cjs"
+    ".eslintrc.yaml"
+    ".eslintrc.yml"
+    ".eslintrc.json"
+    ".eslintrc")
+  "ESLint config files that enable project-local linting.")
+
+(defun my/javascript-project-uses-eslint-p ()
+  (let ((project-root (or (buffer-file-name) default-directory)))
+    (cl-some (lambda (file)
+               (locate-dominating-file project-root file))
+              my/javascript-eslint-config-files)))
+
+(defun my/enable-javascript-flycheck ()
+  (if (and (executable-find "eslint")
+           (my/javascript-project-uses-eslint-p))
+      (flycheck-mode 1)
+    (flycheck-add-next-checker 'lsp 'javascript-eslint)))
+
 (defun my/use-eslint-from-node-modules ()
   (let* ((root (locate-dominating-file
                 (or (buffer-file-name) default-directory)
@@ -72,18 +94,7 @@
             (prettier-js-mode)
             (lsp)
 
-            (let ((eslint-configs '("eslint.config.js"
-                                    ".eslintrc.js"
-                                    ".eslintrc.cjs"
-                                    ".eslintrc.yaml"
-                                    ".eslintrc.yml"
-                                    ".eslintrc.json"
-                                    ".eslintrc")))
-              (if (and (executable-find "eslint")
-                       (cl-some (lambda (file) (locate-dominating-file default-directory file))
-                                eslint-configs))
-                  (flycheck-mode)
-                (flycheck-add-next-checker 'lsp 'javascript-eslint)))
+            (my/enable-javascript-flycheck)
 
 
             (setq-local company-backends '(company-capf))))

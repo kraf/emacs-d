@@ -90,8 +90,9 @@
                            vscode-dark-plus-theme web-mode yaml-mode
                            zoom-window))
  '(read-process-output-max 1048576 t)
+ '(safe-local-variable-directories '("/home/filip/src/gomore/backend-alpha/"))
  '(safe-local-variable-values
-   '((cljr-favor-prefix-notation)
+   '((cider-enrich-classpath . t) (cljr-favor-prefix-notation)
      (eval define-clojure-indent (l/matcha '(1 (:defn)))
            (l/matche '(1 (:defn)))
            (p.types/def-abstract-type '(1 (:defn)))

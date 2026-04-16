@@ -269,6 +269,11 @@
   :straight t
   :config (global-mise-mode))
 
+(use-package eca
+  :straight (eca :type git
+                 :host github
+                 :repo "editor-code-assistant/eca-emacs"))
+
 (straight-use-package
  '(eat :type git
        :host codeberg
@@ -354,6 +359,7 @@
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
+(load "setup-vue.el")
 (load "setup-ruby.el")
 ;; (load "setup-go.el")
 ;; (load "setup-c.el")
