@@ -76,17 +76,10 @@
 (setq electric-indent-mode nil)
 (setq require-final-newline t)
 
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(define-key global-map (kbd "C-.") 'company-complete)
-
 ; (setq mac-option-modifier 'meta)
 ;; (setq mac-command-modifier 'meta)
 (setq mac-right-option-modifier nil)
 (setq mac-right-command-modifier nil)
-
-(require 'yasnippet)
-(yas-global-mode 1)
 
 (require 'multiple-cursors)
 (setq mc/always-repeat-command 1)

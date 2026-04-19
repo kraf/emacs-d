@@ -15,15 +15,6 @@
      "^gomore-api.factories" "^matcher-combinators.clj-test"))
  '(coffee-tab-width 2)
  '(column-number-mode t)
- '(company-backends '(company-capf))
- '(company-echo-delay nil t)
- '(company-global-modes
-   '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode))
- '(company-idle-delay 0)
- '(company-minimum-prefix-length 2)
- '(company-require-match 'never)
- '(company-tooltip-align-annotations t)
- '(company-tooltip-limit 14)
  '(custom-safe-themes
    '("fb83a50c80de36f23aea5919e50e1bccd565ca5bb646af95729dc8c5f926cbf3"
      "c8b83e7692e77f3e2e46c08177b673da6e41b307805cd1982da9e2ea2e90e6d7"

@@ -164,22 +164,6 @@
 ;; 	   (lsp-ui-doc-position 'top)
 ;;            (lsp-ui-doc-enable f))
 
-(use-package company
-             :hook (prog-mode . company-mode)
-             :custom
-             (company-tooltip-align-annotations t)
-             (company-tooltip-limit 14)
-             (company-echo-delay (if (display-graphic-p) nil 0))
-             (company-minimum-prefix-length 1)
-             (company-idle-delay 0.1)
-             (company-require-match 'never)
-             (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode))
-             (company-backends '(company-capf)))
-
-(use-package company-posframe
-             :config
-             (company-posframe-mode))
-
 ;; (use-package smartparens
 ;;   :hook (prog-mode . smartparens-mode))
 
