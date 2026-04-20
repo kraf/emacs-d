@@ -18,6 +18,8 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
+(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode 1)
 
 ;; Interactive search key bindings. By default, C-s runs
@@ -33,17 +35,24 @@
 ;; When you visit a file, point goes to the last place where it
 ;; was when you previously visited the same file.
 ;; http://www.emacswiki.org/emacs/SavePlace
-(require 'saveplace)
-(setq-default save-place t)
-;; keep track of saved places in ~/.emacs.d/places
-(setq save-place-file (concat user-emacs-directory "places"))
+(use-package saveplace
+  :straight nil
+  :custom
+  ;; Keep track of saved places in ~/.emacs.d/places.
+  (save-place-file (concat user-emacs-directory "places"))
+  :config
+  (save-place-mode 1))
 
 ;; Emacs can automatically create backup files. This tells Emacs to
 ;; put all backups in ~/.emacs.d/backups. More info:
 ;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Backup-Files.html
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
                                                "backups"))))
-(setq auto-save-default nil)
+(let ((auto-save-dir (expand-file-name "auto-save-list/" user-emacs-directory)))
+  (make-directory auto-save-dir t)
+  (setq auto-save-file-name-transforms `((".*" ,auto-save-dir t))
+        auto-save-list-file-prefix (expand-file-name ".saves-" auto-save-dir)))
+(setq auto-save-default t)
 (setq require-final-newline t)
 
 ;; comments
@@ -74,7 +83,6 @@
     (quit nil)))
 
 (setq electric-indent-mode nil)
-(setq require-final-newline t)
 
 ; (setq mac-option-modifier 'meta)
 ;; (setq mac-command-modifier 'meta)
@@ -89,4 +97,7 @@
 
 (setq projectile-create-missing-test-files t)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun my/enable-delete-trailing-whitespace-on-save ()
+  (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+
+(add-hook 'prog-mode-hook #'my/enable-delete-trailing-whitespace-on-save)

@@ -80,16 +80,16 @@
   (which-key-mode 1))
 
 (use-package ivy
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-re-builders-alist
-   '((ivy-switch-buffer . ivy--regex-plus)
-     (swiper . ivy--regex-plus)
-     (t . ivy--regex-fuzzy)))
-  (ivy-initial-inputs-alist nil)
-  (ivy-virtual-abbreviate 'abbreviate)
-  (uniquify-min-dir-content 10)
+  :init
+  (setq ivy-use-virtual-buffers t
+        ivy-initial-inputs-alist nil
+        ivy-virtual-abbreviate 'abbreviate
+        uniquify-min-dir-content 10)
   :config
+  (setq ivy-re-builders-alist
+        '((ivy-switch-buffer . ivy--regex-plus)
+          (swiper . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
 (use-package flx

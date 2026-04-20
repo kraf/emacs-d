@@ -1,6 +1,15 @@
 ;; Performance
-(setq gc-cons-threshold (* 100 1000 1000))
-(setq read-process-output-max (* 1024 1024))
+(defconst my/default-gc-cons-threshold (* 16 1024 1024))
+(defconst my/default-gc-cons-percentage 0.1)
+
+(setq gc-cons-threshold (* 100 1000 1000)
+      gc-cons-percentage 0.6
+      read-process-output-max (* 1024 1024))
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold my/default-gc-cons-threshold
+                  gc-cons-percentage my/default-gc-cons-percentage)))
 
 ;; Some packages require package.el for its APIs even when straight.el owns
 ;; package management. Keep package.el away from the old ELPA tree so straight
