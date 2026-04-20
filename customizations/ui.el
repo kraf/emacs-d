@@ -13,14 +13,21 @@
 (global-display-line-numbers-mode)
 (column-number-mode 1)
 
-(doom-modeline-mode)
-(setq doom-modeline-minor-modes t)
-(setq doom-modeline-height 23)
+(use-package doom-modeline
+  :custom
+  (doom-modeline-minor-modes t)
+  (doom-modeline-height 23)
+  :config
+  (doom-modeline-mode 1))
 
-(minions-mode)
+(use-package minions
+  :config
+  (minions-mode 1))
 
-(eyebrowse-mode)
-(eyebrowse-setup-opinionated-keys)
+(use-package eyebrowse
+  :config
+  (eyebrowse-mode 1)
+  (eyebrowse-setup-opinionated-keys))
 
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
@@ -105,4 +112,6 @@
 (define-key global-map (kbd "C-x z") nil)
 (define-key global-map (kbd "C-x C-z") nil)
 
-(global-diff-hl-mode)
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode 1))

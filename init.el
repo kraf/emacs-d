@@ -37,10 +37,6 @@
 (defvar my-packages
   '(use-package
 
-     doom-modeline
-     minions
-
-     paredit
      ;; smartparens
      lispy
      highlight-parentheses
@@ -55,17 +51,11 @@
 
      ;; Enhances M-x to allow easier execution of commands. Provides
      ;; a filterable list of possible commands in the minibuffer
-     amx ;; previously smex
+     ;; amx is configured in navigation.el
 
      ;; Enhance ivy
-     flx
-     counsel
-     swiper
-
      exec-path-from-shell
      add-node-modules-path
-
-     ag
 
      evil
      evil-surround
@@ -80,7 +70,6 @@
      git-timemachine
      git-link
      browse-at-remote
-     diff-hl
 
      company
      company-posframe
@@ -95,7 +84,6 @@
      flycheck
      flycheck-clj-kondo
 
-     projectile
      rainbow-delimiters
 
      treemacs
@@ -125,10 +113,6 @@
      ;; evil-mc
      expand-region
 
-     which-key
-
-     eyebrowse
-
      zoom-window))
 
 (dolist (pkg my-packages)
@@ -139,10 +123,6 @@
 ;;              (global-git-gutter+-mode)
 ;;              ;; (git-gutter-fr+-minimal)
 ;;              )
-
-(use-package which-key
-             :config
-             (which-key-mode))
 
 (use-package lsp-mode
   :defer t

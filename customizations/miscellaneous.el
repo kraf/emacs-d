@@ -10,10 +10,12 @@
 ;; Go straight to scratch buffer on startup
 (setq inhibit-startup-message t)
 
-(setq ag-highlight-search t)
+(use-package ag
+  :custom
+  (ag-highlight-search t))
 
-(autoload 'vkill "vkill" nil t)
-(autoload 'list-unix-processes "vkill" nil t)
+(use-package vkill
+  :commands (vkill list-unix-processes))
 
 (setq confirm-kill-emacs 'y-or-n-p)
 

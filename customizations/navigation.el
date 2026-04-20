@@ -9,33 +9,22 @@
 ;; The forward naming method includes part of the file's directory
 ;; name at the beginning of the buffer name
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :straight nil
+  :custom
+  (uniquify-buffer-name-style 'forward))
 
 ;; Turn on recent file mode so that you can more easily switch to
 ;; recently edited files when you first start emacs
-(setq recentf-save-file (concat user-emacs-directory ".recentf"))
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 40)
+(use-package recentf
+  :straight nil
+  :custom
+  (recentf-save-file (concat user-emacs-directory ".recentf"))
+  (recentf-max-menu-items 40)
+  :config
+  (recentf-mode 1))
 
-(ivy-mode)
-(setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
-
-;; Fuzzy search for ivy
-(setq ivy-re-builders-alist
-      '((ivy-switch-buffer . ivy--regex-plus)
-        (swiper . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
-(setq ivy-initial-inputs-alist nil)
-(setq ivy-virtual-abbreviate 'abbreviate
-      uniquify-min-dir-content 10)
-
-(counsel-mode)
-;; Replaced by counsel-mode
-;; (global-set-key (kbd "M-x") 'counsel-M-x)
-;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
 ;; ;; ido-mode allows you to more easily navigate choices. For example,
 ;; ;; when you want to switch buffers, ido presents you with a list
@@ -81,25 +70,56 @@
 ;; (setq smex-save-file (concat user-emacs-directory ".smex-items"))
 ;; (smex-initialize)
 
-(amx-mode)
-(global-set-key "\C-s" 'swiper)
-
-;; projectile everywhere!
-(projectile-global-mode)
-
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
 (defun projectile-find-file-other-window-in-known-projects ()
   "Jump to a file in any of the known projects."
   (interactive)
   (find-file-other-window (projectile-completing-read "Find file in projects: " (projectile-all-project-files))))
 
-(define-key projectile-command-map (kbd "4 F") #'projectile-find-file-other-window-in-known-projects)
+(use-package which-key
+  :config
+  (which-key-mode 1))
+
+(use-package ivy
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-re-builders-alist
+   '((ivy-switch-buffer . ivy--regex-plus)
+     (swiper . ivy--regex-plus)
+     (t . ivy--regex-fuzzy)))
+  (ivy-initial-inputs-alist nil)
+  (ivy-virtual-abbreviate 'abbreviate)
+  (uniquify-min-dir-content 10)
+  :config
+  (ivy-mode 1))
+
+(use-package flx
+  :after ivy)
+
+(use-package counsel
+  :after ivy
+  :config
+  (counsel-mode 1))
+
+(use-package swiper
+  :after ivy
+  :bind (("C-s" . swiper)))
+
+(use-package amx
+  :after ivy
+  :config
+  (amx-mode 1))
+
+(use-package projectile
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :config
+  (projectile-mode 1)
+  (define-key projectile-command-map (kbd "4 F") #'projectile-find-file-other-window-in-known-projects))
 
 ;; winring
 ;; (require 'winring)
 ;; (winring-initialize)
 ;; (setq winring-show-names t)
 
-(global-set-key (kbd "M-w") 'ace-window)
-(global-set-key (kbd "C-x o") 'ace-window)
+(use-package ace-window
+  :bind (("M-w" . ace-window)
+         ("C-x o" . ace-window)))
