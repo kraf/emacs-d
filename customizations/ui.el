@@ -55,15 +55,15 @@
 ;; (load-theme 'tramp t)
 ;; (load-theme 'twilight-bright)
 
-(use-package vscode-dark-plus-theme
-  :straight (vscode-dark-plus-theme
+(use-package tokyonight-themes
+  :straight (tokyonight-themes
              :type git
              :host github
-             :repo "Horrih/vscode-dark-plus-emacs-theme"
-             :branch "fix-box-todo-face"
-             :files ("vscode-dark-plus-theme.el"))
+             :repo "xuchengpeng/tokyonight-themes")
   :config
-  (load-theme 'vscode-dark-plus t))
+  (load-theme 'tokyonight-night t)
+  (tokyonight-themes-with-colors
+    (set-face-attribute 'line-number-current-line nil :foreground orange)))
 
 ;; increase font size for better readability
 
