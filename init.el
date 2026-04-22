@@ -76,8 +76,6 @@
 
      web-mode
      emmet-mode
-     js2-mode
-     rjsx-mode
      prettier-js
      npm-mode
 

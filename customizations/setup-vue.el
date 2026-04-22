@@ -1,8 +1,5 @@
-(require 'flycheck)
 (require 'treesit)
-(require 'web-mode)
 (require 'lsp-volar)
-(require 'prettier-js)
 
 (add-to-list 'treesit-extra-load-path
              (expand-file-name "tree-sitter" user-emacs-directory))
@@ -20,19 +17,15 @@
 
 (defun my/vue-mode-setup ()
   "Shared setup for Vue buffers."
-  (electric-pair-mode)
-  (electric-indent-mode)
-  (evil-matchit-mode)
+  (my/node-formatting-mode-setup)
+  (evil-matchit-mode 1)
   (emmet-mode 1)
-
-  (add-node-modules-path)
-  (prettier-js-mode)
-
-  (setq-local company-backends '(company-capf))
-  (setq-local lsp-enable-on-type-formatting nil)
-
-  (lsp)
-  (my/enable-javascript-flycheck))
+  (flycheck-mode 1)
+  (when (my/javascript-project-uses-eslint-p)
+    (my/use-eslint-from-node-modules))
+  (setq-local company-backends '(company-capf)
+              lsp-enable-on-type-formatting nil)
+  (lsp-deferred))
 
 (defun my/vue-web-mode-hook ()
   "Setup Vue buffers that fall back to `web-mode'."

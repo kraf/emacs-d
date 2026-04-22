@@ -1,25 +1,48 @@
-(require 'flycheck)
-(require 'prettier-js)
-(require 'web-mode)
 (require 'cl-lib)
+(require 'treesit)
 
-;; javascript / html
-(add-to-list 'auto-mode-alist '("\\.jsx?$" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.s?css$" . scss-mode))
-(add-to-list 'auto-mode-alist '("\\.sass$" . scss-mode))
-(add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.html?" . web-mode))
+;; JavaScript / TypeScript / web stack
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . tsx-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.[mc]?js\\'" . js-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+(add-to-list 'auto-mode-alist '("\\.sass\\'" . scss-mode))
+(add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
 
-(setq flycheck-disabled-checkers '(javascript-jshint))
-(with-eval-after-load 'flycheck
-  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
+;; Where grammars live; Emacs will look here for libtree-sitter-*.so
+(add-to-list 'treesit-extra-load-path
+             (expand-file-name "tree-sitter" user-emacs-directory))
 
-(with-eval-after-load 'flycheck
-  (flycheck-add-mode 'javascript-eslint 'web-mode))
+(dolist (source '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
+                  (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+                  (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+                  (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+                  (json "https://github.com/tree-sitter/tree-sitter-json")
+                  (css "https://github.com/tree-sitter/tree-sitter-css")
+                  (html "https://github.com/tree-sitter/tree-sitter-html")))
+  (add-to-list 'treesit-language-source-alist source))
+
+(setq js-indent-level 2
+      typescript-ts-mode-indent-offset 2
+      tsx-ts-mode-indent-offset 2
+      css-indent-offset 2
+      flycheck-disabled-checkers '(javascript-jshint))
+
+(use-package web-mode
+  :mode "\\.html?\\'"
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-css-indent-offset 2))
 
 (defconst my/javascript-eslint-config-files
   '("eslint.config.js"
+    "eslint.config.cjs"
+    "eslint.config.mjs"
+    "eslint.config.ts"
     ".eslintrc.js"
     ".eslintrc.cjs"
     ".eslintrc.yaml"
@@ -32,13 +55,7 @@
   (let ((project-root (or (buffer-file-name) default-directory)))
     (cl-some (lambda (file)
                (locate-dominating-file project-root file))
-              my/javascript-eslint-config-files)))
-
-(defun my/enable-javascript-flycheck ()
-  (if (and (executable-find "eslint")
-           (my/javascript-project-uses-eslint-p))
-      (flycheck-mode 1)
-    (flycheck-add-next-checker 'lsp 'javascript-eslint)))
+             my/javascript-eslint-config-files)))
 
 (defun my/use-eslint-from-node-modules ()
   (let* ((root (locate-dominating-file
@@ -50,68 +67,45 @@
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
-(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+(defun my/node-formatting-mode-setup ()
+  (electric-pair-mode 1)
+  (electric-indent-mode 1)
+  (add-node-modules-path)
+  (prettier-js-mode 1))
 
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-code-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
+(defun my/node-lsp-mode-setup (&optional enable-npm-mode)
+  (my/node-formatting-mode-setup)
+  (when enable-npm-mode
+    (npm-mode 1))
+  (flycheck-mode 1)
+  (when (my/javascript-project-uses-eslint-p)
+    (my/use-eslint-from-node-modules))
+  (setq-local company-backends '(company-capf)
+              lsp-enable-on-type-formatting nil)
+  (lsp-deferred))
 
-(require 'treesit)
+(defun my/javascript-ts-mode-setup ()
+  (evil-matchit-mode 1)
+  (my/node-lsp-mode-setup t))
 
-;; Where grammars live; Emacs will look here for libtree-sitter-*.so
-(add-to-list 'treesit-extra-load-path
-             (expand-file-name "tree-sitter" user-emacs-directory))
+(defun my/json-ts-mode-setup ()
+  (my/node-lsp-mode-setup))
 
-(setq treesit-language-source-alist
-      (append treesit-language-source-alist
-              '((bash       "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-                (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-                (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-                (css        "https://github.com/tree-sitter/tree-sitter-css")
-                (html       "https://github.com/tree-sitter/tree-sitter-html"))))
+(defun my/css-mode-setup ()
+  (my/node-formatting-mode-setup))
 
 ;; --- LSP + Flycheck integration (make 'lsp' a real Flycheck checker) ---
 (with-eval-after-load 'lsp-mode
-  (setq lsp-diagnostics-provider :flycheck))  ;; ensures 'lsp' checker exists
+  (setq lsp-diagnostics-provider :flycheck))
 
 (with-eval-after-load 'flycheck
-  ;; Make sure ESLint runs in web-mode too
-  (flycheck-add-mode 'javascript-eslint 'web-mode))
+  (dolist (mode '(web-mode js-ts-mode tsx-ts-mode typescript-ts-mode vue-ts-mode))
+    (flycheck-add-mode 'javascript-eslint mode)))
 
-(add-hook 'rjsx-mode-hook
-          (lambda ()
-            (electric-pair-mode)
-            (electric-indent-mode)
-            (npm-mode)
-            (evil-matchit-mode)
-
-            (setq-local sgml-basic-offset 2)
-            (setq-local js2-basic-offset 2)
-            (setq-local js2-strict-missing-semi-warning nil)
-            (setq-local js2-strict-inconsistent-return-warning nil)
-
-            (add-node-modules-path)
-            (prettier-js-mode)
-            (lsp)
-
-            (my/enable-javascript-flycheck)
-
-
-            (setq-local company-backends '(company-capf))))
-
-(add-hook 'css-mode-hook (lambda ()
-                           (add-node-modules-path)
-                           (prettier-js-mode)))
-
-(add-hook 'scss-mode-hook (lambda ()
-                            (add-node-modules-path)
-                            (prettier-js-mode)))
-
-;; (use-package prettier-js :ensure t :hook (typescript-mode))
-
-;; couldn't make it work with `use-package`, plain elisp instead
-;; (require 'tree-sitter)
-;; (require 'tree-sitter-langs)
-;; (add-hook 'typescript-mode-hook (lambda ()
-;;                                   (tree-sitter-hl-mode)
-;;                                   (lsp)))
+(add-hook 'js-ts-mode-hook #'my/javascript-ts-mode-setup)
+(add-hook 'tsx-ts-mode-hook #'my/javascript-ts-mode-setup)
+(add-hook 'typescript-ts-mode-hook #'my/javascript-ts-mode-setup)
+(add-hook 'json-ts-mode-hook #'my/json-ts-mode-setup)
+(add-hook 'css-ts-mode-hook #'my/css-mode-setup)
+(add-hook 'scss-mode-hook #'my/css-mode-setup)
+(add-hook 'less-css-mode-hook #'my/css-mode-setup)
