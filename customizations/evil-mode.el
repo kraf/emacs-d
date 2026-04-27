@@ -63,7 +63,6 @@
 (define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
 (define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
-(define-key evil-normal-state-map ",ll" 'lsp-clojure-add-missing-libspec)
 (define-key evil-normal-state-map ",lr" 'lsp-find-references)
 (define-key evil-normal-state-map "gd" 'lsp-find-definition)
 (define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
@@ -73,9 +72,6 @@
 
 ;; Swiper
 ;; (define-key evil-normal-state-map "/" 'swiper)
-
-(define-key evil-normal-state-map ",ril" 'cljr-introduce-let)
-(define-key evil-normal-state-map ",rel" 'cljr-expand-let)
 
 (define-key evil-normal-state-map ",f" 'treemacs-select-window)
 

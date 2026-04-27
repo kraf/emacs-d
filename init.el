@@ -204,16 +204,6 @@
   (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
 
   (lispyville--define-key 'normal ",jc" 'lispy-clone)
-  (lispyville--define-key 'normal ",jr" (lambda ()
-                                          (interactive)
-                                          (cider-interactive-eval "(user/reset)")))
-  (lispyville--define-key 'normal ",jf" (lambda ()
-                                          (interactive)
-                                          (cider-interactive-eval "(clojure.tools.namespace.repl/refresh)")))
-  (lispyville--define-key 'normal ",jt" (lambda ()
-                                          (interactive)
-                                          (cider-interactive-eval "(require 'vlaaad.reveal)(vlaaad.reveal/tap-log)")))
-
   (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
   (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
 
