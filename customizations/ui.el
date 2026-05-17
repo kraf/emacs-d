@@ -63,7 +63,18 @@
   :config
   (load-theme 'tokyonight-night t)
   (tokyonight-themes-with-colors
-    (set-face-attribute 'line-number-current-line nil :foreground orange)))
+    (set-face-attribute 'line-number-current-line nil :foreground orange)
+
+    ;; LSP symbol occurrence highlights
+    (dolist (face '(lsp-face-highlight-textual
+                    lsp-face-highlight-read
+                    lsp-face-highlight-write))
+      (set-face-attribute face nil
+                          :foreground 'unspecified
+                          :background 'unspecified
+                          :weight 'bold
+                          :underline nil
+                          :box '(:line-width -1 :color "#bb9af7")))))
 
 ;; increase font size for better readability
 
