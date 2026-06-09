@@ -14,7 +14,10 @@
   (company-tooltip-limit 14)
   (company-echo-delay nil)
   (company-minimum-prefix-length 2)
-  (company-idle-delay 0)
+  ;; Keep this above 0: with 0, company runs `completion-at-point-functions'
+  ;; on every keystroke, turning any passive/blocking capf (CIDER nREPL,
+  ;; git-commit's dabbrev-capf, ...) into a per-keystroke stall.
+  (company-idle-delay 0.2)
   (company-require-match 'never)
   (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode)))
 

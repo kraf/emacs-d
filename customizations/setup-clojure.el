@@ -24,8 +24,15 @@
   (font-lock-add-keywords nil my/clojure-midje-font-lock-keywords))
 
 (defun my/cider-user-reset ()
+  "Full reset: halt the system, refresh all namespaces, restart."
   (interactive)
   (cider-interactive-eval "(user/reset)"))
+
+(defun my/cider-user-fast-reset ()
+  "Reload only changed namespaces in place (no system restart) and ensure
+the dev system is running."
+  (interactive)
+  (cider-interactive-eval "(user/fast-reset)"))
 
 (defun my/cider-refresh ()
   (interactive)
@@ -51,19 +58,30 @@
 
 (with-eval-after-load 'lispyville
   (lispyville--define-key 'normal ",ll" #'lsp-clojure-add-missing-libspec)
-  (lispyville--define-key 'normal ",ril" #'cljr-introduce-let)
-  (lispyville--define-key 'normal ",rel" #'cljr-expand-let)
   (lispyville--define-key 'normal ",eb" #'cider-eval-buffer)
   (lispyville--define-key 'normal ",ef" #'cider-eval-defun-at-point)
   (lispyville--define-key 'normal ",ee" #'cider-eval-sexp-at-point)
   (lispyville--define-key 'normal ",en" #'cider-eval-ns-form)
   (lispyville--define-key 'normal ",el" #'cider-eval-list-at-point)
   (lispyville--define-key 'visual ",ee" #'cider-insert-region-in-repl)
-  (lispyville--define-key 'normal ",jr" #'my/cider-user-reset)
+  (lispyville--define-key 'normal ",jr" #'my/cider-user-fast-reset)
+  (lispyville--define-key 'normal ",jR" #'my/cider-user-reset)
   (lispyville--define-key 'normal ",jf" #'my/cider-refresh)
   (lispyville--define-key 'normal ",jt" #'my/cider-reveal-tap-log))
 
 (add-to-list 'auto-mode-alist '("lein-env" . ruby-mode))
+
+;; Work around a lispy bug: when `lispy-mode' starts in a `clojure-mode'
+;; buffer, lispy.el runs `(setq completion-at-point-functions ...)' with a
+;; plain `setq' instead of `setq-local', clobbering the *global* default.
+;; Every other buffer (Ruby, magit commit messages, ...) then inherits
+;; CIDER/lispy completion and runs it on each keystroke.  Make the variable
+;; buffer-local before lispy-mode runs (depth -100 => first on the hook) so
+;; lispy's `setq' only touches our local value and the global default stays
+;; clean.
+(add-hook 'clojure-mode-hook
+          (lambda () (make-local-variable 'completion-at-point-functions))
+          -100)
 
 (use-package clojure-mode
   :mode (("\\.edn\\'" . clojure-mode)
@@ -81,15 +99,6 @@
 
 (use-package clojure-mode-extra-font-locking
   :after clojure-mode)
-
-(use-package clj-refactor
-  :hook ((clojure-mode . clj-refactor-mode)
-         (clojurescript-mode . clj-refactor-mode)
-         (clojurec-mode . clj-refactor-mode)
-         (clojurex-mode . clj-refactor-mode))
-  :custom
-  (cljr-insert-newline-after-require nil)
-  (cljr-add-ns-to-blank-clj-files nil))
 
 (use-package cider
   :commands cider

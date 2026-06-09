@@ -10,9 +10,6 @@
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3"
     "#dcdccc"])
- '(cljr-libspec-whitelist
-   '("^cljsns" "^slingshot.test" "^monger.joda-time" "^monger.json"
-     "^gomore-api.factories" "^matcher-combinators.clj-test"))
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(custom-safe-themes
@@ -67,7 +64,7 @@
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(add-node-modules-path ag amx browse-at-remote clj-refactor
+   '(add-node-modules-path ag amx browse-at-remote
                            clojure-mode-extra-font-locking cmake-mode
                            company-posframe counsel diff-hl
                            dired-git-info doom-modeline emmet-mode
@@ -83,34 +80,13 @@
                            vscode-dark-plus-theme web-mode yaml-mode
                            zoom-window))
  '(read-process-output-max 1048576 t)
- '(safe-local-variable-directories '("/home/filip/src/gomore/backend-alpha/"))
- '(safe-local-variable-values
-   '((cider-enrich-classpath . t) (cljr-favor-prefix-notation)
-     (eval define-clojure-indent (l/matcha '(1 (:defn)))
-           (l/matche '(1 (:defn)))
-           (p.types/def-abstract-type '(1 (:defn)))
-           (p.types/defprotocol+ '(1 (:defn)))
-           (p.types/defrecord+ '(2 nil nil (:defn)))
-           (p.types/deftype+ '(2 nil nil (:defn)))
-           (p/def-map-type '(2 nil nil (:defn)))
-           (p/defprotocol+ '(1 (:defn)))
-           (p/defrecord+ '(2 nil nil (:defn)))
-           (p/deftype+ '(2 nil nil (:defn)))
-           (tools.macro/macrolet '(1 ((:defn)) :form)))
-     (eval put 'p.types/defprotocol+ 'clojure-doc-string-elt 2)
-     (eval put 's/defn 'clojure-doc-string-elt 2)
-     (eval put 'setting/defsetting 'clojure-doc-string-elt 2)
-     (eval put 'defsetting 'clojure-doc-string-elt 2)
-     (eval put 'api/defendpoint-async 'clojure-doc-string-elt 3)
-     (eval put 'api/defendpoint 'clojure-doc-string-elt 3)
-     (eval put 'define-premium-feature 'clojure-doc-string-elt 2)
-     (eval put 'defendpoint-async 'clojure-doc-string-elt 3)
-     (eval put 'defendpoint 'clojure-doc-string-elt 3)
-     (ftf-project-finders ftf-get-top-git-dir)
-     (cider-refresh-before-fn . "user/reset")
-     (eval lispyville--define-key 'normal (kbd ",ir")
-           (lambda nil (interactive)
-             (cider-nrepl-sync-request:eval "(user/reset)")))))
+ '(safe-local-variable-directories
+   '("/home/filip/src/gomore/backend/web/"
+     "/home/filip/src/gomore/backend/api/"
+     "/home/filip/src/gomore/backend-beta/api/"
+     "/home/filip/src/gomore/backend-beta/"
+     "/home/filip/src/gomore/backend/"
+     "/home/filip/src/gomore/backend-alpha/"))
  '(select-enable-primary nil)
  '(swiper-goto-start-of-match t)
  '(tramp-completion-reread-directory-timeout 0)

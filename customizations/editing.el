@@ -89,6 +89,9 @@
 (setq mac-right-option-modifier nil)
 (setq mac-right-command-modifier nil)
 
+;; Ensure multiple-cursors is on the load-path. It used to arrive as a
+;; clj-refactor dependency; declare it directly now that clj-refactor is gone.
+(straight-use-package 'multiple-cursors)
 (require 'multiple-cursors)
 (setq mc/always-repeat-command 1)
 (setq mc/always-run-for-all 1)
