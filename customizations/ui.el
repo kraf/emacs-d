@@ -29,6 +29,9 @@
   (eyebrowse-mode 1)
   (eyebrowse-setup-opinionated-keys))
 
+(use-package topsy
+  :hook (prog-mode . topsy-mode))
+
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
 ;; (when (fboundp 'tool-bar-mode)
@@ -55,6 +58,23 @@
 ;; (load-theme 'tramp t)
 ;; (load-theme 'twilight-bright)
 
+(defun my/style-lsp-symbol-highlights ()
+  "Style LSP symbol occurrence highlights."
+  (dolist (face '(lsp-face-highlight-textual
+                  lsp-face-highlight-read
+                  lsp-face-highlight-write))
+    (when (facep face)
+      (set-face-attribute face nil
+                          :foreground "#c0caf5"
+                          :background "#3d59a1"
+                          :weight 'unspecified
+                          :underline nil
+                          :overline nil
+                          :strike-through nil
+                          :box nil
+                          :inverse-video nil
+                          :extend nil))))
+
 (use-package tokyonight-themes
   :straight (tokyonight-themes
              :type git
@@ -63,18 +83,10 @@
   :config
   (load-theme 'tokyonight-night t)
   (tokyonight-themes-with-colors
-    (set-face-attribute 'line-number-current-line nil :foreground orange)
-
-    ;; LSP symbol occurrence highlights
-    (dolist (face '(lsp-face-highlight-textual
-                    lsp-face-highlight-read
-                    lsp-face-highlight-write))
-      (set-face-attribute face nil
-                          :foreground 'unspecified
-                          :background 'unspecified
-                          :weight 'bold
-                          :underline nil
-                          :box '(:line-width -1 :color "#bb9af7")))))
+    (set-face-attribute 'line-number-current-line nil :foreground orange))
+  (my/style-lsp-symbol-highlights)
+  (with-eval-after-load 'lsp-mode
+    (my/style-lsp-symbol-highlights)))
 
 ;; increase font size for better readability
 
