@@ -49,7 +49,14 @@ the dev system is running."
   (zprint-mode 1)
   (highlight-parentheses-mode 1)
   (prettify-symbols-mode 1)
-  (setq-local evil-symbol-word-search t
+  ;; Treat a Clojure symbol's internal punctuation as word constituents so
+  ;; evil's * / # / word motions span the whole name (my-sym, swap!, valid?),
+  ;; while "/" and ":" stay separators: * on ns/my-sym matches the part at
+  ;; point (ns OR my-sym), and * on :my-sym matches my-sym. Paired with
+  ;; word search below (symbol search would grab "/" and ":" too).
+  (dolist (ch '(?- ?_ ?* ?? ?! ?+ ?< ?> ?= ?& ?.))
+    (modify-syntax-entry ch "w"))
+  (setq-local evil-symbol-word-search nil
               lsp-idle-delay 0.2
               lsp-keep-workspace-alive nil
               clojure-indent-style 'align-arguments
