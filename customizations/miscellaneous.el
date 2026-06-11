@@ -11,10 +11,6 @@
 
 (setq confirm-kill-emacs 'y-or-n-p)
 
-(use-package ag
-  :custom
-  (ag-highlight-search t))
-
 (use-package vkill
   :commands (vkill list-unix-processes))
 

@@ -1,10 +1,12 @@
 ;; Navigating files, buffers and the minibuffer.
+;; Minibuffer completion: vertico + orderless + marginalia + consult + embark.
 
 ;; Distinguish identically-named buffers by their directory instead of <2>.
 (use-package uniquify
   :straight nil
   :custom
-  (uniquify-buffer-name-style 'forward))
+  (uniquify-buffer-name-style 'forward)
+  (uniquify-min-dir-content 10))
 
 (use-package recentf
   :straight nil
@@ -23,35 +25,50 @@
   :config
   (which-key-mode 1))
 
-(use-package ivy
-  :init
-  (setq ivy-use-virtual-buffers t
-        ivy-initial-inputs-alist nil
-        ivy-virtual-abbreviate 'abbreviate
-        uniquify-min-dir-content 10)
+(use-package vertico
+  :custom
+  (vertico-cycle t)
   :config
-  (setq ivy-re-builders-alist
-        '((ivy-switch-buffer . ivy--regex-plus)
-          (swiper . ivy--regex-plus)
-          (t . ivy--regex-fuzzy)))
-  (ivy-mode 1))
+  (vertico-mode 1))
 
-(use-package flx
-  :after ivy)
-
-(use-package counsel
-  :after ivy
+;; Persist minibuffer history; vertico sorts by it (replaces amx).
+(use-package savehist
+  :straight nil
   :config
-  (counsel-mode 1))
+  (savehist-mode 1))
 
-(use-package swiper
-  :after ivy
-  :bind (("C-s" . swiper)))
+;; Space-separated, order-free matching everywhere.
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package amx
-  :after ivy
+;; Annotate candidates (docstrings, file sizes, keybindings, ...).
+(use-package marginalia
   :config
-  (amx-mode 1))
+  (marginalia-mode 1))
+
+(use-package consult
+  :bind (("C-s" . consult-line)
+         ("C-x b" . consult-buffer)
+         ("M-y" . consult-yank-pop)
+         ("C-c k" . consult-ripgrep))
+  :custom
+  (consult-narrow-key "<"))
+
+;; Act on the thing at point / the current candidate.
+(use-package embark
+  :bind (("C-," . embark-act)
+         ("C-h B" . embark-bindings)))
+
+;; embark-export from consult-ripgrep gives an editable grep buffer (wgrep).
+(use-package embark-consult
+  :after (embark consult)
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
+;; wgrep has no autoloads; load it when the first grep buffer appears.
+(use-package wgrep
+  :hook (grep-setup . wgrep-setup))
 
 (defun projectile-find-file-other-window-in-known-projects ()
   "Jump to a file in any of the known projects."
@@ -62,6 +79,7 @@
   :bind-keymap ("C-c p" . projectile-command-map)
   :custom
   (projectile-create-missing-test-files t)
+  (projectile-completion-system 'default)
   :config
   (projectile-mode 1)
   (define-key projectile-command-map (kbd "4 F") #'projectile-find-file-other-window-in-known-projects))
