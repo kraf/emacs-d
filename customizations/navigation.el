@@ -28,7 +28,7 @@
 (use-package vertico
   :custom
   (vertico-cycle t)
-  (vertico-count 20)
+  (vertico-count 15)
   :config
   (vertico-mode 1)
   ;; Live layout toggles in the minibuffer (from the vertico package):
@@ -76,7 +76,7 @@
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-recent-file consult-xref
-   consult--source-recent-file consult--source-project-recent-file
+   ;; consult--source-recent-file consult--source-project-recent-file
    :preview-key '(:debounce 0.3 any "M-.")))
 
 ;; Act on the thing at point / the current candidate.
