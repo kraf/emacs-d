@@ -28,6 +28,7 @@
 (use-package vertico
   :custom
   (vertico-cycle t)
+  (vertico-count 20)
   :config
   (vertico-mode 1))
 
@@ -59,7 +60,15 @@
   ;; Route xref through consult, so lsp-find-references / lsp-find-definition
   ;; and plain xref present their hits in the vertico minibuffer (with preview).
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref))
+        xref-show-definitions-function #'consult-xref)
+  :config
+  ;; For commands that preview by opening another file (slow to scroll),
+  ;; turn off automatic preview: press M-. to preview the current candidate.
+  (consult-customize
+   consult-ripgrep consult-git-grep consult-grep
+   consult-recent-file consult-xref
+   consult--source-recent-file consult--source-project-recent-file
+   :preview-key "M-."))
 
 ;; Act on the thing at point / the current candidate.
 (use-package embark
