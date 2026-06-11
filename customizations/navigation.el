@@ -54,7 +54,12 @@
          ("M-y" . consult-yank-pop)
          ("C-c k" . consult-ripgrep))
   :custom
-  (consult-narrow-key "<"))
+  (consult-narrow-key "<")
+  :init
+  ;; Route xref through consult, so lsp-find-references / lsp-find-definition
+  ;; and plain xref present their hits in the vertico minibuffer (with preview).
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
 
 ;; Act on the thing at point / the current candidate.
 (use-package embark
