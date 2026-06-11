@@ -1,7 +1,5 @@
 (add-hook 'ruby-mode-hook
           (lambda ()
             (evil-matchit-mode)
-            (electric-pair-mode)
-            (electric-indent-mode)
-            ;; (lsp)
-            ))
+            (electric-pair-local-mode)
+            (electric-indent-local-mode)))

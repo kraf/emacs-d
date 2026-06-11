@@ -64,7 +64,6 @@
 ;; NORMAL MODE
 (define-key evil-normal-state-map ",w" 'save-buffer)
 (define-key evil-normal-state-map ",q" 'evil-delete-buffer)
-(define-key evil-normal-state-map "\C-k" 'paredit-kill)
 (define-key evil-normal-state-map "K" 'evil-previous-line)
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map ",." 'evil-avy-goto-char)
@@ -116,10 +115,6 @@
 (define-key evil-visual-state-map "P" (lambda ()
                                         (interactive)
                                         (evil-paste-from-register ?0)))
-
-(add-hook 'paredit-mode-hook
-          (lambda ()
-            (define-key evil-insert-state-map "\C-k" 'paredit-kill)))
 
 ;; Ctrl-g should act like Esc
 (defun evil-keyboard-quit ()

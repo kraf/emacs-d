@@ -41,7 +41,6 @@
 (load "miscellaneous.el")
 
 ;; Lisp editing
-(load "elisp-editing.el")
 (load "setup-lisp.el")
 
 ;; LSP core shared by all languages

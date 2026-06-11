@@ -58,7 +58,6 @@
  ("nerd-icons.el" . "d33d12f5dcb6bf2fb23c3f75df5de85beb4afd95")
  ("nongnu-elpa" . "9a138bb309154f4595bd11b6e12cd2d56d99dc49")
  ("npm-mode" . "3ee7c0bad5b7a041d4739ef3aaa06a3dc764e5eb")
- ("paredit" . "af075775af91f2dbc63b915d762b4aec092946c4")
  ("parseclj" . "ca828c202c026e45bd60503984cf510d904cae50")
  ("parseedn" . "3407e4530a367b6c2b857dae261cdbb67a440aaa")
  ("pfuture" . "19b53aebbc0f2da31de6326c495038901bffb73c")

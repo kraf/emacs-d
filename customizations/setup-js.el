@@ -12,18 +12,11 @@
 (add-to-list 'auto-mode-alist '("\\.sass\\'" . scss-mode))
 (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
 
-;; Where grammars live; Emacs will look here for libtree-sitter-*.so
+;; Where grammars live; Emacs will look here for libtree-sitter-*.so.
+;; Grammar sources and installs are handled by treesit-auto (the Vue
+;; grammar is the exception, see setup-vue.el).
 (add-to-list 'treesit-extra-load-path
              (expand-file-name "tree-sitter" user-emacs-directory))
-
-(dolist (source '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-                  (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-                  (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-                  (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-                  (json "https://github.com/tree-sitter/tree-sitter-json")
-                  (css "https://github.com/tree-sitter/tree-sitter-css")
-                  (html "https://github.com/tree-sitter/tree-sitter-html")))
-  (add-to-list 'treesit-language-source-alist source))
 
 (setq js-indent-level 2
       typescript-ts-mode-indent-offset 2
@@ -77,8 +70,8 @@
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
 (defun my/node-formatting-mode-setup ()
-  (electric-pair-mode 1)
-  (electric-indent-mode 1)
+  (electric-pair-local-mode 1)
+  (electric-indent-local-mode 1)
   (add-node-modules-path)
   (prettier-js-mode 1))
 
