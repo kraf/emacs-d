@@ -30,7 +30,15 @@
   (vertico-cycle t)
   (vertico-count 20)
   :config
-  (vertico-mode 1))
+  (vertico-mode 1)
+  ;; Live layout toggles in the minibuffer (from the vertico package):
+  ;;   M-B buffer (large pop-up)  M-G grid  M-V vertical  M-F flat  M-R reverse
+  (require 'vertico-multiform)
+  (setq vertico-buffer-display-action
+        '(display-buffer-in-side-window
+          (side . right)
+          (window-width . 0.5)))
+  (vertico-multiform-mode 1))
 
 ;; Persist minibuffer history; vertico sorts by it (replaces amx).
 (use-package savehist
@@ -62,13 +70,14 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
-  ;; For commands that preview by opening another file (slow to scroll),
-  ;; turn off automatic preview: press M-. to preview the current candidate.
+  ;; Commands that preview by opening another file are slow to scroll, so
+  ;; debounce their preview: it stays automatic but only fires after a short
+  ;; pause, so fast scrolling never lags. M-. still previews on demand.
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-recent-file consult-xref
    consult--source-recent-file consult--source-project-recent-file
-   :preview-key "M-."))
+   :preview-key '(:debounce 0.3 any "M-.")))
 
 ;; Act on the thing at point / the current candidate.
 (use-package embark
