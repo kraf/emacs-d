@@ -1,4 +1,8 @@
-;; Straight.el
+;;; init.el --- Filip's Emacs configuration -*- lexical-binding: t; -*-
+
+;; Package management: straight.el + use-package. Every package is declared
+;; with a `use-package' block in the customizations/ file that configures it.
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -16,317 +20,51 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
-(setq straight-use-package-by-default t)  ;; every use-package is straight-managed by default
+(setq straight-use-package-by-default t)
 (require 'use-package)
 
-;;;;
-;; Packages
-;;;
-
-(load-file "~/.emacs.d/customizations/local-before.el")
-
-;; Vendor
+;; Unmanaged local elisp (zprint).
 (add-to-list 'load-path "~/.emacs.d/vendor")
-
-(setq evil-want-integration t)
-(setq evil-want-keybinding nil)
-
-;; The packages you want installed. You can also install these
-;; manually with M-x package-install
-;; Add in your own as you wish:
-(defvar my-packages
-  '(use-package
-
-     ;; smartparens
-     lispy
-     highlight-parentheses
-     clojure-mode
-     clojure-mode-extra-font-locking
-     cider
-
-     ;; ido-completing-read+
-     ;; flx-ido
-     ;; ido-vertical-mode
-
-     ;; Enhances M-x to allow easier execution of commands. Provides
-     ;; a filterable list of possible commands in the minibuffer
-     ;; amx is configured in navigation.el
-
-     ;; Enhance ivy
-     exec-path-from-shell
-     add-node-modules-path
-
-     evil
-     evil-surround
-     evil-nerd-commenter
-     evil-owl
-     evil-collection
-     evil-matchit
-     evil-mc
-     lispyville
-     avy
-
-     git-timemachine
-     git-link
-     browse-at-remote
-
-     company
-     company-posframe
-
-     web-mode
-     emmet-mode
-     prettier-js
-     npm-mode
-
-     flycheck
-     flycheck-clj-kondo
-
-     rainbow-delimiters
-
-     treemacs
-     treemacs-evil
-     ;; python
-     ;; jedi
-
-     ;; edit html tags like sexps
-     ;; tagedit
-
-     magit
-
-     ;; themes
-     ;; cyberpunk-theme
-     tramp-theme
-     ;; vscode-dark-plus-theme
-
-     ;; LSP
-     lsp-mode
-     ;; lsp-ui
-     lsp-treemacs
-
-     dired-git-info
-
-     yasnippet
-     ;; yasnippet-snippets
-     ;; evil-mc
-     expand-region
-
-     zoom-window))
-
-(dolist (pkg my-packages)
-  (straight-use-package pkg))
-
-;; (use-package git-gutter-fringe+
-;;              :config
-;;              (global-git-gutter+-mode)
-;;              ;; (git-gutter-fr+-minimal)
-;;              )
-
-(use-package lsp-mode
-  :defer t
-  :commands lsp
-  :custom
-  (lsp-keymap-prefix "s-i")
-  (lsp-auto-guess-root nil)
-  (lsp-prefer-flymake nil)           ; Use flycheck instead of flymake
-  (lsp-file-watch-threshold 2000)
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-disabled-clients '(ruby-ls)) ;; ruby-ls is solargraph, ruby-lsp-ls works better
-  (read-process-output-max (* 1024 1024))
-  :config
-  (remove-hook 'lsp-configure-hook 'lsp-headerline-breadcrumb-mode))
-
-;; (use-package lsp-ui
-;; 	   :custom
-;; 	   (lsp-ui-doc-max-width 80)
-;; 	   (lsp-ui-doc-position 'top)
-;;            (lsp-ui-doc-enable f))
-
-;; (use-package smartparens
-;;   :hook (prog-mode . smartparens-mode))
-
-(use-package lispy
-  :hook ((emacs-lisp-mode . lispy-mode)
-         (clojure-mode . lispy-mode)
-         (clojurescript-mode . lispy-mode)
-         (cider-repl-mode . lispy-mode))
-  :custom
-  (lispy-close-quotes-at-end-p t)
-  :config
-  (lispy-set-key-theme '())
-  (lispyville-set-key-theme)
-
-  (define-key lispy-mode-map-lispy "[" nil)
-  (define-key lispy-mode-map-lispy "]" nil)
-  (define-key lispy-mode-map-lispy "{" nil)
-  (define-key lispy-mode-map-lispy "}" nil))
-
-(use-package lispyville
-  :hook ((lispy-mode . lispyville-mode))
-  :custom
-  (lispyville-key-theme '(operators
-                          c-w
-                          (prettify insert)
-                          additional
-                          additional-insert
-                          additional-movement
-                          additional-wrap
-                          (atom-movement normal visual)
-                          slurp/barf-cp))
-  :config
-
-  (define-key key-translation-map (kbd "ö") nil)
-  (define-key key-translation-map (kbd "ä") nil)
-
-  (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
-  (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
-  ;; (lispyville--define-key 'insert (kbd "M-n") 'lispy-forward)
-  ;; (lispyville--define-key 'insert (kbd "M-p") 'lispy-backward)
-
-  (lispyville--define-key 'insert (kbd "DEL") 'lispy-delete-backward)
-  (lispyville--define-key 'insert (kbd "RET") 'lispy-newline-and-indent)
-  (lispyville--define-key 'insert (kbd "\"") 'lispy-quotes)
-  (lispyville--define-key 'insert (kbd "(") 'lispy-parens)
-  (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
-  (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
-
-  (lispyville--define-key 'normal (kbd "[") 'evil-forward-section-begin)
-  (lispyville--define-key 'normal (kbd "]") 'evil-backward-section-begin)
-  ;; (lispyville--define-key 'normal (kbd "{") 'lispyville-previous-opening)
-  ;; (lispyville--define-key 'normal (kbd "}") 'lispyville-previous-closing)
-  (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
-  (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
-  (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
-
-  (lispyville--define-key 'insert (kbd "C-y") 'lispy-yank)
-
-  (lispyville--define-key 'normal "gd" 'lsp-find-definition)
-  (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
-
-  (lispyville--define-key 'normal ",jc" 'lispy-clone)
-  (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
-  (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
-
-  (lispyville--define-key 'normal "H" 'beginning-of-defun)
-  (lispyville--define-key 'normal "L" 'end-of-defun))
-
-(use-package treesit-auto
-  :ensure t
-  :straight t
-  :custom (treesit-auto-install 'prompt)
-  :config (global-treesit-auto-mode))
-
-(use-package mise
-  :ensure t
-  :straight t
-  :config (global-mise-mode))
-
-(use-package eca
-  :straight (eca :type git
-                 :host github
-                 :repo "editor-code-assistant/eca-emacs"))
-
-(straight-use-package
- '(eat :type git
-       :host codeberg
-       :repo "akib/emacs-eat"
-       :files ("*.el" ("term" "term/*.el") "*.texi"
-               "*.ti" ("terminfo/e" "terminfo/e/*")
-               ("terminfo/65" "terminfo/65/*")
-               ("integration" "integration/*")
-               (:exclude ".dir-locals.el" "*-tests.el"))))
-
-;; (use-package codeium
-;;     ;; if you use straight
-;;     ;; :straight '(:type git :host github :repo "Exafunction/codeium.el")
-;;     ;; otherwise, make sure that the codeium.el file is on load-path
-
-;;     :init
-;;     ;; use globally
-;;     (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
-;;     ;; or on a hook
-;;     ;; (add-hook 'python-mode-hook
-;;     ;;     (lambda ()
-;;     ;;         (setq-local completion-at-point-functions '(codeium-completion-at-point))))
-
-;;     ;; if you want multiple completion backends, use cape (https://github.com/minad/cape):
-;;     ;; (add-hook 'python-mode-hook
-;;     ;;     (lambda ()
-;;     ;;         (setq-local completion-at-point-functions
-;;     ;;             (list (cape-super-capf #'codeium-completion-at-point #'lsp-completion-at-point)))))
-;;     ;; an async company-backend is coming soon!
-
-;;     ;; codeium-completion-at-point is autoloaded, but you can
-;;     ;; optionally set a timer, which might speed up things as the
-;;     ;; codeium local language server takes ~0.2s to start up
-;;     ;; (add-hook 'emacs-startup-hook
-;;     ;;  (lambda () (run-with-timer 0.1 nil #'codeium-init)))
-
-;;     ;; :defer t ;; lazy loading, if you want
-;;     :config
-;;     (setq use-dialog-box nil) ;; do not use popup boxes
-
-;;     ;; if you don't want to use customize to save the api-key
-;;     ;; (setq codeium/metadata/api_key "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-
-;;     ;; get codeium status in the modeline
-;;     (setq codeium-mode-line-enable
-;;         (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
-;;     (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t))
-
-;; (use-package undo-fu)
-
-
-;;;;
-;; Customization
-;;;;
-
-;; Add a directory to our load path so that when you `load` things
-;; below, Emacs knows where to look for the corresponding file.
 (add-to-list 'load-path "~/.emacs.d/customizations")
 
-;; Sets up exec-path-from-shell so that Emacs will use the correct
-;; environment variables
+;; Machine-local settings that must run before everything else (gitignored).
+(load "local-before.el")
+
+;; Environment
 (load "shell-integration.el")
 
+;; Core editing and UI
 (load "evil-mode.el")
-
-;; These customizations make it easier for you to navigate files,
-;; switch buffers, and choose options from the minibuffer.
 (load "navigation.el")
-
-;; These customizations change the way emacs looks and disable/enable
-;; some user interface elements
 (load "ui.el")
-
-;; These customizations make editing a bit nicer.
 (load "editing.el")
-
-;; Hard-to-categorize customizations
 (load "miscellaneous.el")
 
-;; For editing lisps
+;; Lisp editing
 (load "elisp-editing.el")
+(load "setup-lisp.el")
 
-;; Langauage-specific
+;; LSP core shared by all languages
+(load "setup-lsp.el")
+
+;; Languages
 (load "setup-clojure.el")
 (load "setup-js.el")
 (load "setup-vue.el")
 (load "setup-ruby.el")
-;; (load "setup-go.el")
-;; (load "setup-c.el")
-;; (load "setup-python.el")
 
 (load "orgmode.el")
-
 (load "magit-custom.el")
-(load "setup-company.el");
-
+(load "setup-company.el")
 (load "terminal.el")
 
+;; Machine-local settings (gitignored)
 (load "local.el")
 
-(setq custom-file (concat user-emacs-directory ".custom.el")) ; tell Customize to save customizations to ~/.emacs.d/.custom.el
-(ignore-errors                                                ; load customizations from ~/.emacs.d/.custom.el
+;; Keep Customize state out of init.el.
+(setq custom-file (concat user-emacs-directory ".custom.el"))
+(ignore-errors
   (load-file custom-file))
 
+(require 'server)
 (unless (server-running-p) (server-start))

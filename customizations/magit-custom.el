@@ -1,17 +1,24 @@
-(require 'magit)
-;; (setq magit-last-seen-setup-instructions "1.4.0")
-;; (setq git-commit-summary-max-length 79)
+;; Git tooling.
 
-;; (require 'evil-magit)
+(use-package magit
+  ;; Loaded eagerly: the after-save hook below must work from the first save.
+  :demand t
+  :config
+  (add-hook 'after-save-hook #'magit-after-save-refresh-status t))
 
-;; @see https://bitbucket.org/lyro/evil/issue/511/let-certain-minor-modes-key-bindings
-(with-eval-after-load 'git-timemachine
+;; Stage region from visual state
+(define-key evil-visual-state-map "s" 'magit-stage)
+
+(use-package git-timemachine
+  :defer t
+  :config
+  ;; Let git-timemachine's keys win over evil's normal state.
+  ;; @see https://bitbucket.org/lyro/evil/issue/511
   (evil-make-overriding-map git-timemachine-mode-map 'normal)
-  ;; force update evil keymaps after git-timemachine-mode loaded
   (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))
 
-(add-hook 'after-save-hook 'magit-after-save-refresh-status t)
+(use-package git-link
+  :defer t)
 
-(with-eval-after-load 'magit
-  ;; (require 'forge)
-  (define-key evil-visual-state-map "s" 'magit-stage))
+(use-package browse-at-remote
+  :defer t)

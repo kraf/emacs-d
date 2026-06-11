@@ -1,7 +1,3 @@
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (text-scale-decrease 1)))
-
 (setq org-default-notes-file "~/orgs/inbox.org")
 (define-key global-map "\C-cc" 'org-capture)
 

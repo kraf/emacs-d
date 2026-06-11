@@ -1,32 +1,65 @@
-(require 'evil)
-(require 'evil-surround)
-(require 'evil-nerd-commenter)
-;; (require 'evil-magit)
-(require 'evil-collection)
-(require 'treemacs-evil)
-(require 'company)
+;; Evil and friends. Leader key is ",".
 
-(evil-mode 1)
+(use-package evil
+  :init
+  ;; Must be set before evil loads.
+  (setq evil-want-integration t
+        evil-want-keybinding nil ; evil-collection handles mode keybindings
+        evil-toggle-key "M-z")
+  :config
+  (evil-mode 1)
+  (evil-set-undo-system 'undo-redo)
+  ;; make evil-search-word look for symbol rather than word boundaries
+  (setq-default evil-symbol-word-search t)
+  (add-to-list 'evil-emacs-state-modes 'eshell-mode))
 
-(evil-set-undo-system 'undo-redo)
+(use-package evil-collection
+  :after evil
+  :config
+  ;; lispyville owns the lispy integration
+  (setq evil-collection-mode-list (delq 'lispy evil-collection-mode-list))
+  (evil-collection-init))
 
-(setq evil-collection-mode-list (delq 'lispy evil-collection-mode-list))
-(evil-collection-init)
+(use-package evil-surround
+  :after evil
+  :config
+  (add-hook 'evil-surround-mode-hook
+            (lambda ()
+              (push '(?ä . ("[" . "]")) evil-surround-pairs-alist)))
+  (global-evil-surround-mode 1)
+  (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
 
-(global-evil-surround-mode 1)
+(use-package evil-nerd-commenter
+  :after evil)
+
+(use-package evil-matchit
+  :after evil)
+
+(use-package evil-mc
+  :after evil)
+
+(use-package evil-owl
+  :custom
+  (evil-owl-display-method 'posframe)
+  (evil-owl-extra-posframe-args '(:width 50 :height 20))
+  (evil-owl-idle-delay 0)
+  :init
+  (evil-owl-mode))
+
+(use-package avy
+  :custom
+  (avy-all-windows nil)
+  (avy-word-punc-regexp nil))
+
+(use-package expand-region)
+
+(use-package zoom-window)
 
 (global-set-key (kbd "Ö") (kbd "<escape>"))
 (global-set-key (kbd "C-z") 'er/expand-region)
 
-;; (defalias #'forward-evil-word #'forward-evil-symbol)
-
-;; make evil-search-word look for symbol rather than word boundaries
-(setq-default evil-symbol-word-search t)
-
-(evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
-
-(setq avy-all-windows nil)
-(setq avy-word-punc-regexp nil)
+;; evil-toggle-key is M-z, so free the global binding (zap-to-char)
+(global-unset-key (kbd "M-z"))
 
 ;; NORMAL MODE
 (define-key evil-normal-state-map ",w" 'save-buffer)
@@ -34,8 +67,6 @@
 (define-key evil-normal-state-map "\C-k" 'paredit-kill)
 (define-key evil-normal-state-map "K" 'evil-previous-line)
 (define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
-;; (define-key evil-normal-state-map ",e" 'er/expand-region)
-;; (define-key evil-normal-state-map ",e" 'flycheck-next-error)
 (define-key evil-normal-state-map ",." 'evil-avy-goto-char)
 (define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
 (define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
@@ -56,9 +87,6 @@
 (define-key evil-normal-state-map ",gl" 'git-link)
 
 ;; LSP
-;; (define-key evil-normal-state-map ",ld" 'lsp-ui-peek-find-definitions)
-;; (define-key evil-normal-state-map ",lr" 'lsp-ui-peek-find-references)
-;; (define-key evil-normal-state-map ",ls" 'lsp-ui-peek-find-workspace-symbol)
 (define-key evil-normal-state-map ",lt" 'lsp-treemacs-symbols)
 (define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
 (define-key evil-normal-state-map ",ln" 'lsp-rename)
@@ -69,9 +97,6 @@
 
 (define-key evil-normal-state-map ",=" 'lsp-format-buffer)
 (define-key evil-visual-state-map ",=" 'lsp-format-region)
-
-;; Swiper
-;; (define-key evil-normal-state-map "/" 'swiper)
 
 (define-key evil-normal-state-map ",f" 'treemacs-select-window)
 
@@ -88,41 +113,15 @@
 ;; VISUAL MODE
 (define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
 (define-key evil-visual-state-map ",a" 'align-regexp)
-;; (define-key evil-visual-state-map ",." 'company-complete)
 (define-key evil-visual-state-map "P" (lambda ()
                                         (interactive)
                                         (evil-paste-from-register ?0)))
-
-;; (define-key evil-insert-state-map "\C-n" 'company-select-next)
-;; (define-key evil-insert-state-map "\C-p" 'company-select-previous)
-
-;; init.el sets evil-toggle-key there, so we need to unmap global thing
-(global-unset-key "\M-z")
-
-(add-hook 'evil-surround-mode-hook
-          (lambda ()
-            (push '(?ä . ("[" . "]")) evil-surround-pairs-alist)))
 
 (add-hook 'paredit-mode-hook
           (lambda ()
             (define-key evil-insert-state-map "\C-k" 'paredit-kill)))
 
-;; (setq evil-symbol-word-search 'symbol)
-
-(add-to-list 'evil-emacs-state-modes 'eshell-mode)
-
-(use-package evil-owl
-	   :custom
-	   (evil-owl-display-method 'posframe)
-	   (evil-owl-extra-posfram-args '(:width 50 :height 20))
-	   (evil-owl-idle-delay 0)
-	   :init
-	   (evil-owl-mode))
-
-(use-package evil-matchit)
-
 ;; Ctrl-g should act like Esc
-
 (defun evil-keyboard-quit ()
   "Keyboard quit and force normal state."
   (interactive)

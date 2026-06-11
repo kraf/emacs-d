@@ -71,18 +71,6 @@ the dev system is running."
 
 (add-to-list 'auto-mode-alist '("lein-env" . ruby-mode))
 
-;; Work around a lispy bug: when `lispy-mode' starts in a `clojure-mode'
-;; buffer, lispy.el runs `(setq completion-at-point-functions ...)' with a
-;; plain `setq' instead of `setq-local', clobbering the *global* default.
-;; Every other buffer (Ruby, magit commit messages, ...) then inherits
-;; CIDER/lispy completion and runs it on each keystroke.  Make the variable
-;; buffer-local before lispy-mode runs (depth -100 => first on the hook) so
-;; lispy's `setq' only touches our local value and the global default stays
-;; clean.
-(add-hook 'clojure-mode-hook
-          (lambda () (make-local-variable 'completion-at-point-functions))
-          -100)
-
 (use-package clojure-mode
   :mode (("\\.edn\\'" . clojure-mode)
          ("\\.boot\\'" . clojure-mode))
@@ -99,6 +87,9 @@ the dev system is running."
 
 (use-package clojure-mode-extra-font-locking
   :after clojure-mode)
+
+(use-package flycheck-clj-kondo
+  :after flycheck)
 
 (use-package cider
   :commands cider

@@ -1,6 +1,9 @@
 (require 'treesit)
 (require 'lsp-volar)
 
+(use-package emmet-mode
+  :defer t)
+
 (add-to-list 'treesit-extra-load-path
              (expand-file-name "tree-sitter" user-emacs-directory))
 (add-to-list 'treesit-language-source-alist

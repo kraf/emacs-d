@@ -38,6 +38,15 @@
   (web-mode-code-indent-offset 2)
   (web-mode-css-indent-offset 2))
 
+(use-package add-node-modules-path
+  :defer t)
+
+(use-package prettier-js
+  :defer t)
+
+(use-package npm-mode
+  :defer t)
+
 (defconst my/javascript-eslint-config-files
   '("eslint.config.js"
     "eslint.config.cjs"
@@ -93,10 +102,6 @@
 
 (defun my/css-mode-setup ()
   (my/node-formatting-mode-setup))
-
-;; --- LSP + Flycheck integration (make 'lsp' a real Flycheck checker) ---
-(with-eval-after-load 'lsp-mode
-  (setq lsp-diagnostics-provider :flycheck))
 
 (with-eval-after-load 'flycheck
   (dolist (mode '(web-mode js-ts-mode tsx-ts-mode typescript-ts-mode vue-ts-mode))
