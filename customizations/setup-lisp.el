@@ -51,30 +51,39 @@
   (define-key key-translation-map (kbd "ö") nil)
   (define-key key-translation-map (kbd "ä") nil)
 
-  (lispyville--define-key 'normal ",c" 'lispyville-comment-or-uncomment-line)
-  (lispyville--define-key 'visual ",c" 'lispyville-comment-or-uncomment)
+  (general-define-key
+   :states 'normal
+   :keymaps 'lispyville-mode-map
+   ",c" 'lispyville-comment-or-uncomment-line
+   ",jc" 'lispy-clone
+   "[" 'evil-forward-section-begin
+   "]" 'evil-backward-section-begin
+   "H" 'beginning-of-defun
+   "L" 'end-of-defun
+   "gd" 'lsp-find-definition
+   "M-." 'lsp-find-definition
+   "(" (lambda () (interactive) (avy-goto-char ?\())
+   ")" (lambda () (interactive) (avy-goto-char ?\))))
 
-  (lispyville--define-key 'insert (kbd "DEL") 'lispy-delete-backward)
-  (lispyville--define-key 'insert (kbd "RET") 'lispy-newline-and-indent)
-  (lispyville--define-key 'insert (kbd "\"") 'lispy-quotes)
-  (lispyville--define-key 'insert (kbd "(") 'lispy-parens)
-  (lispyville--define-key 'insert (kbd "{") 'lispy-braces)
-  (lispyville--define-key 'insert (kbd "[") 'lispy-brackets)
+  (general-define-key
+   :states 'visual
+   :keymaps 'lispyville-mode-map
+   ",c" 'lispyville-comment-or-uncomment)
 
-  (lispyville--define-key 'normal (kbd "[") 'evil-forward-section-begin)
-  (lispyville--define-key 'normal (kbd "]") 'evil-backward-section-begin)
-  (lispyville--define-key '(insert normal) (kbd "M-ö") 'lispy-wrap-braces)
-  (lispyville--define-key '(insert normal) (kbd "M-ä") 'lispy-wrap-brackets)
-  (lispyville--define-key '(insert normal) (kbd "M-r") 'raise-sexp)
+  (general-define-key
+   :states 'insert
+   :keymaps 'lispyville-mode-map
+   "DEL" 'lispy-delete-backward
+   "RET" 'lispy-newline-and-indent
+   "\"" 'lispy-quotes
+   "(" 'lispy-parens
+   "{" 'lispy-braces
+   "[" 'lispy-brackets
+   "C-y" 'lispy-yank)
 
-  (lispyville--define-key 'insert (kbd "C-y") 'lispy-yank)
-
-  (lispyville--define-key 'normal "gd" 'lsp-find-definition)
-  (lispyville--define-key 'normal (kbd "M-.") 'lsp-find-definition)
-
-  (lispyville--define-key 'normal ",jc" 'lispy-clone)
-  (lispyville--define-key 'normal (kbd "(") (lambda () (interactive) (avy-goto-char ?\()))
-  (lispyville--define-key 'normal (kbd ")") (lambda () (interactive) (avy-goto-char ?\))))
-
-  (lispyville--define-key 'normal "H" 'beginning-of-defun)
-  (lispyville--define-key 'normal "L" 'end-of-defun))
+  (general-define-key
+   :states '(insert normal)
+   :keymaps 'lispyville-mode-map
+   "M-ö" 'lispy-wrap-braces
+   "M-ä" 'lispy-wrap-brackets
+   "M-r" 'raise-sexp))

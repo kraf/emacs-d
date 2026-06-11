@@ -56,18 +56,28 @@ the dev system is running."
               clojure-align-forms-automatically t)
   (lsp-deferred))
 
-(with-eval-after-load 'lispyville
-  (lispyville--define-key 'normal ",ll" #'lsp-clojure-add-missing-libspec)
-  (lispyville--define-key 'normal ",eb" #'cider-eval-buffer)
-  (lispyville--define-key 'normal ",ef" #'cider-eval-defun-at-point)
-  (lispyville--define-key 'normal ",ee" #'cider-eval-sexp-at-point)
-  (lispyville--define-key 'normal ",en" #'cider-eval-ns-form)
-  (lispyville--define-key 'normal ",el" #'cider-eval-list-at-point)
-  (lispyville--define-key 'visual ",ee" #'cider-insert-region-in-repl)
-  (lispyville--define-key 'normal ",jr" #'my/cider-user-fast-reset)
-  (lispyville--define-key 'normal ",jR" #'my/cider-user-reset)
-  (lispyville--define-key 'normal ",jf" #'my/cider-refresh)
-  (lispyville--define-key 'normal ",jt" #'my/cider-reveal-tap-log))
+(my-leader-def
+  :states 'normal
+  :keymaps 'lispyville-mode-map
+  "ll" #'lsp-clojure-add-missing-libspec
+
+  "e" '(:ignore t :which-key "eval")
+  "eb" #'cider-eval-buffer
+  "ef" #'cider-eval-defun-at-point
+  "ee" #'cider-eval-sexp-at-point
+  "en" #'cider-eval-ns-form
+  "el" #'cider-eval-list-at-point
+
+  "j" '(:ignore t :which-key "repl")
+  "jr" #'my/cider-user-fast-reset
+  "jR" #'my/cider-user-reset
+  "jf" #'my/cider-refresh
+  "jt" #'my/cider-reveal-tap-log)
+
+(my-leader-def
+  :states 'visual
+  :keymaps 'lispyville-mode-map
+  "ee" #'cider-insert-region-in-repl)
 
 (add-to-list 'auto-mode-alist '("lein-env" . ruby-mode))
 

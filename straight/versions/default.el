@@ -36,6 +36,7 @@
  ("f.el" . "931b6d0667fe03e7bf1c6c282d6d8d7006143c52")
  ("flycheck" . "0e5eb8300d32fd562724216c19eaf199ee1451ab")
  ("flycheck-clj-kondo" . "e38c67ba9db1ea1cbe1b61ab39b506c05efdcdbf")
+ ("general.el" . "a48768f85a655fe77b5f45c2880b420da1b1b9c3")
  ("git-link" . "ca1a170343448c6d5d265ec12f934d865f7e0aee")
  ("git-timemachine" . "d1346a76122595aeeb7ebb292765841c6cfd417b")
  ("gnu-elpa-mirror" . "10bab9839ebbca51626874dc597e880b90c7dbf2")

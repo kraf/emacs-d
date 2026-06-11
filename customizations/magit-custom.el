@@ -7,7 +7,9 @@
   (add-hook 'after-save-hook #'magit-after-save-refresh-status t))
 
 ;; Stage region from visual state
-(define-key evil-visual-state-map "s" 'magit-stage)
+(general-define-key
+ :states 'visual
+ "s" 'magit-stage)
 
 (use-package git-timemachine
   :defer t

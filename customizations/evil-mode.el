@@ -1,4 +1,6 @@
-;; Evil and friends. Leader key is ",".
+;; Evil and friends. Keybindings are declared with general.el; the leader
+;; key is "," (see `my-leader-def'). Mode-specific leader bindings live in
+;; the language files (setup-clojure.el, setup-lisp.el, ...).
 
 (use-package evil
   :init
@@ -12,6 +14,11 @@
   ;; make evil-search-word look for symbol rather than word boundaries
   (setq-default evil-symbol-word-search t)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode))
+
+(use-package general
+  :config
+  (general-create-definer my-leader-def
+    :prefix ","))
 
 (use-package evil-collection
   :after evil
@@ -55,66 +62,78 @@
 
 (use-package zoom-window)
 
-(global-set-key (kbd "Ö") (kbd "<escape>"))
-(global-set-key (kbd "C-z") 'er/expand-region)
+;;; Leader bindings (normal state)
 
-;; evil-toggle-key is M-z, so free the global binding (zap-to-char)
-(global-unset-key (kbd "M-z"))
+(my-leader-def
+  :states 'normal
+  "w" 'save-buffer
+  "q" 'evil-delete-buffer
+  "c" 'evilnc-comment-or-uncomment-lines
+  "." 'evil-avy-goto-char
+  "f" 'treemacs-select-window
+  "=" 'lsp-format-buffer
 
-;; NORMAL MODE
-(define-key evil-normal-state-map ",w" 'save-buffer)
-(define-key evil-normal-state-map ",q" 'evil-delete-buffer)
-(define-key evil-normal-state-map "K" 'evil-previous-line)
-(define-key evil-normal-state-map ",c" 'evilnc-comment-or-uncomment-lines)
-(define-key evil-normal-state-map ",." 'evil-avy-goto-char)
-(define-key evil-normal-state-map ",,c" 'evil-avy-goto-char)
-(define-key evil-normal-state-map ",,w" 'evil-avy-goto-word-1)
-(define-key evil-normal-state-map ",,l" 'evil-avy-goto-line)
-(define-key evil-normal-state-map ",zz" 'zoom-window-zoom)
+  "," '(:ignore t :which-key "avy")
+  ",c" 'evil-avy-goto-char
+  ",w" 'evil-avy-goto-word-1
+  ",l" 'evil-avy-goto-line
 
-;; Expand
-(define-key evil-insert-state-map "\C-z" 'er/expand-region)
-(define-key evil-normal-state-map "\C-z" 'er/expand-region)
-(define-key evil-visual-state-map "\C-z" 'er/expand-region)
+  "z" '(:ignore t :which-key "zoom")
+  "zz" 'zoom-window-zoom
 
-;; GIT
-(define-key evil-normal-state-map ",gs" 'magit-status)
-(define-key evil-normal-state-map ",gg" 'diff-hl-show-hunk)
-(define-key evil-normal-state-map ",gx" 'diff-hl-revert-hunk)
-(define-key evil-normal-state-map ",gb" 'magit-blame-addition)
-(define-key evil-normal-state-map ",gt" 'git-timemachine)
-(define-key evil-normal-state-map ",gl" 'git-link)
+  "g" '(:ignore t :which-key "git")
+  "gs" 'magit-status
+  "gg" 'diff-hl-show-hunk
+  "gx" 'diff-hl-revert-hunk
+  "gb" 'magit-blame-addition
+  "gt" 'git-timemachine
+  "gl" 'git-link
 
-;; LSP
-(define-key evil-normal-state-map ",lt" 'lsp-treemacs-symbols)
-(define-key evil-normal-state-map ",lf" 'lsp-treemacs-quick-fix)
-(define-key evil-normal-state-map ",ln" 'lsp-rename)
-(define-key evil-normal-state-map ",la" 'lsp-execute-code-action)
-(define-key evil-normal-state-map ",lr" 'lsp-find-references)
-(define-key evil-normal-state-map "gd" 'lsp-find-definition)
-(define-key evil-normal-state-map "gh" 'lsp-describe-thing-at-point)
+  "l" '(:ignore t :which-key "lsp")
+  "lt" 'lsp-treemacs-symbols
+  "lf" 'lsp-treemacs-quick-fix
+  "ln" 'lsp-rename
+  "la" 'lsp-execute-code-action
+  "lr" 'lsp-find-references
 
-(define-key evil-normal-state-map ",=" 'lsp-format-buffer)
-(define-key evil-visual-state-map ",=" 'lsp-format-region)
+  "s" '(:ignore t :which-key "search")
+  "sr" 'consult-ripgrep
+  "sl" 'consult-line
+  "si" 'consult-imenu)
 
-(define-key evil-normal-state-map ",f" 'treemacs-select-window)
+;;; Leader bindings (visual state)
 
-(define-key evil-normal-state-map "\C-w\C-w" 'tear-off-window)
+(my-leader-def
+  :states 'visual
+  "c" 'evilnc-comment-or-uncomment-lines
+  "a" 'align-regexp
+  "=" 'lsp-format-region)
 
-;; INSERT MODE
-(define-key evil-insert-state-map "\C-e" 'move-end-of-line)
-(define-key evil-insert-state-map "\M-." 'yas-expand)
+;;; State bindings
 
-;; emacs original
-(define-key evil-normal-state-map (kbd "M-.") nil)
-(define-key evil-normal-state-map (kbd "M-,") nil)
+(general-define-key
+ :states 'normal
+ "K" 'evil-previous-line
+ "gd" 'lsp-find-definition
+ "gh" 'lsp-describe-thing-at-point
+ "C-z" 'er/expand-region
+ "C-w C-w" 'tear-off-window
+ ;; keep the emacs originals (xref jumps)
+ "M-." nil
+ "M-," nil)
 
-;; VISUAL MODE
-(define-key evil-visual-state-map ",c" 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map ",a" 'align-regexp)
-(define-key evil-visual-state-map "P" (lambda ()
-                                        (interactive)
-                                        (evil-paste-from-register ?0)))
+(general-define-key
+ :states 'visual
+ "C-z" 'er/expand-region
+ "P" (lambda ()
+       (interactive)
+       (evil-paste-from-register ?0)))
+
+(general-define-key
+ :states 'insert
+ "C-e" 'move-end-of-line
+ "C-z" 'er/expand-region
+ "M-." 'yas-expand)
 
 ;; Ctrl-g should act like Esc
 (defun evil-keyboard-quit ()
@@ -123,8 +142,18 @@
   (and evil-mode (evil-force-normal-state))
   (keyboard-quit))
 
-(define-key evil-normal-state-map   (kbd "C-g") #'evil-keyboard-quit)
-(define-key evil-motion-state-map   (kbd "C-g") #'evil-keyboard-quit)
-(define-key evil-insert-state-map   (kbd "C-g") #'evil-keyboard-quit)
-(define-key evil-window-map         (kbd "C-g") #'evil-keyboard-quit)
-(define-key evil-operator-state-map (kbd "C-g") #'evil-keyboard-quit)
+(general-define-key
+ :keymaps '(evil-normal-state-map
+            evil-motion-state-map
+            evil-insert-state-map
+            evil-window-map
+            evil-operator-state-map)
+ "C-g" 'evil-keyboard-quit)
+
+;;; Globals
+
+(global-set-key (kbd "Ö") (kbd "<escape>"))
+(global-set-key (kbd "C-z") 'er/expand-region)
+
+;; evil-toggle-key is M-z, so free the global binding (zap-to-char)
+(global-unset-key (kbd "M-z"))
