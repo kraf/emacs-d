@@ -58,6 +58,16 @@
   (setq mc/always-repeat-command 1)
   (setq mc/always-run-for-all 1))
 
+;; Visual undo tree on top of the built-in undo-redo system.
+(use-package vundo
+  :commands vundo
+  :config
+  (setq vundo-glyph-alist vundo-unicode-symbols))
+
+(my-leader-def
+  :states 'normal
+  "u" 'vundo)
+
 (defun my/enable-delete-trailing-whitespace-on-save ()
   (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
 

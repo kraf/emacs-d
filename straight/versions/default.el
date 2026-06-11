@@ -89,6 +89,7 @@
  ("vertico" . "6028bd3d32c99c28e2b938e5e5393ec3508d2424")
  ("vkill" . "8ffe640ed03ddcc23db1c74c76d1acbf25250ad9")
  ("vue-ts-mode" . "df0a7e03660840ec53ab746b9f6acad9275bbf8c")
+ ("vundo" . "288d1b06ea9283852640bb49532e57ae0515492f")
  ("web-mode" . "e93b3fb89fd6345a5ff59795bed712abd486200a")
  ("with-editor" . "e1ab360024404fe6548505ab76616cfc42edf0cc")
  ("yasnippet" . "c1e6ff23e9af16b856c88dfaab9d3ad7b746ad37")
