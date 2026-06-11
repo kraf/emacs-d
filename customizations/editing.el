@@ -1,5 +1,12 @@
 ;; General editing behavior.
 
+;; Prefer tree-sitter major modes and install grammars on demand.
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (global-treesit-auto-mode))
+
 ;; Lisp-friendly hippie expand
 (global-set-key (kbd "M-/") 'hippie-expand)
 (setq hippie-expand-try-functions-list

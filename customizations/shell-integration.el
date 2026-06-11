@@ -5,3 +5,8 @@
   :config
   (when (or (daemonp) (display-graphic-p))
     (exec-path-from-shell-initialize)))
+
+;; Per-project tool versions and env (ruby, node, ...) from mise.
+(use-package mise
+  :config
+  (global-mise-mode))
