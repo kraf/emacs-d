@@ -50,6 +50,9 @@
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
+  ;; Each space-separated component matches as a literal/regexp substring OR a
+  ;; flex (fuzzy) match, so "fb" finds "foo-bar".
+  (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; Annotate candidates (docstrings, file sizes, keybindings, ...).
