@@ -8,7 +8,8 @@
  '(magit-pull-arguments '("--rebase"))
  '(org-startup-truncated nil)
  '(safe-local-variable-directories
-   '("/home/filip/src/gomore/backend/web/"
+   '("/home/filip/src/gomore/backend-alpha/api/"
+     "/home/filip/src/gomore/backend/web/"
      "/home/filip/src/gomore/backend/api/"
      "/home/filip/src/gomore/backend-beta/api/"
      "/home/filip/src/gomore/backend-beta/"

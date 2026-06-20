@@ -80,7 +80,7 @@
    consult-ripgrep consult-git-grep consult-grep
    consult-recent-file consult-xref
    ;; consult--source-recent-file consult--source-project-recent-file
-   :preview-key '(:debounce 0.3 any "M-.")))
+   :preview-key '(:debounce 0.6 any "M-.")))
 
 ;; Act on the thing at point / the current candidate.
 (use-package embark
