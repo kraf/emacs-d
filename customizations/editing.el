@@ -7,6 +7,13 @@
   :config
   (global-treesit-auto-mode))
 
+;; Where grammars live; Emacs will look here for libtree-sitter-*.so.
+;; Grammar sources/installs are handled by treesit-auto (the Vue grammar is
+;; the exception, see setup-vue.el).
+(require 'treesit)
+(add-to-list 'treesit-extra-load-path
+             (expand-file-name "tree-sitter" user-emacs-directory))
+
 ;; Lisp-friendly hippie expand
 (global-set-key (kbd "M-/") 'hippie-expand)
 (setq hippie-expand-try-functions-list

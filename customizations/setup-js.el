@@ -12,12 +12,6 @@
 (add-to-list 'auto-mode-alist '("\\.sass\\'" . scss-mode))
 (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
 
-;; Where grammars live; Emacs will look here for libtree-sitter-*.so.
-;; Grammar sources and installs are handled by treesit-auto (the Vue
-;; grammar is the exception, see setup-vue.el).
-(add-to-list 'treesit-extra-load-path
-             (expand-file-name "tree-sitter" user-emacs-directory))
-
 (setq js-indent-level 2
       typescript-ts-mode-indent-offset 2
       tsx-ts-mode-indent-offset 2
