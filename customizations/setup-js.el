@@ -76,8 +76,7 @@
   (flycheck-mode 1)
   (when (my/javascript-project-uses-eslint-p)
     (my/use-eslint-from-node-modules))
-  (setq-local company-backends '(company-capf)
-              lsp-enable-on-type-formatting nil)
+  (setq-local lsp-enable-on-type-formatting nil)
   (lsp-deferred))
 
 (defun my/javascript-ts-mode-setup ()
