@@ -38,7 +38,14 @@
         '(display-buffer-in-side-window
           (side . right)
           (window-width . 0.5)))
-  (vertico-multiform-mode 1))
+  (vertico-multiform-mode 1)
+  ;; ivy-style path editing: DEL after a "/" deletes the whole directory
+  ;; component (not char-by-char), RET enters the directory under point.
+  (require 'vertico-directory)
+  (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
+  (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+  (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word)
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy))
 
 ;; Persist minibuffer history; vertico sorts by it (replaces amx).
 (use-package savehist
@@ -53,7 +60,16 @@
   ;; Each space-separated component matches as a literal/regexp substring OR a
   ;; flex (fuzzy) match, so "fb" finds "foo-bar".
   (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  ;; find-file stays path-aware (basic + partial-completion); the projectile
+  ;; picker (category `project-file') uses hotfuzz so run-on queries like
+  ;; "optionstest" score by contiguity and highlight only the matched run in
+  ;; the basename instead of the first letter of every path segment.
+  (completion-category-overrides '((file (styles basic partial-completion))
+                                   (project-file (styles hotfuzz)))))
+
+;; fzf-style scoring fuzzy matcher; used only for the project-file category.
+(use-package hotfuzz
+  :after orderless)
 
 ;; Annotate candidates (docstrings, file sizes, keybindings, ...).
 (use-package marginalia
