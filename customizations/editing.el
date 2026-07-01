@@ -14,15 +14,6 @@
 (add-to-list 'treesit-extra-load-path
              (expand-file-name "tree-sitter" user-emacs-directory))
 
-;; Lisp-friendly hippie expand
-(global-set-key (kbd "M-/") 'hippie-expand)
-(setq hippie-expand-try-functions-list
-      '(try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-lisp-symbol-partially
-        try-complete-lisp-symbol))
-
 ;; Highlights matching parenthesis
 (show-paren-mode 1)
 
@@ -54,12 +45,6 @@
 (setq auto-save-default t)
 (setq require-final-newline t)
 
-(defun toggle-comment-on-line ()
-  "comment or uncomment current line"
-  (interactive)
-  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
-(global-set-key (kbd "C-;") 'toggle-comment-on-line)
-
 (use-package multiple-cursors
   :config
   (setq mc/always-repeat-command 1)
@@ -79,3 +64,26 @@
   (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
 
 (add-hook 'prog-mode-hook #'my/enable-delete-trailing-whitespace-on-save)
+
+;;; Global key bindings (built-in commands not owned by a package)
+
+;; Lisp-friendly hippie expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+
+(defun toggle-comment-on-line ()
+  "comment or uncomment current line"
+  (interactive)
+  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+(global-set-key (kbd "C-;") 'toggle-comment-on-line)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; Don't suspend/minimize the frame.
+(global-unset-key (kbd "C-x z"))
+(global-unset-key (kbd "C-x C-z"))

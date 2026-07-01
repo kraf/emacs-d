@@ -18,8 +18,6 @@
 
 (setq enable-recursive-minibuffers t)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
 (use-package which-key
   :straight nil ; built-in since Emacs 30
   :config

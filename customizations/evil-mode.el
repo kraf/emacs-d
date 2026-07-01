@@ -72,6 +72,7 @@
   "." 'evil-avy-goto-char
   "f" 'treemacs-select-window
   "=" 'lsp-format-buffer
+  "?" 'general-describe-keybindings
 
   "," '(:ignore t :which-key "avy")
   ",c" 'evil-avy-goto-char
