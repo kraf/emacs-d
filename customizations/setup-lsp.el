@@ -10,7 +10,6 @@
   (lsp-diagnostics-provider :flycheck)
   (lsp-file-watch-threshold 2000)
   (lsp-headerline-breadcrumb-enable nil)
-  (lsp-disabled-clients '(ruby-ls)) ;; ruby-ls is solargraph, ruby-lsp-ls works better
   :config
   (remove-hook 'lsp-configure-hook 'lsp-headerline-breadcrumb-mode))
 
